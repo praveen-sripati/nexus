@@ -1,7 +1,10 @@
 import { CompanyAnnouncements } from '@/components/CompanyAnnouncements';
+import { EmployeeDirectory } from '@/components/EmployeeDirectory';
 import { ForYouFeed } from '@/components/ForYouFeed';
 import { Header } from '@/components/Header';
+import { KudosFeed } from '@/components/KudosFeed';
 import { QuickLinks } from '@/components/QuickLinks';
+import { TeamCalendar } from '@/components/TeamCalendar';
 import { WelcomeChecklist } from '@/components/WelcomeChecklist';
 import { useFocusMode } from '@/contexts/FocusModeContext';
 import { storage } from '@/lib/utils';
@@ -38,7 +41,8 @@ export const Dashboard: FC = () => {
             {/* These sections are hidden in focus mode */}
             {!isFocusMode && (
               <>
-                {/* Additional content sections can go here */}
+                <EmployeeDirectory />
+                <KudosFeed />
               </>
             )}
           </div>
@@ -52,8 +56,7 @@ export const Dashboard: FC = () => {
               )}
               
               <QuickLinks />
-              
-              {/* Team Calendar and Kudos will go here */}
+              <TeamCalendar />
             </div>
           )}
         </div>
