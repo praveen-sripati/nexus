@@ -29,11 +29,11 @@ export const Dashboard: FC = () => {
       
       <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
         <div className={`grid gap-4 sm:gap-6 transition-all duration-300 ${
-          isFocusMode ? 'grid-cols-1' : 'grid-cols-1 lg:grid-cols-4'
+          isFocusMode ? 'grid-cols-1' : 'grid-cols-1 lg:grid-cols-12'
         }`}>
           {/* Main Content - Left Column */}
           <div className={`space-y-4 sm:space-y-6 ${
-            isFocusMode ? 'col-span-1' : 'lg:col-span-3'
+            isFocusMode ? 'col-span-1' : 'lg:col-span-8'
           }`}>
             <ForYouFeed />
             <CompanyAnnouncements />
@@ -49,7 +49,7 @@ export const Dashboard: FC = () => {
 
           {/* Sidebar - Right Column - Hidden in focus mode */}
           {!isFocusMode && (
-            <div className="lg:col-span-1 space-y-4 sm:space-y-6">
+            <div className="lg:col-span-4 space-y-4 sm:space-y-6">
               {/* Show welcome checklist for new users */}
               {showWelcome && (
                 <WelcomeChecklist onDismiss={handleWelcomeDismiss} />
