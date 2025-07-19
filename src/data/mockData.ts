@@ -1,0 +1,232 @@
+// Mock data for Nexus intranet dashboard
+// Simulates API responses as specified in PRD
+
+export interface User {
+  id: string;
+  name: string;
+  role: string;
+  department: string;
+  avatar: string;
+}
+
+export interface FeedItem {
+  id: string;
+  title: string;
+  description: string;
+  type: 'document' | 'news' | 'task' | 'update';
+  timestamp: Date;
+  author?: string;
+}
+
+export interface Announcement {
+  id: string;
+  title: string;
+  body: string;
+  date: Date;
+  priority: 'high' | 'medium' | 'low';
+}
+
+export interface CalendarEvent {
+  id: string;
+  title: string;
+  date: Date;
+  type: 'event' | 'birthday' | 'anniversary';
+  description?: string;
+}
+
+export interface Kudo {
+  id: string;
+  from: string;
+  to: string;
+  message: string;
+  timestamp: Date;
+}
+
+export interface QuickLink {
+  id: string;
+  name: string;
+  url: string;
+}
+
+// Current user data
+export const currentUser: User = {
+  id: '1',
+  name: 'Priya',
+  role: 'Frontend Developer',
+  department: 'Engineering',
+  avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Priya'
+};
+
+// Mock employees
+export const employees: User[] = [
+  {
+    id: '1',
+    name: 'Priya Sharma',
+    role: 'Frontend Developer',
+    department: 'Engineering',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Priya'
+  },
+  {
+    id: '2',
+    name: 'David Chen',
+    role: 'Senior Backend Engineer',
+    department: 'Engineering',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=David'
+  },
+  {
+    id: '3',
+    name: 'Sarah Johnson',
+    role: 'UX Designer',
+    department: 'Design',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah'
+  },
+  {
+    id: '4',
+    name: 'Marcus Williams',
+    role: 'Product Manager',
+    department: 'Product',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus'
+  },
+  {
+    id: '5',
+    name: 'Emma Rodriguez',
+    role: 'Marketing Specialist',
+    department: 'Marketing',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Emma'
+  },
+  {
+    id: '6',
+    name: 'Alex Thompson',
+    role: 'DevOps Engineer',
+    department: 'Engineering',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Alex'
+  }
+];
+
+// Mock "For You" feed
+export const forYouFeed: FeedItem[] = [
+  {
+    id: '1',
+    title: 'New React Guidelines Updated',
+    description: 'Frontend team has updated the React coding standards. Please review the new patterns for hooks and state management.',
+    type: 'document',
+    timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
+    author: 'David Chen'
+  },
+  {
+    id: '2',
+    title: 'Sprint Planning Meeting',
+    description: 'Don\'t forget about tomorrow\'s sprint planning session at 10 AM.',
+    type: 'task',
+    timestamp: new Date(Date.now() - 4 * 60 * 60 * 1000), // 4 hours ago
+    author: 'Marcus Williams'
+  },
+  {
+    id: '3',
+    title: 'Design System v2.0 Released',
+    description: 'The new design system includes updated components and improved accessibility features.',
+    type: 'update',
+    timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000), // 1 day ago
+    author: 'Sarah Johnson'
+  }
+];
+
+// Mock announcements
+export const announcements: Announcement[] = [
+  {
+    id: '1',
+    title: 'Company All-Hands Meeting',
+    body: 'Join us this Friday at 3 PM for our quarterly all-hands meeting. We\'ll be discussing our progress and future roadmap.',
+    date: new Date(Date.now() - 6 * 60 * 60 * 1000), // 6 hours ago
+    priority: 'high'
+  },
+  {
+    id: '2',
+    title: 'New Office Hours',
+    body: 'Starting next week, our office hours will be 9 AM to 6 PM. Remote work flexibility remains unchanged.',
+    date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 days ago
+    priority: 'medium'
+  },
+  {
+    id: '3',
+    title: 'Holiday Party Planning',
+    body: 'We\'re planning our annual holiday party! Please submit your dietary restrictions and song requests.',
+    date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000), // 3 days ago
+    priority: 'low'
+  }
+];
+
+// Mock calendar events
+export const calendarEvents: CalendarEvent[] = [
+  {
+    id: '1',
+    title: 'Team Standup',
+    date: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000), // Tomorrow
+    type: 'event',
+    description: 'Daily standup meeting'
+  },
+  {
+    id: '2',
+    title: 'Sarah\'s Birthday',
+    date: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // 3 days from now
+    type: 'birthday'
+  },
+  {
+    id: '3',
+    title: 'Company Anniversary',
+    date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 1 week from now
+    type: 'anniversary',
+    description: '5 years of innovation!'
+  },
+  {
+    id: '4',
+    title: 'Product Demo',
+    date: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // 5 days from now
+    type: 'event',
+    description: 'Quarterly product demonstration'
+  }
+];
+
+// Mock kudos
+export const kudos: Kudo[] = [
+  {
+    id: '1',
+    from: 'David Chen',
+    to: 'Priya Sharma',
+    message: 'Amazing work on the new dashboard components! The attention to detail is fantastic.',
+    timestamp: new Date(Date.now() - 1 * 60 * 60 * 1000) // 1 hour ago
+  },
+  {
+    id: '2',
+    from: 'Marcus Williams',
+    to: 'Alex Thompson',
+    message: 'Thanks for staying late to fix the deployment issues. You saved the day!',
+    timestamp: new Date(Date.now() - 3 * 60 * 60 * 1000) // 3 hours ago
+  },
+  {
+    id: '3',
+    from: 'Sarah Johnson',
+    to: 'Emma Rodriguez',
+    message: 'Your marketing campaign ideas for the new feature are brilliant!',
+    timestamp: new Date(Date.now() - 5 * 60 * 60 * 1000) // 5 hours ago
+  }
+];
+
+// Default quick links
+export const defaultQuickLinks: QuickLink[] = [
+  {
+    id: '1',
+    name: 'Company Wiki',
+    url: 'https://wiki.company.com'
+  },
+  {
+    id: '2',
+    name: 'HR Portal',
+    url: 'https://hr.company.com'
+  },
+  {
+    id: '3',
+    name: 'Time Tracking',
+    url: 'https://time.company.com'
+  }
+];

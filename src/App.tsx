@@ -3,6 +3,7 @@ import { type FC } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import { ThemeProvider } from './components/ThemeProvider';
+import { FocusModeProvider } from './contexts/FocusModeContext';
 import { Dashboard } from './pages/Dashboard';
 
 const AppRoutes: FC = () => {
@@ -22,12 +23,14 @@ const AppRoutes: FC = () => {
 const App: FC = () => {
   return (
     <ThemeProvider defaultTheme="system" storageKey="nexus-ui-theme">
-      <TooltipProvider>
-          <BrowserRouter>
-            <AppRoutes />
-            <Toaster />
-          </BrowserRouter>
-      </TooltipProvider>
+      <FocusModeProvider>
+        <TooltipProvider>
+            <BrowserRouter>
+              <AppRoutes />
+              <Toaster />
+            </BrowserRouter>
+        </TooltipProvider>
+      </FocusModeProvider>
     </ThemeProvider>
   );
 };
