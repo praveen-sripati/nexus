@@ -49,14 +49,16 @@ export const Dashboard: FC = () => {
 
           {/* Sidebar - Right Column - Hidden in focus mode */}
           {!isFocusMode && (
-            <div className="lg:col-span-4 space-y-4 sm:space-y-6">
-              {/* Show welcome checklist for new users */}
-              {showWelcome && (
-                <WelcomeChecklist onDismiss={handleWelcomeDismiss} />
-              )}
-              
-              <QuickLinks />
-              <TeamCalendar />
+            <div className="lg:col-span-4">
+              <div className="sticky top-20 space-y-4 sm:space-y-6">
+                {/* Show welcome checklist for new users */}
+                {showWelcome && (
+                  <WelcomeChecklist onDismiss={handleWelcomeDismiss} />
+                )}
+                
+                <QuickLinks />
+                <TeamCalendar />
+              </div>
             </div>
           )}
         </div>
