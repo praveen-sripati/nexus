@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Header } from '@/components/Header';
 import { OrganizationChart } from '@/components/OrganizationChart';
-import { employees, type Employee } from '@/data/mockData';
+import { employees } from '@/data/mockData';
 import { ArrowLeft, Search, Filter, Mail, Phone, MapPin, Users, Network } from 'lucide-react';
 import { useState, type FC } from 'react';
 import { Link } from 'react-router-dom';
