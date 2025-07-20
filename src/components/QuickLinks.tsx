@@ -106,19 +106,19 @@ export const QuickLinks: FC = () => {
 
   return (
     <Card className="w-full">
-      <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2">
+      <CardHeader className="flex flex-col sm:flex-row sm:items-start sm:justify-between space-y-2 sm:space-y-0 pb-2">
         <div>
           <CardTitle className="text-lg">My Quick Links</CardTitle>
           <CardDescription>Your most-used tools and resources</CardDescription>
         </div>
         <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
           <DialogTrigger asChild>
-            <Button variant="outline" size="sm" className="gap-2">
+            <Button variant="outline" size="sm" className="gap-2 w-full sm:w-auto">
               <Plus className="h-4 w-4" />
               Add
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
+          <DialogContent className="w-[95vw] max-w-[95vw] sm:w-full sm:max-w-[425px]">
             <DialogHeader>
               <DialogTitle>Add Quick Link</DialogTitle>
               <DialogDescription>
@@ -126,8 +126,8 @@ export const QuickLinks: FC = () => {
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="name" className="text-right">
+              <div className="grid grid-cols-1 sm:grid-cols-4 items-center gap-2 sm:gap-4">
+                <Label htmlFor="name" className="sm:text-right">
                   Name
                 </Label>
                 <Input
@@ -135,11 +135,11 @@ export const QuickLinks: FC = () => {
                   value={newLinkName}
                   onChange={(e) => setNewLinkName(e.target.value)}
                   placeholder="e.g., Company Wiki"
-                  className="col-span-3"
+                  className="sm:col-span-3"
                 />
               </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="url" className="text-right">
+              <div className="grid grid-cols-1 sm:grid-cols-4 items-center gap-2 sm:gap-4">
+                <Label htmlFor="url" className="sm:text-right">
                   URL
                 </Label>
                 <Input
@@ -147,7 +147,7 @@ export const QuickLinks: FC = () => {
                   value={newLinkUrl}
                   onChange={(e) => setNewLinkUrl(e.target.value)}
                   placeholder="e.g., wiki.company.com"
-                  className="col-span-3"
+                  className="sm:col-span-3"
                 />
               </div>
             </div>
@@ -155,6 +155,7 @@ export const QuickLinks: FC = () => {
               <Button 
                 onClick={addLink}
                 disabled={!newLinkName.trim() || !newLinkUrl.trim()}
+                className="w-full sm:w-auto"
               >
                 Add Link
               </Button>

@@ -70,7 +70,7 @@ export const WelcomeChecklist: FC<WelcomeChecklistProps> = ({ onDismiss }) => {
 
   return (
     <Card className="w-full">
-      <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2">
+      <CardHeader className="flex flex-col sm:flex-row sm:items-start sm:justify-between space-y-2 sm:space-y-0 pb-2">
         <div>
           <CardTitle className="text-lg">Welcome to Nexus! 🎉</CardTitle>
           <CardDescription>
@@ -81,7 +81,7 @@ export const WelcomeChecklist: FC<WelcomeChecklistProps> = ({ onDismiss }) => {
           variant="ghost" 
           size="sm" 
           onClick={handleDismiss}
-          className="h-8 w-8 p-0"
+          className="h-8 w-8 p-0 self-start sm:self-auto"
         >
           <X className="h-4 w-4" />
         </Button>

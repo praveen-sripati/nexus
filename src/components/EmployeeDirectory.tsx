@@ -17,7 +17,7 @@ export const EmployeeDirectory: FC = () => {
 
   return (
     <Card className="w-full">
-      <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2">
+      <CardHeader className="flex flex-col sm:flex-row sm:items-start sm:justify-between space-y-2 sm:space-y-0 pb-2">
         <div>
           <CardTitle className="text-lg flex items-center gap-2">
             <Users className="h-5 w-5" />
@@ -27,8 +27,8 @@ export const EmployeeDirectory: FC = () => {
             Find and connect with your colleagues
           </CardDescription>
         </div>
-        <Link to="/employees">
-          <Button variant="outline" size="sm" className="gap-2">
+        <Link to="/employees" className="w-full sm:w-auto">
+          <Button variant="outline" size="sm" className="gap-2 w-full sm:w-auto">
             View All
             <ExternalLink className="h-4 w-4" />
           </Button>
