@@ -5,6 +5,7 @@ import { getTimeBasedGreeting } from '@/lib/utils';
 import { Focus, Eye } from 'lucide-react';
 import { type FC } from 'react';
 import { ThemeToggle } from './ThemeToggle';
+import { Profile } from './Profile';
 
 export const Header: FC = () => {
   const { isFocusMode, toggleFocusMode } = useFocusMode();
@@ -30,12 +31,12 @@ export const Header: FC = () => {
         </div>
 
         {/* Right side - Controls */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <Button
             variant={isFocusMode ? "default" : "outline"}
             size="sm"
             onClick={toggleFocusMode}
-            className="gap-2"
+            className="gap-2 h-10"
           >
             {isFocusMode ? <Eye className="h-4 w-4" /> : <Focus className="h-4 w-4" />}
             <span className="hidden sm:inline">
@@ -43,6 +44,7 @@ export const Header: FC = () => {
             </span>
           </Button>
           <ThemeToggle />
+          <Profile />
         </div>
       </div>
       
