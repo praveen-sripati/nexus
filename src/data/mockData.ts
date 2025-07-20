@@ -66,6 +66,16 @@ export const currentUser: User = {
 // Mock employees
 export const employees: Employee[] = [
   {
+    id: 'ceo-1',
+    name: 'Alexandra Mitchell',
+    role: 'Chief Executive Officer',
+    department: 'Executive',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Alexandra',
+    email: 'alexandra.mitchell@company.com',
+    phone: '+1 (555) 000-0001',
+    location: 'San Francisco, CA'
+  },
+  {
     id: '1',
     name: 'Priya Sharma',
     role: 'Frontend Developer',
@@ -86,6 +96,16 @@ export const employees: Employee[] = [
     location: 'New York, NY'
   },
   {
+    id: 'eng-dir-1',
+    name: 'Michael Rodriguez',
+    role: 'Director of Engineering',
+    department: 'Engineering',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Michael',
+    email: 'michael.rodriguez@company.com',
+    phone: '+1 (555) 200-0001',
+    location: 'San Francisco, CA'
+  },
+  {
     id: '3',
     name: 'Sarah Johnson',
     role: 'UX Designer',
@@ -94,6 +114,16 @@ export const employees: Employee[] = [
     email: 'sarah.johnson@company.com',
     phone: '+1 (555) 345-6789',
     location: 'Los Angeles, CA'
+  },
+  {
+    id: 'design-head-1',
+    name: 'Jessica Park',
+    role: 'Head of Design',
+    department: 'Design',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Jessica',
+    email: 'jessica.park@company.com',
+    phone: '+1 (555) 300-0001',
+    location: 'New York, NY'
   },
   {
     id: '4',
@@ -106,6 +136,16 @@ export const employees: Employee[] = [
     location: 'Austin, TX'
   },
   {
+    id: 'product-vp-1',
+    name: 'Amanda Foster',
+    role: 'VP of Product',
+    department: 'Product',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Amanda',
+    email: 'amanda.foster@company.com',
+    phone: '+1 (555) 400-0001',
+    location: 'Seattle, WA'
+  },
+  {
     id: '5',
     name: 'Emma Rodriguez',
     role: 'Marketing Specialist',
@@ -114,6 +154,16 @@ export const employees: Employee[] = [
     email: 'emma.rodriguez@company.com',
     phone: '+1 (555) 567-8901',
     location: 'Miami, FL'
+  },
+  {
+    id: 'marketing-dir-1',
+    name: 'Carlos Santiago',
+    role: 'Director of Marketing',
+    department: 'Marketing',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Carlos',
+    email: 'carlos.santiago@company.com',
+    phone: '+1 (555) 500-0001',
+    location: 'Los Angeles, CA'
   },
   {
     id: '6',
@@ -146,6 +196,16 @@ export const employees: Employee[] = [
     location: 'Chicago, IL'
   },
   {
+    id: 'sales-vp-1',
+    name: 'Robert Chen',
+    role: 'VP of Sales',
+    department: 'Sales',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Robert',
+    email: 'robert.chen@company.com',
+    phone: '+1 (555) 600-0001',
+    location: 'New York, NY'
+  },
+  {
     id: '9',
     name: 'Lisa Zhang',
     role: 'HR Business Partner',
@@ -154,6 +214,16 @@ export const employees: Employee[] = [
     email: 'lisa.zhang@company.com',
     phone: '+1 (555) 901-2345',
     location: 'Boston, MA'
+  },
+  {
+    id: 'hr-dir-1',
+    name: 'Michelle Davis',
+    role: 'Director of HR',
+    department: 'HR',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Michelle',
+    email: 'michelle.davis@company.com',
+    phone: '+1 (555) 700-0001',
+    location: 'Austin, TX'
   },
   {
     id: '10',

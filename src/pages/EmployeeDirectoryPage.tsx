@@ -3,14 +3,18 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Header } from '@/components/Header';
+import { OrganizationChart } from '@/components/OrganizationChart';
 import { employees, type Employee } from '@/data/mockData';
-import { ArrowLeft, Search, Filter, Mail, Phone, MapPin } from 'lucide-react';
+import { ArrowLeft, Search, Filter, Mail, Phone, MapPin, Users, Network } from 'lucide-react';
 import { useState, type FC } from 'react';
 import { Link } from 'react-router-dom';
 
 const getDepartmentBadgeColor = (department: string) => {
   switch (department) {
+    case 'Executive':
+      return 'border-yellow-600 bg-yellow-50 text-yellow-700 dark:border-yellow-300 dark:bg-yellow-100 dark:text-yellow-800';
     case 'Engineering':
       return 'border-blue-600 bg-blue-50 text-blue-700 dark:border-blue-300 dark:bg-blue-100 dark:text-blue-800';
     case 'Design':
@@ -71,49 +75,64 @@ export const EmployeeDirectoryPage: FC = () => {
           </div>
         </div>
 
-        {/* Filters Section */}
-        <Card className="mb-6">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg">Search & Filter</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-col sm:flex-row gap-4">
-              {/* Search Input */}
-              <div className="flex-1">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    placeholder="Search by name, role, department, or email..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10"
-                  />
+        {/* Tabs for Directory and Org Chart */}
+        <Tabs defaultValue="directory" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-2 max-w-md">
+            <TabsTrigger value="directory" className="gap-2">
+              <Users className="h-4 w-4" />
+              Directory
+            </TabsTrigger>
+            <TabsTrigger value="orgchart" className="gap-2">
+              <Network className="h-4 w-4" />
+              Org Chart
+            </TabsTrigger>
+          </TabsList>
+
+          {/* Employee Directory Tab */}
+          <TabsContent value="directory" className="space-y-6">
+            {/* Filters Section */}
+            <Card>
+              <CardHeader className="pb-4">
+                <CardTitle className="text-lg">Search & Filter</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  {/* Search Input */}
+                  <div className="flex-1">
+                    <div className="relative">
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        placeholder="Search by name, role, department, or email..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="pl-10"
+                      />
+                    </div>
+                  </div>
+                  
+                  {/* Department Filter */}
+                  <div className="sm:w-48">
+                    <Select value={filterDepartment} onValueChange={setFilterDepartment}>
+                      <SelectTrigger className="gap-2">
+                        <Filter className="h-4 w-4" />
+                        <SelectValue placeholder="Filter by department" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All Departments</SelectItem>
+                        {departments.map((dept) => (
+                          <SelectItem key={dept} value={dept}>{dept}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
-              </div>
-              
-              {/* Department Filter */}
-              <div className="sm:w-48">
-                <Select value={filterDepartment} onValueChange={setFilterDepartment}>
-                  <SelectTrigger className="gap-2">
-                    <Filter className="h-4 w-4" />
-                    <SelectValue placeholder="Filter by department" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Departments</SelectItem>
-                    {departments.map((dept) => (
-                      <SelectItem key={dept} value={dept}>{dept}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-            
-            {/* Results Count */}
-            <div className="mt-4 text-sm text-muted-foreground">
-              Showing {filteredEmployees.length} of {employees.length} employees
-            </div>
-          </CardContent>
-        </Card>
+                
+                {/* Results Count */}
+                <div className="mt-4 text-sm text-muted-foreground">
+                  Showing {filteredEmployees.length} of {employees.length} employees
+                </div>
+              </CardContent>
+            </Card>
 
         {/* Employee Cards */}
         <div className="space-y-4">
@@ -258,6 +277,13 @@ export const EmployeeDirectoryPage: FC = () => {
             </p>
           </div>
         )}
+        </TabsContent>
+
+        {/* Organization Chart Tab */}
+        <TabsContent value="orgchart">
+          <OrganizationChart />
+        </TabsContent>
+        </Tabs>
       </main>
     </div>
   );
