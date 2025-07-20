@@ -9,12 +9,14 @@ import { formatRelativeTime, generateId } from '@/lib/utils';
 import { Heart, Plus, ExternalLink } from 'lucide-react';
 import { useState, type FC } from 'react';
 import { Link } from 'react-router-dom';
+import { useWaveAnimation } from '@/hooks/useWaveAnimation';
 
 export const KudosFeed: FC = () => {
   const [kudosList, setKudosList] = useState<Kudo[]>(initialKudos);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [newKudoTo, setNewKudoTo] = useState('');
   const [newKudoMessage, setNewKudoMessage] = useState('');
+  const { containerRef, getItemStyle, getItemClassName } = useWaveAnimation();
 
   // Show only first 3 kudos on dashboard
   const displayKudos = kudosList.slice(0, 3);
@@ -110,7 +112,7 @@ export const KudosFeed: FC = () => {
         </Link>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent ref={containerRef}>
         {displayKudos.length === 0 ? (
           <div className="text-center text-muted-foreground py-8">
             <Heart className="h-8 w-8 mx-auto mb-2 opacity-50" />
@@ -119,10 +121,11 @@ export const KudosFeed: FC = () => {
           </div>
         ) : (
           <div className="space-y-4">
-            {displayKudos.map((kudo) => (
+            {displayKudos.map((kudo, index) => (
               <div 
                 key={kudo.id} 
-                className="p-4 rounded-lg border bg-gradient-to-r from-rose-500/5 to-pink-500/5 border-rose-500/20"
+                className={getItemClassName('p-4 rounded-lg border bg-gradient-to-r from-rose-500/5 to-pink-500/5 border-rose-500/20')}
+                style={getItemStyle(index)}
               >
                 <div className="flex items-start gap-3">
                   <div className="mt-1 text-red-600 dark:text-red-400">

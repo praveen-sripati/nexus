@@ -7,6 +7,7 @@ import { defaultQuickLinks, type QuickLink } from '@/data/mockData';
 import { generateId, storage } from '@/lib/utils';
 import { Plus, Trash2, GripVertical, Link, Globe, FileText, Settings, Mail, Home } from 'lucide-react';
 import { useState, useEffect, type FC } from 'react';
+import { useWaveAnimation } from '@/hooks/useWaveAnimation';
 
 export const QuickLinks: FC = () => {
   const [links, setLinks] = useState<QuickLink[]>([]);
@@ -15,6 +16,7 @@ export const QuickLinks: FC = () => {
   const [newLinkUrl, setNewLinkUrl] = useState('');
   const [draggedItem, setDraggedItem] = useState<string | null>(null);
   const [dragOverItem, setDragOverItem] = useState<string | null>(null);
+  const { containerRef, getItemStyle, getItemClassName } = useWaveAnimation();
 
   // Function to get appropriate icon for a link based on its name or URL
   const getLinkIcon = (name: string, url: string) => {
@@ -187,7 +189,7 @@ export const QuickLinks: FC = () => {
           </DialogContent>
         </Dialog>
       </CardHeader>
-      <CardContent>
+      <CardContent ref={containerRef}>
         {links.length === 0 ? (
           <div className="text-center text-muted-foreground py-8">
             <p className="text-sm">No quick links yet.</p>
@@ -195,15 +197,16 @@ export const QuickLinks: FC = () => {
           </div>
         ) : (
           <div className="space-y-2">
-            {links.map((link) => (
+            {links.map((link, index) => (
               <div
                 key={link.id}
                 onDragOver={(e) => handleDragOver(e, link.id)}
                 onDragLeave={handleDragLeave}
                 onDrop={(e) => handleDrop(e, link.id)}
-                className={`flex items-center justify-between p-2 rounded-lg border hover:bg-muted/50 transition-colors ${
+                className={getItemClassName(`flex items-center justify-between p-2 rounded-lg border hover:bg-muted/50 ${
                   dragOverItem === link.id ? 'border-primary bg-primary/10' : ''
-                } ${draggedItem === link.id ? 'opacity-50' : ''}`}
+                } ${draggedItem === link.id ? 'opacity-50' : ''}`)}
+                style={getItemStyle(index)}
               >
                 <div className="flex items-center gap-2 flex-1">
                   <div

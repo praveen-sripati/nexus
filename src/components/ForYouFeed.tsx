@@ -5,6 +5,7 @@ import { formatRelativeTime } from '@/lib/utils';
 import { FileText, Bell, CheckSquare, Info, ExternalLink, Sparkles } from 'lucide-react';
 import { type FC } from 'react';
 import { Link } from 'react-router-dom';
+import { useWaveAnimation } from '@/hooks/useWaveAnimation';
 
 const getTypeIcon = (type: FeedItem['type']) => {
   switch (type) {
@@ -37,6 +38,8 @@ const getTypeColor = (type: FeedItem['type']) => {
 };
 
 export const ForYouFeed: FC = () => {
+  const { containerRef, getItemStyle, getItemClassName } = useWaveAnimation();
+  
   // Show only first 3 items on dashboard
   const displayItems = forYouFeed.slice(0, 3);
 
@@ -59,10 +62,14 @@ export const ForYouFeed: FC = () => {
           </Button>
         </Link>
       </CardHeader>
-      <CardContent>
+      <CardContent ref={containerRef}>
         <div className="space-y-4">
-          {displayItems.map((item) => (
-            <div key={item.id} className="flex gap-3 p-3 rounded-lg border hover:bg-muted/50 transition-colors">
+          {displayItems.map((item, index) => (
+            <div 
+              key={item.id} 
+              className={getItemClassName('flex gap-3 p-3 rounded-lg border hover:bg-muted/50')}
+              style={getItemStyle(index)}
+            >
               <div className={`mt-1 ${getTypeColor(item.type)}`}>
                 {getTypeIcon(item.type)}
               </div>
@@ -87,7 +94,10 @@ export const ForYouFeed: FC = () => {
           
           {/* Show remaining count if there are more items */}
           {forYouFeed.length > 3 && (
-            <div className="pt-2 border-t">
+            <div 
+              className={getItemClassName('pt-2 border-t')}
+              style={getItemStyle(displayItems.length)}
+            >
               <Link to="/for-you">
                 <Button variant="ghost" size="sm" className="w-full gap-2 text-muted-foreground hover:text-foreground">
                   <span>View {forYouFeed.length - 3} more items</span>

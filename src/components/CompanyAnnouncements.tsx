@@ -6,6 +6,7 @@ import { formatRelativeTime } from '@/lib/utils';
 import { AlertCircle, Info, Megaphone, ExternalLink } from 'lucide-react';
 import { type FC } from 'react';
 import { Link } from 'react-router-dom';
+import { useWaveAnimation } from '@/hooks/useWaveAnimation';
 
 const getPriorityIcon = (priority: Announcement['priority']) => {
   switch (priority) {
@@ -34,6 +35,8 @@ const getPriorityColor = (priority: Announcement['priority']) => {
 };
 
 export const CompanyAnnouncements: FC = () => {
+  const { containerRef, getItemStyle, getItemClassName } = useWaveAnimation();
+  
   // Show only first 3 announcements on dashboard
   const displayAnnouncements = announcements.slice(0, 3);
 
@@ -56,12 +59,13 @@ export const CompanyAnnouncements: FC = () => {
           </Button>
         </Link>
       </CardHeader>
-      <CardContent>
+      <CardContent ref={containerRef}>
         <div className="space-y-4">
-          {displayAnnouncements.map((announcement) => (
+          {displayAnnouncements.map((announcement, index) => (
             <div 
               key={announcement.id} 
-              className={`p-4 rounded-lg border ${getPriorityColor(announcement.priority)}`}
+              className={getItemClassName(`p-4 rounded-lg border ${getPriorityColor(announcement.priority)}`)}
+              style={getItemStyle(index)}
             >
               <div className="flex items-start gap-3">
                 <div className={`mt-1 ${announcement.priority === 'high' ? 'text-red-600' : announcement.priority === 'medium' ? 'text-amber-600' : 'text-emerald-600'}`}>

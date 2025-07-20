@@ -6,6 +6,7 @@ import { formatEventDate } from '@/lib/utils';
 import { Calendar, Users, Cake, Award, ExternalLink } from 'lucide-react';
 import { type FC } from 'react';
 import { Link } from 'react-router-dom';
+import { useWaveAnimation } from '@/hooks/useWaveAnimation';
 
 const getEventIcon = (type: CalendarEvent['type']) => {
   switch (type) {
@@ -47,6 +48,8 @@ const getEventBgColor = (type: CalendarEvent['type']) => {
 };
 
 export const TeamCalendar: FC = () => {
+  const { containerRef, getItemStyle, getItemClassName } = useWaveAnimation();
+  
   // Sort events by date and limit to first 3 for dashboard
   const sortedEvents = [...calendarEvents].sort((a, b) => a.date.getTime() - b.date.getTime());
   const displayEvents = sortedEvents.slice(0, 3);
@@ -70,12 +73,13 @@ export const TeamCalendar: FC = () => {
           </Button>
         </Link>
       </CardHeader>
-      <CardContent>
+      <CardContent ref={containerRef}>
         <div className="space-y-3">
-          {displayEvents.map((event) => (
+          {displayEvents.map((event, index) => (
             <div 
               key={event.id} 
-              className={`p-3 rounded-lg border ${getEventBgColor(event.type)}`}
+              className={getItemClassName(`p-3 rounded-lg border ${getEventBgColor(event.type)}`)}
+              style={getItemStyle(index)}
             >
               <div className="flex items-start gap-3">
                 <div className={`mt-1 ${getEventColor(event.type)}`}>

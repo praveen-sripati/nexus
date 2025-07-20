@@ -5,11 +5,13 @@ import { employees } from '@/data/mockData';
 import { Users, ExternalLink } from 'lucide-react';
 import { useState, type FC } from 'react';
 import { Link } from 'react-router-dom';
+import { useWaveAnimation } from '@/hooks/useWaveAnimation';
 
 const departments = ['All', 'Engineering', 'Design', 'Product', 'Marketing'];
 
 export const EmployeeDirectory: FC = () => {
   const [selectedDepartment, setSelectedDepartment] = useState('All');
+  const { containerRef, getItemStyle, getItemClassName } = useWaveAnimation();
 
   const filteredEmployees = selectedDepartment === 'All' 
     ? employees.slice(0, 6) // Show only first 6 employees on dashboard
@@ -34,7 +36,7 @@ export const EmployeeDirectory: FC = () => {
           </Button>
         </Link>
       </CardHeader>
-      <CardContent>
+      <CardContent ref={containerRef}>
         {/* Department Filter */}
         <div className="flex flex-wrap gap-2 mb-6">
           {departments.map((dept) => (
@@ -57,10 +59,11 @@ export const EmployeeDirectory: FC = () => {
 
         {/* Employee Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {filteredEmployees.map((employee) => (
+          {filteredEmployees.map((employee, index) => (
             <div 
               key={employee.id} 
-              className="p-4 rounded-lg border hover:bg-muted/50 transition-colors"
+              className={getItemClassName('p-4 rounded-lg border hover:bg-muted/50')}
+              style={getItemStyle(index)}
             >
               <div className="flex items-start gap-3">
                 <div className="flex-shrink-0">
