@@ -57,7 +57,7 @@ export interface QuickLink {
 // Current user data
 export const currentUser: User = {
   id: '1',
-  name: 'Priya',
+  name: 'Praveen',
   role: 'Frontend Developer',
   department: 'Engineering',
   avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Priya'
