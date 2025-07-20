@@ -6,14 +6,18 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { kudos as initialKudos, currentUser, type Kudo } from '@/data/mockData';
 import { formatRelativeTime, generateId } from '@/lib/utils';
-import { Heart, Plus } from 'lucide-react';
+import { Heart, Plus, ExternalLink } from 'lucide-react';
 import { useState, type FC } from 'react';
+import { Link } from 'react-router-dom';
 
 export const KudosFeed: FC = () => {
   const [kudosList, setKudosList] = useState<Kudo[]>(initialKudos);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [newKudoTo, setNewKudoTo] = useState('');
   const [newKudoMessage, setNewKudoMessage] = useState('');
+
+  // Show only first 3 kudos on dashboard
+  const displayKudos = kudosList.slice(0, 3);
 
   const addKudo = () => {
     if (!newKudoTo.trim() || !newKudoMessage.trim()) return;
@@ -46,14 +50,15 @@ export const KudosFeed: FC = () => {
             Recognize and celebrate your colleagues
           </CardDescription>
         </div>
-        <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-          <DialogTrigger asChild>
-            <Button variant="outline" size="sm" className="gap-2">
-              <Plus className="h-4 w-4" />
-              Give Kudos
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
+        <div className="flex items-center gap-2">
+          <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+            <DialogTrigger asChild>
+              <Button variant="outline" size="sm" className="gap-2">
+                <Plus className="h-4 w-4" />
+                Give Kudos
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
               <DialogTitle>Give Kudos</DialogTitle>
               <DialogDescription>
@@ -97,9 +102,16 @@ export const KudosFeed: FC = () => {
             </DialogFooter>
           </DialogContent>
         </Dialog>
+        <Link to="/kudos">
+          <Button variant="outline" size="sm" className="gap-2">
+            View All
+            <ExternalLink className="h-4 w-4" />
+          </Button>
+        </Link>
+        </div>
       </CardHeader>
       <CardContent>
-        {kudosList.length === 0 ? (
+        {displayKudos.length === 0 ? (
           <div className="text-center text-muted-foreground py-8">
             <Heart className="h-8 w-8 mx-auto mb-2 opacity-50" />
             <p className="text-sm">No kudos yet.</p>
@@ -107,7 +119,7 @@ export const KudosFeed: FC = () => {
           </div>
         ) : (
           <div className="space-y-4">
-            {kudosList.map((kudo) => (
+            {displayKudos.map((kudo) => (
               <div 
                 key={kudo.id} 
                 className="p-4 rounded-lg border bg-gradient-to-r from-rose-500/5 to-pink-500/5 border-rose-500/20"
@@ -136,6 +148,18 @@ export const KudosFeed: FC = () => {
                 </div>
               </div>
             ))}
+            
+            {/* Show remaining count if there are more kudos */}
+            {kudosList.length > 3 && (
+              <div className="pt-2 border-t">
+                <Link to="/kudos">
+                  <Button variant="ghost" size="sm" className="w-full gap-2 text-muted-foreground hover:text-foreground">
+                    <span>View {kudosList.length - 3} more kudos</span>
+                    <ExternalLink className="h-3 w-3" />
+                  </Button>
+                </Link>
+              </div>
+            )}
           </div>
         )}
       </CardContent>

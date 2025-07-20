@@ -1,9 +1,11 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { announcements, type Announcement } from '@/data/mockData';
 import { formatRelativeTime } from '@/lib/utils';
-import { AlertCircle, Info, Megaphone } from 'lucide-react';
+import { AlertCircle, Info, Megaphone, ExternalLink } from 'lucide-react';
 import { type FC } from 'react';
+import { Link } from 'react-router-dom';
 
 const getPriorityIcon = (priority: Announcement['priority']) => {
   switch (priority) {
@@ -32,17 +34,28 @@ const getPriorityColor = (priority: Announcement['priority']) => {
 };
 
 export const CompanyAnnouncements: FC = () => {
+  // Show only first 3 announcements on dashboard
+  const displayAnnouncements = announcements.slice(0, 3);
+
   return (
     <Card className="w-full">
-      <CardHeader>
-        <CardTitle className="text-lg">Company Announcements</CardTitle>
-        <CardDescription>
-          Official company-wide news and important updates
-        </CardDescription>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <div>
+          <CardTitle className="text-lg">Company Announcements</CardTitle>
+          <CardDescription>
+            Official company-wide news and important updates
+          </CardDescription>
+        </div>
+        <Link to="/announcements">
+          <Button variant="outline" size="sm" className="gap-2">
+            View All
+            <ExternalLink className="h-4 w-4" />
+          </Button>
+        </Link>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          {announcements.map((announcement) => (
+          {displayAnnouncements.map((announcement) => (
             <div 
               key={announcement.id} 
               className={`p-4 rounded-lg border ${getPriorityColor(announcement.priority)}`}
@@ -79,6 +92,18 @@ export const CompanyAnnouncements: FC = () => {
               </div>
             </div>
           ))}
+          
+          {/* Show remaining count if there are more announcements */}
+          {announcements.length > 3 && (
+            <div className="pt-2 border-t">
+              <Link to="/announcements">
+                <Button variant="ghost" size="sm" className="w-full gap-2 text-muted-foreground hover:text-foreground">
+                  <span>View {announcements.length - 3} more announcements</span>
+                  <ExternalLink className="h-3 w-3" />
+                </Button>
+              </Link>
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>

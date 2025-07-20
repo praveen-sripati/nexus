@@ -6,6 +6,8 @@ import { ThemeProvider } from './components/ThemeProvider';
 import { FocusModeProvider } from './contexts/FocusModeContext';
 import { Dashboard } from './pages/Dashboard';
 import { ForYouPage } from './pages/ForYouPage';
+import { CompanyAnnouncementsPage } from './pages/CompanyAnnouncementsPage';
+import { KudosFeedPage } from './pages/KudosFeedPage';
 
 const AppRoutes: FC = () => {
 
@@ -21,6 +23,18 @@ const AppRoutes: FC = () => {
         path="/for-you"
         element={
           <ForYouPage />
+        }
+      />
+      <Route
+        path="/announcements"
+        element={
+          <CompanyAnnouncementsPage />
+        }
+      />
+      <Route
+        path="/kudos"
+        element={
+          <KudosFeedPage />
         }
       />
     </Routes>
