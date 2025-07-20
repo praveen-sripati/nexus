@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { storage } from '@/lib/utils';
-import { X } from 'lucide-react';
+import { X, Sparkles } from 'lucide-react';
 import { useState, type FC, useEffect } from 'react';
 
 interface ChecklistItem {
@@ -72,7 +72,10 @@ export const WelcomeChecklist: FC<WelcomeChecklistProps> = ({ onDismiss }) => {
     <Card className="w-full">
       <CardHeader className="flex flex-col sm:flex-row sm:items-start sm:justify-between space-y-2 sm:space-y-0 pb-2">
         <div>
-          <CardTitle className="text-lg">Welcome to Nexus! 🎉</CardTitle>
+          <CardTitle className="text-lg flex items-center gap-2">
+            <Sparkles className="h-5 w-5" />
+            Welcome to Nexus! 🎉
+          </CardTitle>
           <CardDescription>
             Get started with these quick tasks ({completedCount}/{totalCount} completed)
           </CardDescription>

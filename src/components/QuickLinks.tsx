@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { defaultQuickLinks, type QuickLink } from '@/data/mockData';
 import { generateId, storage } from '@/lib/utils';
-import { ExternalLink, Plus, Trash2, GripVertical } from 'lucide-react';
+import { Plus, Trash2, GripVertical, Link, Globe, FileText, Settings, Mail, Home } from 'lucide-react';
 import { useState, useEffect, type FC } from 'react';
 
 export const QuickLinks: FC = () => {
@@ -15,6 +15,27 @@ export const QuickLinks: FC = () => {
   const [newLinkUrl, setNewLinkUrl] = useState('');
   const [draggedItem, setDraggedItem] = useState<string | null>(null);
   const [dragOverItem, setDragOverItem] = useState<string | null>(null);
+
+  // Function to get appropriate icon for a link based on its name or URL
+  const getLinkIcon = (name: string, url: string) => {
+    const lowerName = name.toLowerCase();
+    const lowerUrl = url.toLowerCase();
+    
+    if (lowerName.includes('mail') || lowerName.includes('email') || lowerUrl.includes('mail')) {
+      return <Mail className="h-4 w-4" />;
+    }
+    if (lowerName.includes('doc') || lowerName.includes('wiki') || lowerName.includes('confluence') || lowerUrl.includes('doc')) {
+      return <FileText className="h-4 w-4" />;
+    }
+    if (lowerName.includes('setting') || lowerName.includes('admin') || lowerName.includes('config')) {
+      return <Settings className="h-4 w-4" />;
+    }
+    if (lowerName.includes('home') || lowerName.includes('dashboard') || lowerName.includes('main')) {
+      return <Home className="h-4 w-4" />;
+    }
+    // Default to globe icon for external links
+    return <Globe className="h-4 w-4" />;
+  };
 
   // Load links from localStorage on mount
   useEffect(() => {
@@ -108,7 +129,10 @@ export const QuickLinks: FC = () => {
     <Card className="w-full">
       <CardHeader className="flex flex-col sm:flex-row sm:items-start sm:justify-between space-y-2 sm:space-y-0 pb-2">
         <div>
-          <CardTitle className="text-lg">My Quick Links</CardTitle>
+          <CardTitle className="text-lg flex items-center gap-2">
+            <Link className="h-5 w-5" />
+            My Quick Links
+          </CardTitle>
           <CardDescription>Your most-used tools and resources</CardDescription>
         </div>
         <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
@@ -194,7 +218,7 @@ export const QuickLinks: FC = () => {
                     onClick={() => handleLinkClick(link.url)}
                     className="flex items-center gap-2 flex-1 text-left"
                   >
-                    <ExternalLink className="h-4 w-4 text-muted-foreground" />
+                    {getLinkIcon(link.name, link.url)}
                     <span className="text-sm font-medium">{link.name}</span>
                   </button>
                 </div>

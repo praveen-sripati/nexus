@@ -2,7 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { forYouFeed, type FeedItem } from '@/data/mockData';
 import { formatRelativeTime } from '@/lib/utils';
-import { FileText, Bell, CheckSquare, Info, ExternalLink } from 'lucide-react';
+import { FileText, Bell, CheckSquare, Info, ExternalLink, Sparkles } from 'lucide-react';
 import { type FC } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -44,7 +44,10 @@ export const ForYouFeed: FC = () => {
     <Card className="w-full">
       <CardHeader className="flex flex-col sm:flex-row sm:items-start sm:justify-between space-y-2 sm:space-y-0 pb-2">
         <div>
-          <CardTitle className="text-lg">For You</CardTitle>
+          <CardTitle className="text-lg flex items-center gap-2">
+            <Sparkles className="h-5 w-5" />
+            For You
+          </CardTitle>
           <CardDescription>
             Personalized updates and information relevant to your work
           </CardDescription>

@@ -41,7 +41,10 @@ export const CompanyAnnouncements: FC = () => {
     <Card className="w-full">
       <CardHeader className="flex flex-col sm:flex-row sm:items-start sm:justify-between space-y-2 sm:space-y-0 pb-2">
         <div>
-          <CardTitle className="text-lg">Company Announcements</CardTitle>
+          <CardTitle className="text-lg flex items-center gap-2">
+            <Megaphone className="h-5 w-5" />
+            Company Announcements
+          </CardTitle>
           <CardDescription>
             Official company-wide news and important updates
           </CardDescription>
