@@ -2,7 +2,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { employees, type Employee } from '@/data/mockData';
 import { Users, Crown, Shield, User } from 'lucide-react';
-import { type FC } from 'react';
+import { type FC, useEffect, useRef } from 'react';
 import { Tree, TreeNode } from 'react-organizational-chart';
 
 const getDepartmentBadgeColor = (department: string) => {
@@ -176,6 +176,29 @@ const renderOrgNode = (node: OrgNode, isRoot = false): React.ReactElement => {
 
 export const OrganizationChart: FC = () => {
   const orgHierarchy = buildHierarchy(employees);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  
+  // Center the org chart horizontally when component mounts
+  useEffect(() => {
+    const centerChart = () => {
+      if (scrollContainerRef.current) {
+        const container = scrollContainerRef.current;
+        const scrollWidth = container.scrollWidth;
+        const clientWidth = container.clientWidth;
+        const centerPosition = (scrollWidth - clientWidth) / 2;
+        
+        container.scrollTo({
+          left: centerPosition,
+          behavior: 'smooth'
+        });
+      }
+    };
+
+    // Small delay to ensure the chart is fully rendered
+    const timeoutId = setTimeout(centerChart, 100);
+    
+    return () => clearTimeout(timeoutId);
+  }, [orgHierarchy]);
   
   if (!orgHierarchy) {
     return (
@@ -240,7 +263,7 @@ export const OrganizationChart: FC = () => {
       <Card>
         <CardContent className="p-4">
           <div className="w-full">
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto" ref={scrollContainerRef}>
               <div className="org-chart-container flex justify-center" style={{ 
                 minWidth: '100%',
                 width: 'max-content'
