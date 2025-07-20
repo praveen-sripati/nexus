@@ -192,10 +192,11 @@ export const CalendarPage: FC = () => {
           </div>
         </div>
 
-        {/* Search and Filters */}
+        {/* Combined Calendar Card */}
         <Card className="mb-6">
           <CardContent className="p-6">
-            <div className="flex flex-col sm:flex-row gap-4">
+            {/* Search and Filters */}
+            <div className="flex flex-col sm:flex-row gap-4 mb-6">
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                 <Input
@@ -222,13 +223,9 @@ export const CalendarPage: FC = () => {
                 </Select>
               </div>
             </div>
-          </CardContent>
-        </Card>
 
-        {/* Calendar Navigation */}
-        <Card className="mb-6">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
+            {/* Calendar Navigation */}
+            <div className="flex items-center justify-between mb-6 pb-4 border-b">
               <h2 className="text-2xl font-bold">{getMonthName(currentDate)}</h2>
               <div className="flex items-center gap-2">
                 <Button variant="outline" size="sm" onClick={() => navigateMonth('prev')}>
@@ -242,12 +239,8 @@ export const CalendarPage: FC = () => {
                 </Button>
               </div>
             </div>
-          </CardContent>
-        </Card>
 
-        {/* Calendar Grid */}
-        <Card>
-          <CardContent className="px-6">
+            {/* Calendar Grid */}
             <div className="grid grid-cols-7 border-l border-t">
               {renderCalendarGrid()}
             </div>
