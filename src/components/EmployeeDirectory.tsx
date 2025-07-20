@@ -17,7 +17,7 @@ export const EmployeeDirectory: FC = () => {
 
   return (
     <Card className="w-full">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+      <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2">
         <div>
           <CardTitle className="text-lg flex items-center gap-2">
             <Users className="h-5 w-5" />
