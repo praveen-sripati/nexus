@@ -2,6 +2,11 @@
 
 A comprehensive, modern intranet dashboard built with React, TypeScript, and Tailwind CSS. Nexus provides a centralized hub for team collaboration, employee engagement, and organizational information.
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![React](https://img.shields.io/badge/React-19-blue.svg)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue.svg)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4.1-blue.svg)](https://tailwindcss.com/)
+
 ## 🚀 Live Demo
 
 This project is configured for deployment on **Vercel**. 
