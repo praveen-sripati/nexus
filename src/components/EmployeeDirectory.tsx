@@ -2,8 +2,9 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { employees } from '@/data/mockData';
-import { Users } from 'lucide-react';
+import { Users, ExternalLink } from 'lucide-react';
 import { useState, type FC } from 'react';
+import { Link } from 'react-router-dom';
 
 const departments = ['All', 'Engineering', 'Design', 'Product', 'Marketing'];
 
@@ -11,19 +12,27 @@ export const EmployeeDirectory: FC = () => {
   const [selectedDepartment, setSelectedDepartment] = useState('All');
 
   const filteredEmployees = selectedDepartment === 'All' 
-    ? employees 
-    : employees.filter(employee => employee.department === selectedDepartment);
+    ? employees.slice(0, 6) // Show only first 6 employees on dashboard
+    : employees.filter(employee => employee.department === selectedDepartment).slice(0, 6);
 
   return (
     <Card className="w-full">
-      <CardHeader>
-        <CardTitle className="text-lg flex items-center gap-2">
-          <Users className="h-5 w-5" />
-          Employee Directory
-        </CardTitle>
-        <CardDescription>
-          Find and connect with your colleagues
-        </CardDescription>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <div>
+          <CardTitle className="text-lg flex items-center gap-2">
+            <Users className="h-5 w-5" />
+            Employee Directory
+          </CardTitle>
+          <CardDescription>
+            Find and connect with your colleagues
+          </CardDescription>
+        </div>
+        <Link to="/employees">
+          <Button variant="outline" size="sm" className="gap-2">
+            View All
+            <ExternalLink className="h-4 w-4" />
+          </Button>
+        </Link>
       </CardHeader>
       <CardContent>
         {/* Department Filter */}
@@ -101,6 +110,18 @@ export const EmployeeDirectory: FC = () => {
             Showing {filteredEmployees.length} of {employees.length} employees
             {selectedDepartment !== 'All' && ` in ${selectedDepartment}`}
           </p>
+          
+          {/* Show remaining count if there are more employees */}
+          {employees.length > 6 && (
+            <div className="mt-2">
+              <Link to="/employees">
+                <Button variant="ghost" size="sm" className="w-full gap-2 text-muted-foreground hover:text-foreground">
+                  <span>View {employees.length - 6} more employees</span>
+                  <ExternalLink className="h-3 w-3" />
+                </Button>
+              </Link>
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>

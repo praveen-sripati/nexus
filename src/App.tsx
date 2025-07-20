@@ -8,6 +8,7 @@ import { Dashboard } from './pages/Dashboard';
 import { ForYouPage } from './pages/ForYouPage';
 import { CompanyAnnouncementsPage } from './pages/CompanyAnnouncementsPage';
 import { KudosFeedPage } from './pages/KudosFeedPage';
+import { EmployeeDirectoryPage } from './pages/EmployeeDirectoryPage';
 
 const AppRoutes: FC = () => {
 
@@ -35,6 +36,12 @@ const AppRoutes: FC = () => {
         path="/kudos"
         element={
           <KudosFeedPage />
+        }
+      />
+      <Route
+        path="/employees"
+        element={
+          <EmployeeDirectoryPage />
         }
       />
     </Routes>

@@ -9,6 +9,12 @@ export interface User {
   avatar: string;
 }
 
+export interface Employee extends User {
+  email?: string;
+  phone?: string;
+  location?: string;
+}
+
 export interface FeedItem {
   id: string;
   title: string;
@@ -58,48 +64,106 @@ export const currentUser: User = {
 };
 
 // Mock employees
-export const employees: User[] = [
+export const employees: Employee[] = [
   {
     id: '1',
     name: 'Priya Sharma',
     role: 'Frontend Developer',
     department: 'Engineering',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Priya'
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Priya',
+    email: 'priya.sharma@company.com',
+    phone: '+1 (555) 123-4567',
+    location: 'San Francisco, CA'
   },
   {
     id: '2',
     name: 'David Chen',
     role: 'Senior Backend Engineer',
     department: 'Engineering',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=David'
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=David',
+    email: 'david.chen@company.com',
+    phone: '+1 (555) 234-5678',
+    location: 'New York, NY'
   },
   {
     id: '3',
     name: 'Sarah Johnson',
     role: 'UX Designer',
     department: 'Design',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah'
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah',
+    email: 'sarah.johnson@company.com',
+    phone: '+1 (555) 345-6789',
+    location: 'Los Angeles, CA'
   },
   {
     id: '4',
     name: 'Marcus Williams',
     role: 'Product Manager',
     department: 'Product',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus'
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus',
+    email: 'marcus.williams@company.com',
+    phone: '+1 (555) 456-7890',
+    location: 'Austin, TX'
   },
   {
     id: '5',
     name: 'Emma Rodriguez',
     role: 'Marketing Specialist',
     department: 'Marketing',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Emma'
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Emma',
+    email: 'emma.rodriguez@company.com',
+    phone: '+1 (555) 567-8901',
+    location: 'Miami, FL'
   },
   {
     id: '6',
     name: 'Alex Thompson',
     role: 'DevOps Engineer',
     department: 'Engineering',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Alex'
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Alex',
+    email: 'alex.thompson@company.com',
+    phone: '+1 (555) 678-9012',
+    location: 'Seattle, WA'
+  },
+  {
+    id: '7',
+    name: 'Jessica Lee',
+    role: 'Senior Designer',
+    department: 'Design',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Jessica',
+    email: 'jessica.lee@company.com',
+    phone: '+1 (555) 789-0123',
+    location: 'Portland, OR'
+  },
+  {
+    id: '8',
+    name: 'Ryan Kumar',
+    role: 'Sales Manager',
+    department: 'Sales',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Ryan',
+    email: 'ryan.kumar@company.com',
+    phone: '+1 (555) 890-1234',
+    location: 'Chicago, IL'
+  },
+  {
+    id: '9',
+    name: 'Lisa Zhang',
+    role: 'HR Business Partner',
+    department: 'HR',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Lisa',
+    email: 'lisa.zhang@company.com',
+    phone: '+1 (555) 901-2345',
+    location: 'Boston, MA'
+  },
+  {
+    id: '10',
+    name: 'James Wilson',
+    role: 'Data Analyst',
+    department: 'Product',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=James',
+    email: 'james.wilson@company.com',
+    phone: '+1 (555) 012-3456',
+    location: 'Denver, CO'
   }
 ];
 
