@@ -113,18 +113,18 @@ export const KudosFeed: FC = () => {
                 className="p-4 rounded-lg border bg-gradient-to-r from-rose-500/5 to-pink-500/5 border-rose-500/20"
               >
                 <div className="flex items-start gap-3">
-                  <div className="mt-1 text-rose-800 dark:text-rose-300">
+                  <div className="mt-1 text-red-600 dark:text-red-400">
                     <Heart className="h-4 w-4 fill-current" />
                   </div>
                   <div className="flex-1 space-y-2">
                     <div className="flex items-start justify-between">
                       <div className="space-y-1">
                         <p className="text-sm font-medium">
-                          <span className="text-rose-800 dark:text-rose-300">{kudo.from}</span>
+                          <span className="text-red-600 dark:text-red-400">{kudo.from}</span>
                           {' → '}
-                          <span className="text-rose-800 dark:text-rose-300 font-semibold">{kudo.to}</span>
+                          <span className="text-red-600 dark:text-red-400 font-semibold">{kudo.to}</span>
                         </p>
-                        <p className="text-sm leading-relaxed">
+                        <p className="text-sm leading-relaxed text-foreground">
                           {kudo.message}
                         </p>
                       </div>
