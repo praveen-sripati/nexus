@@ -135,8 +135,8 @@ export const WelcomeChecklist: FC<WelcomeChecklistProps> = ({ onDismiss }) => {
         </div>
         
         {completedCount === totalCount && (
-          <div className="mt-4 p-3 bg-green-50 dark:bg-green-950 rounded-lg border border-green-200 dark:border-green-800">
-            <p className="text-sm text-green-800 dark:text-green-200 font-medium">
+          <div className="mt-4 p-3 bg-green-500/10 rounded-lg border border-green-500/20">
+            <p className="text-sm text-green-800 dark:text-green-300 font-medium">
               🎉 Congratulations! You've completed the welcome checklist.
             </p>
             <Button 

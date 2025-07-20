@@ -1,4 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { announcements, type Announcement } from '@/data/mockData';
 import { formatRelativeTime } from '@/lib/utils';
 import { AlertCircle, Info, Megaphone } from 'lucide-react';
@@ -20,13 +21,13 @@ const getPriorityIcon = (priority: Announcement['priority']) => {
 const getPriorityColor = (priority: Announcement['priority']) => {
   switch (priority) {
     case 'high':
-      return 'text-red-500 border-red-200 bg-red-50 dark:bg-red-950 dark:border-red-800';
+      return 'text-destructive bg-destructive/5 dark:bg-red-500/10 border-destructive/20 dark:border-red-500/30';
     case 'medium':
-      return 'text-orange-500 border-orange-200 bg-orange-50 dark:bg-orange-950 dark:border-orange-800';
+      return 'text-foreground bg-amber-500/5 dark:bg-amber-500/10 border-amber-500/20 dark:border-amber-500/30';
     case 'low':
-      return 'text-blue-500 border-blue-200 bg-blue-50 dark:bg-blue-950 dark:border-blue-800';
+      return 'text-muted-foreground bg-emerald-500/5 dark:bg-emerald-500/10 border-emerald-500/20 dark:border-emerald-500/30';
     default:
-      return 'text-gray-500 border-gray-200 bg-gray-50 dark:bg-gray-950 dark:border-gray-800';
+      return 'text-muted-foreground bg-muted/50 border-border';
   }
 };
 
@@ -47,29 +48,32 @@ export const CompanyAnnouncements: FC = () => {
               className={`p-4 rounded-lg border ${getPriorityColor(announcement.priority)}`}
             >
               <div className="flex items-start gap-3">
-                <div className={`mt-1 ${announcement.priority === 'high' ? 'text-red-600' : announcement.priority === 'medium' ? 'text-orange-600' : 'text-blue-600'}`}>
+                <div className={`mt-1 ${announcement.priority === 'high' ? 'text-red-600' : announcement.priority === 'medium' ? 'text-amber-600' : 'text-emerald-600'}`}>
                   {getPriorityIcon(announcement.priority)}
                 </div>
                 <div className="flex-1 space-y-2">
                   <div className="flex items-start justify-between">
-                    <h4 className="font-medium leading-none">{announcement.title}</h4>
+                    <h4 className="font-medium leading-none text-foreground">{announcement.title}</h4>
                     <span className="text-xs text-muted-foreground whitespace-nowrap ml-2">
                       {formatRelativeTime(announcement.date)}
                     </span>
                   </div>
-                  <p className="text-sm leading-relaxed">
+                  <p className="text-sm leading-relaxed text-foreground">
                     {announcement.body}
                   </p>
                   <div className="flex items-center gap-2">
-                    <span className={`text-xs px-2 py-1 rounded-full font-medium ${
-                      announcement.priority === 'high' 
-                        ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-                        : announcement.priority === 'medium'
-                        ? 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200'
-                        : 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
-                    }`}>
+                    <Badge 
+                      variant={announcement.priority === 'high' ? 'destructive' : 'outline'}
+                      className={
+                        announcement.priority === 'high' 
+                          ? ''
+                          : announcement.priority === 'medium'
+                          ? 'border-yellow-600 bg-yellow-50 text-yellow-700 dark:border-yellow-300 dark:bg-yellow-100 dark:text-yellow-800'
+                          : 'border-green-600 bg-green-50 text-green-700 dark:border-green-300 dark:bg-green-100 dark:text-green-800'
+                      }
+                    >
                       {announcement.priority.toUpperCase()}
-                    </span>
+                    </Badge>
                   </div>
                 </div>
               </div>

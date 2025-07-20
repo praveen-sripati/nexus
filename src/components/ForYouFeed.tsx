@@ -22,15 +22,15 @@ const getTypeIcon = (type: FeedItem['type']) => {
 const getTypeColor = (type: FeedItem['type']) => {
   switch (type) {
     case 'document':
-      return 'text-blue-500';
+      return 'text-primary';
     case 'news':
-      return 'text-green-500';
+      return 'text-green-800 dark:text-green-300';
     case 'task':
-      return 'text-orange-500';
+      return 'text-orange-800 dark:text-orange-300';
     case 'update':
-      return 'text-purple-500';
+      return 'text-purple-800 dark:text-purple-300';
     default:
-      return 'text-gray-500';
+      return 'text-muted-foreground';
   }
 };
 

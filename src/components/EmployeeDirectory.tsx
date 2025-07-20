@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { employees } from '@/data/mockData';
 import { Users } from 'lucide-react';
@@ -64,19 +65,22 @@ export const EmployeeDirectory: FC = () => {
                   <h4 className="text-sm font-medium truncate">{employee.name}</h4>
                   <p className="text-sm text-muted-foreground truncate">{employee.role}</p>
                   <div className="mt-1">
-                    <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                      employee.department === 'Engineering' 
-                        ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
-                        : employee.department === 'Design'
-                        ? 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200'
-                        : employee.department === 'Product'
-                        ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
-                        : employee.department === 'Marketing'
-                        ? 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200'
-                        : 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200'
-                    }`}>
+                    <Badge 
+                      variant="outline"
+                      className={
+                        employee.department === 'Engineering' 
+                          ? 'border-blue-600 bg-blue-50 text-blue-700 dark:border-blue-300 dark:bg-blue-100 dark:text-blue-800'
+                          : employee.department === 'Design'
+                          ? 'border-purple-600 bg-purple-50 text-purple-700 dark:border-purple-300 dark:bg-purple-100 dark:text-purple-800'
+                          : employee.department === 'Product'
+                          ? 'border-green-600 bg-green-50 text-green-700 dark:border-green-300 dark:bg-green-100 dark:text-green-800'
+                          : employee.department === 'Marketing'
+                          ? 'border-orange-600 bg-orange-50 text-orange-700 dark:border-orange-300 dark:bg-orange-100 dark:text-orange-800'
+                          : 'border-muted-foreground/20 bg-muted text-muted-foreground'
+                      }
+                    >
                       {employee.department}
-                    </span>
+                    </Badge>
                   </div>
                 </div>
               </div>

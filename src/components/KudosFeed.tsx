@@ -110,19 +110,19 @@ export const KudosFeed: FC = () => {
             {kudosList.map((kudo) => (
               <div 
                 key={kudo.id} 
-                className="p-4 rounded-lg border bg-gradient-to-r from-pink-50 to-red-50 dark:from-pink-950 dark:to-red-950 border-pink-200 dark:border-pink-800"
+                className="p-4 rounded-lg border bg-gradient-to-r from-rose-500/5 to-pink-500/5 border-rose-500/20"
               >
                 <div className="flex items-start gap-3">
-                  <div className="mt-1 text-pink-500">
+                  <div className="mt-1 text-rose-800 dark:text-rose-300">
                     <Heart className="h-4 w-4 fill-current" />
                   </div>
                   <div className="flex-1 space-y-2">
                     <div className="flex items-start justify-between">
                       <div className="space-y-1">
                         <p className="text-sm font-medium">
-                          <span className="text-pink-600 dark:text-pink-400">{kudo.from}</span>
+                          <span className="text-rose-800 dark:text-rose-300">{kudo.from}</span>
                           {' → '}
-                          <span className="text-pink-600 dark:text-pink-400 font-semibold">{kudo.to}</span>
+                          <span className="text-rose-800 dark:text-rose-300 font-semibold">{kudo.to}</span>
                         </p>
                         <p className="text-sm leading-relaxed">
                           {kudo.message}

@@ -1,4 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { calendarEvents, type CalendarEvent } from '@/data/mockData';
 import { formatEventDate } from '@/lib/utils';
 import { Calendar, Users, Cake, Award } from 'lucide-react';
@@ -20,26 +21,26 @@ const getEventIcon = (type: CalendarEvent['type']) => {
 const getEventColor = (type: CalendarEvent['type']) => {
   switch (type) {
     case 'event':
-      return 'text-blue-500';
+      return 'text-blue-600';
     case 'birthday':
-      return 'text-pink-500';
+      return 'text-rose-600';
     case 'anniversary':
-      return 'text-purple-500';
+      return 'text-violet-600';
     default:
-      return 'text-gray-500';
+      return 'text-muted-foreground';
   }
 };
 
 const getEventBgColor = (type: CalendarEvent['type']) => {
   switch (type) {
     case 'event':
-      return 'bg-blue-50 dark:bg-blue-950 border-blue-200 dark:border-blue-800';
+      return 'bg-blue-500/5 dark:bg-blue-500/10 border-blue-500/10 dark:border-blue-500/30';
     case 'birthday':
-      return 'bg-pink-50 dark:bg-pink-950 border-pink-200 dark:border-pink-800';
+      return 'bg-rose-500/5 dark:bg-rose-500/10 border-rose-500/10 dark:border-rose-500/30';
     case 'anniversary':
-      return 'bg-purple-50 dark:bg-purple-950 border-purple-200 dark:border-purple-800';
+      return 'bg-violet-500/5 dark:bg-violet-500/10 border-violet-500/10 dark:border-violet-500/30';
     default:
-      return 'bg-gray-50 dark:bg-gray-950 border-gray-200 dark:border-gray-800';
+      return 'bg-muted/50 border-border';
   }
 };
 
@@ -82,15 +83,18 @@ export const TeamCalendar: FC = () => {
                     </p>
                   )}
                   <div className="flex items-center gap-2">
-                    <span className={`text-xs px-2 py-1 rounded-full font-medium ${
-                      event.type === 'event' 
-                        ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
-                        : event.type === 'birthday'
-                        ? 'bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200'
-                        : 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200'
-                    }`}>
+                    <Badge 
+                      variant="outline"
+                      className={
+                        event.type === 'event' 
+                          ? 'border-blue-600 bg-blue-50 text-blue-700 dark:border-blue-300 dark:bg-blue-100 dark:text-blue-800'
+                          : event.type === 'birthday'
+                          ? 'border-pink-600 bg-pink-50 text-pink-700 dark:border-pink-300 dark:bg-pink-100 dark:text-pink-800'
+                          : 'border-purple-600 bg-purple-50 text-purple-700 dark:border-purple-300 dark:bg-purple-100 dark:text-purple-800'
+                      }
+                    >
                       {event.type.charAt(0).toUpperCase() + event.type.slice(1)}
-                    </span>
+                    </Badge>
                   </div>
                 </div>
               </div>
