@@ -6,6 +6,7 @@ import { Focus, Eye } from 'lucide-react';
 import { type FC } from 'react';
 import { ThemeToggle } from './ThemeToggle';
 import { Profile } from './Profile';
+import { GlobalSearch } from './GlobalSearch';
 
 export const Header: FC = () => {
   const { isFocusMode, toggleFocusMode } = useFocusMode();
@@ -32,6 +33,9 @@ export const Header: FC = () => {
 
         {/* Right side - Controls */}
         <div className="flex items-center gap-3">
+          <div className="hidden lg:block">
+            <GlobalSearch />
+          </div>
           <Button
             variant={isFocusMode ? "default" : "outline"}
             size="sm"
