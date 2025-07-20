@@ -11,7 +11,7 @@ export const useWaveAnimation = (options: UseWaveAnimationOptions = {}) => {
   const {
     threshold = 0.1,
     rootMargin = '50px',
-    staggerDelay = 100,
+    staggerDelay = 50,
     duration = 500
   } = options;
 
