@@ -1,100 +1,236 @@
-# LinkVault - Personal Link Manager
+# Nexus - Modern Intranet Dashboard
 
-A modern, feature-rich personal link management application built with React, TypeScript, and Supabase.
+A comprehensive, modern intranet dashboard built with React, TypeScript, and Tailwind CSS. Nexus provides a centralized hub for team collaboration, employee engagement, and organizational information.
 
-## 🚀 Deployment
+## 🚀 Live Demo
 
-This project is configured for deployment on **Netlify**. See [NETLIFY_DEPLOYMENT.md](./NETLIFY_DEPLOYMENT.md) for detailed deployment instructions.
+This project is configured for deployment on **Vercel**. 
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/praveen-sripati/nexus)
 
 ## ✨ Features
 
-- **Authentication**: Secure login with Supabase Auth (Google OAuth, Magic Links)
-- **Link Management**: Save, organize, and manage your favorite links
-- **Smart Content Extraction**: Automatically extracts titles, descriptions, and metadata
-- **Search & Filter**: Powerful search and filtering capabilities
-- **Multiple View Types**: Grid, List, and Grouped views
-- **Bulk Operations**: Select and delete multiple links at once
-- **Dark Mode**: Full dark/light theme support with system preference detection
-- **Responsive Design**: Works seamlessly on desktop and mobile devices
-- **Tag System**: Organize links with custom tags
-- **Importance Levels**: Prioritize links with importance ratings
+### 🏠 **Dashboard Hub**
+- **Responsive Design**: Fully responsive across mobile, tablet, and desktop
+- **Dark/Light Mode**: Complete theming system with user preference persistence
+- **Focus Mode**: Distraction-free mode for improved productivity
+- **Drag & Drop**: Customizable card layout with persistent preferences
+
+### 👥 **Employee Engagement**
+- **Kudos & Shout-Outs**: Peer recognition system with real-time feed
+- **Employee Directory**: Searchable directory with department filtering
+- **Organization Chart**: Interactive hierarchical organization structure
+- **Profile Management**: User profiles with avatar and preferences
+
+### 📅 **Team Collaboration**
+- **Team Calendar**: Event management with birthdays, anniversaries, and meetings
+- **Company Announcements**: Priority-based announcement system
+- **Quick Links**: Customizable bookmarks with drag-and-drop reordering
+- **For You Feed**: Personalized content and updates
+
+### 🔍 **Search & Navigation**
+- **Global Search**: Cmd/Ctrl+K shortcut for quick access
+- **Advanced Filtering**: Multi-criteria filtering across all modules
+- **Smart Navigation**: Breadcrumb navigation and quick actions
+
+### 🎨 **User Experience**
+- **Welcome Checklist**: Interactive onboarding for new users
+- **Accessible Design**: WCAG compliant with keyboard navigation
+- **Loading States**: Smooth transitions and loading indicators
+- **Mobile-First**: Optimized for touch interfaces
 
 ## 🛠 Tech Stack
 
-- **Frontend**: React 19 + TypeScript + Vite
-- **Styling**: Tailwind CSS v4 + Radix UI components
-- **Authentication & Database**: Supabase
-- **Routing**: React Router DOM
-- **State Management**: React hooks + Context API
-- **Build Tool**: Vite
-- **Deployment**: Netlify
+### **Frontend**
+- **React 19** - Latest React with concurrent features
+- **TypeScript** - Type-safe development
+- **Vite** - Lightning-fast build tool and dev server
+- **React Router DOM** - Client-side routing
 
-# React + TypeScript + Vite
+### **Styling & UI**
+- **Tailwind CSS v4** - Utility-first CSS with latest features
+- **Radix UI** - Accessible, unstyled UI primitives
+- **shadcn/ui** - Beautiful, reusable UI components
+- **Lucide React** - Beautiful, customizable icons
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### **State Management**
+- **React Context API** - Global state management
+- **localStorage** - Persistent user preferences
+- **Custom Hooks** - Reusable stateful logic
 
-Currently, two official plugins are available:
+### **Additional Libraries**
+- **react-organizational-chart** - Interactive org chart visualization
+- **Sonner** - Toast notifications
+- **class-variance-authority** - Component variant management
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📁 Project Structure
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+nexus/
+├── src/
+│   ├── components/           # Reusable UI components
+│   │   ├── ui/              # shadcn/ui base components
+│   │   ├── CompanyAnnouncements.tsx
+│   │   ├── EmployeeDirectory.tsx
+│   │   ├── Header.tsx
+│   │   ├── KudosFeed.tsx
+│   │   ├── OrganizationChart.tsx
+│   │   ├── QuickLinks.tsx
+│   │   ├── TeamCalendar.tsx
+│   │   └── ...
+│   ├── pages/               # Page components
+│   │   ├── Dashboard.tsx
+│   │   ├── CalendarPage.tsx
+│   │   ├── EmployeeDirectoryPage.tsx
+│   │   └── ...
+│   ├── contexts/            # React contexts
+│   ├── hooks/               # Custom React hooks
+│   ├── lib/                 # Utility functions
+│   ├── types/               # TypeScript type definitions
+│   └── data/                # Mock data and constants
+├── public/                  # Static assets
+└── dist/                    # Build output
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Prerequisites
+- **Node.js** 18+ 
+- **npm** 9+ or **yarn** 1.22+
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/praveen-sripati/nexus.git
+   cd nexus
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Start development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Open your browser**
+   Navigate to `http://localhost:5173`
+
+### Build for Production
+
+```bash
+# Build the project
+npm run build
+
+# Preview the build
+npm run preview
 ```
+
+## 🌐 Deployment
+
+### Vercel (Recommended)
+
+1. **Install Vercel CLI**
+   ```bash
+   npm i -g vercel
+   ```
+
+2. **Deploy**
+   ```bash
+   vercel
+   ```
+
+The project includes a `vercel.json` configuration file for optimal deployment.
+
+### Other Platforms
+
+The build output in `/dist` can be deployed to any static hosting service:
+- **Netlify**: Drag and drop the `dist` folder
+- **GitHub Pages**: Use GitHub Actions with the build
+- **AWS S3**: Upload the `dist` folder contents
+
+## 📱 Features Breakdown
+
+### Dashboard Components
+
+| Component | Description | Features |
+|-----------|-------------|----------|
+| **For You Feed** | Personalized content | • Document updates<br>• Task notifications<br>• News items |
+| **Company Announcements** | Official communications | • Priority levels<br>• Search & filter<br>• Rich content |
+| **Employee Directory** | Team member lookup | • Department filtering<br>• Contact information<br>• Search functionality |
+| **Kudos Feed** | Peer recognition | • Give/receive kudos<br>• Real-time updates<br>• Social interaction |
+| **Team Calendar** | Event management | • Birthdays & anniversaries<br>• Company events<br>• Visual indicators |
+| **Quick Links** | Bookmark management | • Drag & drop sorting<br>• Add/remove links<br>• Quick access |
+
+### User Experience Features
+
+- **🎯 Focus Mode**: Hide distractions for deep work
+- **🌙 Dark Mode**: Eye-friendly dark theme
+- **📱 Mobile Responsive**: Optimized for all screen sizes
+- **⌨️ Keyboard Shortcuts**: Quick navigation (Cmd+K)
+- **🔄 Drag & Drop**: Customizable layout
+- **💾 Persistence**: Saves user preferences locally
+
+## 🎨 Customization
+
+### Theming
+
+The project uses Tailwind CSS v4 with a custom theme configuration. Modify colors and styling in:
+
+```css
+/* src/index.css */
+@theme {
+  --color-primary: /* your primary color */;
+  --color-secondary: /* your secondary color */;
+}
+```
+
+### Adding Components
+
+1. Create component in `src/components/`
+2. Add types to `src/types/`
+3. Update routing in `src/App.tsx`
+4. Add to dashboard in `src/pages/Dashboard.tsx`
+
+## 🧪 Development
+
+### Available Scripts
+
+```bash
+npm run dev      # Start development server
+npm run build    # Build for production
+npm run preview  # Preview production build
+npm run lint     # Run ESLint
+```
+
+### Code Style
+
+- **ESLint**: Configured for React and TypeScript
+- **Prettier**: Automatic code formatting
+- **TypeScript**: Strict type checking enabled
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature-name`
+3. Commit changes: `git commit -am 'Add feature'`
+4. Push to branch: `git push origin feature-name`
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- **Radix UI** for accessible component primitives
+- **shadcn/ui** for the beautiful component library
+- **Tailwind CSS** for the utility-first styling approach
+- **Lucide** for the comprehensive icon library
+
+---
+
+Made with ❤️ by [Praveen Sripati](https://github.com/praveen-sripati)
