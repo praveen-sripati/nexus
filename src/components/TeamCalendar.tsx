@@ -1,9 +1,11 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { calendarEvents, type CalendarEvent } from '@/data/mockData';
 import { formatEventDate } from '@/lib/utils';
-import { Calendar, Users, Cake, Award } from 'lucide-react';
+import { Calendar, Users, Cake, Award, ExternalLink } from 'lucide-react';
 import { type FC } from 'react';
+import { Link } from 'react-router-dom';
 
 const getEventIcon = (type: CalendarEvent['type']) => {
   switch (type) {
@@ -45,23 +47,32 @@ const getEventBgColor = (type: CalendarEvent['type']) => {
 };
 
 export const TeamCalendar: FC = () => {
-  // Sort events by date
+  // Sort events by date and limit to first 4 for dashboard
   const sortedEvents = [...calendarEvents].sort((a, b) => a.date.getTime() - b.date.getTime());
+  const displayEvents = sortedEvents.slice(0, 4);
 
   return (
     <Card className="w-full">
-      <CardHeader>
-        <CardTitle className="text-lg flex items-center gap-2">
-          <Users className="h-5 w-5" />
-          Team Calendar
-        </CardTitle>
-        <CardDescription>
-          Upcoming events, birthdays, and anniversaries
-        </CardDescription>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <div>
+          <CardTitle className="text-lg flex items-center gap-2">
+            <Users className="h-5 w-5" />
+            Team Calendar
+          </CardTitle>
+          <CardDescription>
+            Upcoming events, birthdays, and anniversaries
+          </CardDescription>
+        </div>
+        <Link to="/calendar">
+          <Button variant="outline" size="sm" className="gap-2">
+            View All
+            <ExternalLink className="h-4 w-4" />
+          </Button>
+        </Link>
       </CardHeader>
       <CardContent>
         <div className="space-y-3">
-          {sortedEvents.map((event) => (
+          {displayEvents.map((event) => (
             <div 
               key={event.id} 
               className={`p-3 rounded-lg border ${getEventBgColor(event.type)}`}
@@ -100,6 +111,25 @@ export const TeamCalendar: FC = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Summary */}
+        <div className="mt-6 pt-4 border-t">
+          <p className="text-xs text-muted-foreground text-center">
+            Showing {displayEvents.length} of {sortedEvents.length} upcoming events
+          </p>
+          
+          {/* Show remaining count if there are more events */}
+          {sortedEvents.length > 4 && (
+            <div className="mt-2">
+              <Link to="/calendar">
+                <Button variant="ghost" size="sm" className="w-full gap-2 text-muted-foreground hover:text-foreground">
+                  <span>View {sortedEvents.length - 4} more events</span>
+                  <ExternalLink className="h-3 w-3" />
+                </Button>
+              </Link>
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>
