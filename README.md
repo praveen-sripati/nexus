@@ -6,8 +6,6 @@ A comprehensive, modern intranet dashboard built with React, TypeScript, and Tai
 
 This project is configured for deployment on **Vercel**. 
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/praveen-sripati/nexus)
-
 ## ✨ Features
 
 ### 🏠 **Dashboard Hub**
