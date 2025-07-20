@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Header } from '@/components/Header';
+import { PageWrapper, PageSection } from '@/components/PageWrapper';
 import { kudos as initialKudos, currentUser, type Kudo } from '@/data/mockData';
 import { formatRelativeTime, generateId } from '@/lib/utils';
 import { Heart, Plus, ArrowLeft, Search } from 'lucide-react';
@@ -50,7 +51,7 @@ export const KudosFeedPage: FC = () => {
     <div className="min-h-screen bg-background">
       <Header />
       
-      <main className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-6">
+      <PageWrapper className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-6">
         {/* Header Section */}
         <div className="mb-6">
           <div className="flex items-center gap-4 mb-4">
@@ -184,12 +185,12 @@ export const KudosFeedPage: FC = () => {
               </CardContent>
             </Card>
           ) : (
-            filteredKudos.map((kudo) => (
-              <div 
-                key={kudo.id} 
-                className="p-6 rounded-lg border bg-gradient-to-r from-rose-500/5 to-pink-500/5 border-rose-500/20 hover:shadow-md transition-shadow"
-              >
-                <div className="flex items-start gap-4">
+            filteredKudos.map((kudo, index) => (
+              <PageSection key={kudo.id} index={index}>
+                <div 
+                  className="p-6 rounded-lg border bg-gradient-to-r from-rose-500/5 to-pink-500/5 border-rose-500/20 hover:shadow-md transition-shadow"
+                >
+                  <div className="flex items-start gap-4">
                   <div className="mt-1 text-red-600 dark:text-red-400">
                     <Heart className="h-5 w-5 fill-current" />
                   </div>
@@ -210,8 +211,9 @@ export const KudosFeedPage: FC = () => {
                       </span>
                     </div>
                   </div>
+                  </div>
                 </div>
-              </div>
+              </PageSection>
             ))
           )}
         </div>
@@ -227,7 +229,7 @@ export const KudosFeedPage: FC = () => {
             </p>
           </div>
         )}
-      </main>
+      </PageWrapper>
     </div>
   );
 };

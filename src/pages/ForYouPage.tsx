@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Header } from '@/components/Header';
+import { PageWrapper, PageSection } from '@/components/PageWrapper';
 import { forYouFeed, type FeedItem } from '@/data/mockData';
 import { formatRelativeTime } from '@/lib/utils';
 import { FileText, Bell, CheckSquare, Info, ArrowLeft, Search, Filter } from 'lucide-react';
@@ -73,7 +74,7 @@ export const ForYouPage: FC = () => {
     <div className="min-h-screen bg-background">
       <Header />
       
-      <main className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-6">
+      <PageWrapper className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-6">
         {/* Header Section */}
         <div className="mb-6">
           <div className="flex items-center gap-4 mb-4">
@@ -155,8 +156,9 @@ export const ForYouPage: FC = () => {
               </CardContent>
             </Card>
           ) : (
-            filteredItems.map((item) => (
-              <Card key={item.id} className="hover:shadow-md transition-shadow">
+            filteredItems.map((item, index) => (
+              <PageSection key={item.id} index={index}>
+                <Card className="hover:shadow-md transition-shadow">
                 <CardContent className="p-6">
                   <div className="flex gap-4">
                     <div className={`mt-1 ${getTypeColor(item.type)}`}>
@@ -188,6 +190,7 @@ export const ForYouPage: FC = () => {
                   </div>
                 </CardContent>
               </Card>
+              </PageSection>
             ))
           )}
         </div>
@@ -203,7 +206,7 @@ export const ForYouPage: FC = () => {
             </p>
           </div>
         )}
-      </main>
+      </PageWrapper>
     </div>
   );
 };

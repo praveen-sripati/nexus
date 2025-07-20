@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Header } from '@/components/Header';
 import { OrganizationChart } from '@/components/OrganizationChart';
+import { PageWrapper, PageSection } from '@/components/PageWrapper';
 import { employees } from '@/data/mockData';
 import { ArrowLeft, Search, Filter, Mail, Phone, MapPin, Users, Network } from 'lucide-react';
 import { useState, type FC } from 'react';
@@ -55,7 +56,7 @@ export const EmployeeDirectoryPage: FC = () => {
     <div className="min-h-screen bg-background">
       <Header />
       
-      <main className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-6">
+      <PageWrapper className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-6">
         {/* Header Section */}
         <div className="mb-6">
           <div className="flex items-center gap-4 mb-4">
@@ -152,9 +153,10 @@ export const EmployeeDirectoryPage: FC = () => {
             </Card>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-              {filteredEmployees.map((employee) => (
-                <Card key={employee.id} className="hover:shadow-md transition-shadow">
-                  <CardContent className="p-6">
+              {filteredEmployees.map((employee, index) => (
+                <PageSection key={employee.id} index={index}>
+                  <Card className="hover:shadow-md transition-shadow">
+                    <CardContent className="p-6">
                     <div className="flex items-start gap-4">
                       <div className="flex-shrink-0">
                         <img
@@ -231,6 +233,7 @@ export const EmployeeDirectoryPage: FC = () => {
                     </div>
                   </CardContent>
                 </Card>
+                </PageSection>
               ))}
             </div>
           )}
@@ -284,7 +287,7 @@ export const EmployeeDirectoryPage: FC = () => {
           <OrganizationChart />
         </TabsContent>
         </Tabs>
-      </main>
+      </PageWrapper>
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Header } from '@/components/Header';
+import { PageWrapper, PageSection } from '@/components/PageWrapper';
 import { announcements, type Announcement } from '@/data/mockData';
 import { formatRelativeTime } from '@/lib/utils';
 import { AlertCircle, Info, Megaphone, ArrowLeft, Search, Filter } from 'lucide-react';
@@ -54,7 +55,7 @@ export const CompanyAnnouncementsPage: FC = () => {
     <div className="min-h-screen bg-background">
       <Header />
       
-      <main className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-6">
+      <PageWrapper className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-6">
         {/* Header Section */}
         <div className="mb-6">
           <div className="flex items-center gap-4 mb-4">
@@ -135,12 +136,12 @@ export const CompanyAnnouncementsPage: FC = () => {
               </CardContent>
             </Card>
           ) : (
-            filteredAnnouncements.map((announcement) => (
-              <div 
-                key={announcement.id} 
-                className={`p-6 rounded-lg border ${getPriorityColor(announcement.priority)}`}
-              >
-                <div className="flex items-start gap-4">
+            filteredAnnouncements.map((announcement, index) => (
+              <PageSection key={announcement.id} index={index}>
+                <div 
+                  className={`p-6 rounded-lg border ${getPriorityColor(announcement.priority)}`}
+                >
+                  <div className="flex items-start gap-4">
                   <div className={`mt-1 ${announcement.priority === 'high' ? 'text-red-600' : announcement.priority === 'medium' ? 'text-amber-600' : 'text-emerald-600'}`}>
                     {getPriorityIcon(announcement.priority)}
                   </div>
@@ -169,8 +170,9 @@ export const CompanyAnnouncementsPage: FC = () => {
                       </Badge>
                     </div>
                   </div>
+                  </div>
                 </div>
-              </div>
+              </PageSection>
             ))
           )}
         </div>
@@ -186,7 +188,7 @@ export const CompanyAnnouncementsPage: FC = () => {
             </p>
           </div>
         )}
-      </main>
+      </PageWrapper>
     </div>
   );
 };
