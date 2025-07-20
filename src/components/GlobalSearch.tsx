@@ -7,11 +7,33 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Search, Command } from 'lucide-react';
-import { useState, useEffect, type FC } from 'react';
+import { useState, useEffect, useMemo, useCallback, type FC } from 'react';
+import { SearchService, type SearchResult } from '@/lib/searchService';
+import { useNavigate } from 'react-router-dom';
+
+const typeLabels = {
+  employee: 'Employee',
+  announcement: 'Announcement',
+  kudo: 'Kudo',
+  event: 'Event',
+  feed: 'Feed Item',
+  'quick-link': 'Quick Link'
+};
+
+const typeIcons = {
+  employee: '👤',
+  announcement: '📢',
+  kudo: '❤️',
+  event: '📅',
+  feed: '📰',
+  'quick-link': '🔗'
+};
 
 export const GlobalSearch: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const navigate = useNavigate();
 
   // Handle keyboard shortcut
   useEffect(() => {
@@ -26,24 +48,94 @@ export const GlobalSearch: FC = () => {
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  const handleSearch = (query: string) => {
-    console.log('Searching for:', query);
-    // TODO: Implement actual search functionality
-    // This could search across:
-    // - Employees
-    // - Documents
-    // - Announcements
-    // - Quick Links
-    // - Calendar events
-    // - Kudos
-  };
+  const results = useMemo(() => {
+    return SearchService.search(searchQuery);
+  }, [searchQuery]);
+
+  const handleResultClick = useCallback((result: SearchResult) => {
+    // Navigate to the specific route with search parameters for highlighting
+    const searchParams = new URLSearchParams();
+    if (result.searchParams) {
+      Object.entries(result.searchParams).forEach(([key, value]) => {
+        searchParams.set(key, value);
+      });
+    }
+    
+    const routeWithParams = result.searchParams 
+      ? `${result.route}?${searchParams.toString()}`
+      : result.route;
+    
+    navigate(routeWithParams);
+    setIsOpen(false);
+    setSearchQuery('');
+  }, [navigate]);
+
+  const handleQuickAction = useCallback((type: string) => {
+    switch (type) {
+      case 'employees':
+        navigate('/employees');
+        break;
+      case 'announcements':
+        navigate('/announcements');
+        break;
+      case 'events':
+        navigate('/calendar');
+        break;
+      case 'kudos':
+        navigate('/kudos');
+        break;
+    }
+    setIsOpen(false);
+  }, [navigate]);
+
+  // Reset selected index when results change
+  useEffect(() => {
+    setSelectedIndex(0);
+  }, [results]);
+
+  // Handle keyboard navigation within dialog
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!isOpen) return;
+
+      switch (e.key) {
+        case 'ArrowDown':
+          e.preventDefault();
+          setSelectedIndex(prev => Math.min(prev + 1, results.length - 1));
+          break;
+        case 'ArrowUp':
+          e.preventDefault();
+          setSelectedIndex(prev => Math.max(prev - 1, 0));
+          break;
+        case 'Enter':
+          e.preventDefault();
+          if (results[selectedIndex] && searchQuery.trim()) {
+            handleResultClick(results[selectedIndex]);
+          }
+          break;
+        case 'Escape':
+          e.preventDefault();
+          setIsOpen(false);
+          break;
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, results, selectedIndex, handleResultClick, searchQuery]);
+
+  // Reset search when dialog closes
+  useEffect(() => {
+    if (!isOpen) {
+      setSearchQuery('');
+      setSelectedIndex(0);
+    }
+  }, [isOpen]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (searchQuery.trim()) {
-      handleSearch(searchQuery);
-      setIsOpen(false);
-      setSearchQuery('');
+    if (searchQuery.trim() && results[selectedIndex]) {
+      handleResultClick(results[selectedIndex]);
     }
   };
 
@@ -67,49 +159,60 @@ export const GlobalSearch: FC = () => {
 
       {/* Search Dialog */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="sm:max-w-2xl">
-          <DialogHeader>
+        <DialogContent className="sm:max-w-2xl p-0 overflow-hidden">
+          <DialogHeader className="px-6 pt-6 pb-0">
             <DialogTitle>Search Nexus</DialogTitle>
           </DialogHeader>
           
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Search employees, documents, announcements..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
-                autoFocus
-              />
-            </div>
+          <div className="flex flex-col">
+            {/* Search Input */}
+            <form onSubmit={handleSubmit} className="px-6 pb-4">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Search employees, announcements, events, and more..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10"
+                  autoFocus
+                />
+              </div>
+            </form>
             
-            {/* Search Results Placeholder */}
-            <div className="min-h-[200px] space-y-2">
-              {searchQuery ? (
-                <div className="text-center text-muted-foreground py-8">
-                  <Search className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                  <p>Search results for "{searchQuery}" will appear here</p>
-                  <p className="text-xs mt-1">
-                    This will search across employees, documents, announcements, and more
-                  </p>
-                </div>
-              ) : (
-                <div className="space-y-4">
+            {/* Results */}
+            <div className="max-h-96 overflow-y-auto border-t">
+              {searchQuery.trim() === '' ? (
+                <div className="p-6 space-y-4">
                   <div>
-                    <h4 className="text-sm font-medium mb-2">Quick Actions</h4>
+                    <h4 className="text-sm font-medium mb-3">Quick Actions</h4>
                     <div className="space-y-1">
-                      <div className="flex items-center gap-2 p-2 rounded hover:bg-accent cursor-pointer">
-                        <Search className="h-4 w-4" />
+                      <div 
+                        className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent cursor-pointer"
+                        onClick={() => handleQuickAction('employees')}
+                      >
+                        <span className="text-lg">👤</span>
                         <span className="text-sm">Search employees</span>
                       </div>
-                      <div className="flex items-center gap-2 p-2 rounded hover:bg-accent cursor-pointer">
-                        <Search className="h-4 w-4" />
-                        <span className="text-sm">Search documents</span>
-                      </div>
-                      <div className="flex items-center gap-2 p-2 rounded hover:bg-accent cursor-pointer">
-                        <Search className="h-4 w-4" />
+                      <div 
+                        className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent cursor-pointer"
+                        onClick={() => handleQuickAction('announcements')}
+                      >
+                        <span className="text-lg">📢</span>
                         <span className="text-sm">Search announcements</span>
+                      </div>
+                      <div 
+                        className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent cursor-pointer"
+                        onClick={() => handleQuickAction('events')}
+                      >
+                        <span className="text-lg">📅</span>
+                        <span className="text-sm">Search calendar events</span>
+                      </div>
+                      <div 
+                        className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent cursor-pointer"
+                        onClick={() => handleQuickAction('kudos')}
+                      >
+                        <span className="text-lg">❤️</span>
+                        <span className="text-sm">Search kudos</span>
                       </div>
                     </div>
                   </div>
@@ -121,13 +224,53 @@ export const GlobalSearch: FC = () => {
                     </div>
                   </div>
                 </div>
+              ) : results.length === 0 ? (
+                <div className="p-6 text-center text-muted-foreground">
+                  <Search className="h-8 w-8 mx-auto mb-3 opacity-50" />
+                  <p>No results found for "{searchQuery}"</p>
+                  <p className="text-xs mt-1">
+                    Try searching for employees, announcements, events, or kudos
+                  </p>
+                </div>
+              ) : (
+                <div className="py-2">
+                  {results.map((result, index) => (
+                    <div
+                      key={`${result.type}-${result.id}`}
+                      className={`flex items-start px-6 py-3 cursor-pointer hover:bg-accent ${
+                        index === selectedIndex ? 'bg-accent' : ''
+                      }`}
+                      onClick={() => handleResultClick(result)}
+                    >
+                      <div className="mr-3 mt-0.5 text-lg">
+                        {typeIcons[result.type]}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="font-medium truncate">{result.title}</span>
+                          <span className="text-xs px-2 py-0.5 bg-muted rounded-full text-muted-foreground flex-shrink-0">
+                            {typeLabels[result.type]}
+                          </span>
+                        </div>
+                        <div className="text-sm text-muted-foreground line-clamp-2">
+                          {result.description}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               )}
             </div>
-          </form>
-          
-          <div className="flex justify-between items-center text-xs text-muted-foreground border-t pt-3">
-            <span>Press Enter to search</span>
-            <span>Press Esc to close</span>
+
+            {/* Footer */}
+            {(searchQuery.trim() || results.length > 0) && (
+              <div className="border-t px-6 py-3 text-xs text-muted-foreground bg-muted/30 flex justify-between">
+                <span>
+                  {results.length > 0 ? 'Use ↑↓ to navigate • Enter to select' : 'Type to search'}
+                </span>
+                <span>Esc to close</span>
+              </div>
+            )}
           </div>
         </DialogContent>
       </Dialog>
