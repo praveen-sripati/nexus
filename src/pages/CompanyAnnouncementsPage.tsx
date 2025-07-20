@@ -75,7 +75,7 @@ export const CompanyAnnouncementsPage: FC = () => {
         </div>
 
         {/* Filters Section */}
-        <Card className="mb-6">
+        <Card className="mb-6 gap-0">
           <CardHeader className="pb-4">
             <CardTitle className="text-lg">Filter & Search</CardTitle>
           </CardHeader>
