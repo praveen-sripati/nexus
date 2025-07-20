@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import { ThemeProvider } from './components/ThemeProvider';
 import { FocusModeProvider } from './contexts/FocusModeContext';
+import { ScrollToTop } from './components/ScrollToTop';
 import { Dashboard } from './pages/Dashboard';
 import { ForYouPage } from './pages/ForYouPage';
 import { CompanyAnnouncementsPage } from './pages/CompanyAnnouncementsPage';
@@ -61,6 +62,7 @@ const App: FC = () => {
       <FocusModeProvider>
         <TooltipProvider>
             <BrowserRouter>
+              <ScrollToTop />
               <AppRoutes />
               <Toaster />
             </BrowserRouter>
