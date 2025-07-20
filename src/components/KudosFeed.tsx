@@ -40,7 +40,7 @@ export const KudosFeed: FC = () => {
 
   return (
     <Card className="w-full">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+      <CardHeader className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0 pb-2">
         <div>
           <CardTitle className="text-lg flex items-center gap-2">
             <Heart className="h-5 w-5" />
@@ -50,7 +50,7 @@ export const KudosFeed: FC = () => {
             Recognize and celebrate your colleagues
           </CardDescription>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 w-full sm:w-auto">
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
             <DialogTrigger asChild>
               <Button variant="outline" size="sm" className="gap-2">
