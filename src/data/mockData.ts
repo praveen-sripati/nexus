@@ -60,7 +60,7 @@ export const currentUser: User = {
   name: 'Praveen',
   role: 'Frontend Developer',
   department: 'Engineering',
-  avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Praveen'
+  avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Carlos'
 };
 
 // Mock employees
