@@ -5,6 +5,7 @@ import { Toaster } from 'sonner';
 import { ThemeProvider } from './components/ThemeProvider';
 import { FocusModeProvider } from './contexts/FocusModeContext';
 import { Dashboard } from './pages/Dashboard';
+import { ForYouPage } from './pages/ForYouPage';
 
 const AppRoutes: FC = () => {
 
@@ -14,6 +15,12 @@ const AppRoutes: FC = () => {
         path="/"
         element={
           <Dashboard />
+        }
+      />
+      <Route
+        path="/for-you"
+        element={
+          <ForYouPage />
         }
       />
     </Routes>
