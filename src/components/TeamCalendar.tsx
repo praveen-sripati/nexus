@@ -47,9 +47,9 @@ const getEventBgColor = (type: CalendarEvent['type']) => {
 };
 
 export const TeamCalendar: FC = () => {
-  // Sort events by date and limit to first 4 for dashboard
+  // Sort events by date and limit to first 3 for dashboard
   const sortedEvents = [...calendarEvents].sort((a, b) => a.date.getTime() - b.date.getTime());
-  const displayEvents = sortedEvents.slice(0, 4);
+  const displayEvents = sortedEvents.slice(0, 3);
 
   return (
     <Card className="w-full">
@@ -120,11 +120,11 @@ export const TeamCalendar: FC = () => {
           </p>
           
           {/* Show remaining count if there are more events */}
-          {sortedEvents.length > 4 && (
+          {sortedEvents.length > 3 && (
             <div className="mt-2">
               <Link to="/calendar">
                 <Button variant="ghost" size="sm" className="w-full gap-2 text-muted-foreground hover:text-foreground">
-                  <span>View {sortedEvents.length - 4} more events</span>
+                  <span>View {sortedEvents.length - 3} more {sortedEvents.length === 4 ? 'event' : 'events'}</span>
                   <ExternalLink className="h-3 w-3" />
                 </Button>
               </Link>
