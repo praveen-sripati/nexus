@@ -19,21 +19,21 @@ interface WelcomeChecklistProps {
 export const WelcomeChecklist: FC<WelcomeChecklistProps> = ({ onDismiss }) => {
   const [items, setItems] = useState<ChecklistItem[]>([
     {
-      id: 'greeting',
-      label: 'See your personalized greeting',
-      description: 'Check out the header for your personalized welcome message',
-      completed: true // Auto-completed since they can see it
+      id: 'quick-links',
+      label: 'Add a Quick Link',
+      description: 'Customize your quick links in the sidebar for easy access',
+      completed: false
+    },
+    {
+      id: 'team-calendar',
+      label: 'Check the Team Calendar',
+      description: 'View upcoming events, birthdays, and anniversaries in the calendar',
+      completed: false
     },
     {
       id: 'focus-mode',
       label: 'Try Focus Mode',
       description: 'Click the Focus Mode button in the header to hide distractions',
-      completed: false
-    },
-    {
-      id: 'quick-links',
-      label: 'Add a Quick Link',
-      description: 'Customize your quick links in the sidebar for easy access',
       completed: false
     },
     {
@@ -65,33 +65,12 @@ export const WelcomeChecklist: FC<WelcomeChecklistProps> = ({ onDismiss }) => {
   };
 
   useEffect(() => {
-    // Auto-check items based on user actions
-    const checkForFocusMode = () => {
-      const hasFocusMode = storage.getFocusMode();
-      if (hasFocusMode) {
-        handleCheckItem('focus-mode', true);
-      }
-    };
-
-    const checkForQuickLinks = () => {
-      const quickLinks = storage.getQuickLinks();
-      if (quickLinks.length > 0) {
-        handleCheckItem('quick-links', true);
-      }
-    };
-
-    // Check periodically for user actions
-    const interval = setInterval(() => {
-      checkForFocusMode();
-      checkForQuickLinks();
-    }, 1000);
-
-    return () => clearInterval(interval);
+    // Removed automatic checking logic - users must manually check all items
   }, []);
 
   return (
     <Card className="w-full">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+      <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2">
         <div>
           <CardTitle className="text-lg">Welcome to Nexus! 🎉</CardTitle>
           <CardDescription>
