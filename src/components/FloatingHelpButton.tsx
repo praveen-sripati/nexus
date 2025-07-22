@@ -44,10 +44,10 @@ export const FloatingHelpButton: FC = () => {
               <Button
                 size="sm"
                 variant="outline"
-                className="h-14 w-14 rounded-full shadow-md hover:shadow-lg transition-all duration-300 relative border-gray-200 bg-white/80 backdrop-blur-sm hover:bg-gray-50 text-gray-600 hover:text-gray-700 hover:-translate-y-1 hover:scale-105"
+                className="h-14 w-14 rounded-full shadow-md hover:shadow-lg transition-all duration-300 relative border-primary bg-background/90 backdrop-blur-sm hover:bg-accent text-foreground hover:text-foreground hover:-translate-y-1 hover:scale-105"
                 onClick={handleButtonClick}
               >
-                <Headphones size={24} style={{ width: '24px', height: '24px' }} className="text-gray-600" />
+                <Headphones size={24} style={{ width: '24px', height: '24px' }} className="text-foreground" />
                 {/* Notification Badge */}
                 {hasOpenTickets && (
                   <div className="absolute -top-1 -right-1 h-5 w-5 bg-red-500 rounded-full flex items-center justify-center">
