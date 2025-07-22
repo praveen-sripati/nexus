@@ -7,7 +7,6 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { forYouFeed, type FeedItem } from '@/data/mockData';
 import { formatRelativeTime } from '@/lib/utils';
-import { useWaveAnimation } from '@/hooks/useWaveAnimation';
 import { FileText, Bell, CheckSquare, Info, ArrowRight } from 'lucide-react';
 import { type FC } from 'react';
 import { Link } from 'react-router-dom';
@@ -43,8 +42,6 @@ const getTypeColor = (type: FeedItem['type']) => {
 };
 
 export const NotificationDropdown: FC = () => {
-  const { containerRef, getItemStyle, getItemClassName } = useWaveAnimation();
-  
   // Show only first 5 items in dropdown
   const displayItems = forYouFeed.slice(0, 5);
   // For demo purposes, assume first 3 items are unread
@@ -78,7 +75,7 @@ export const NotificationDropdown: FC = () => {
           </div>
         </div>
         
-        <div className="max-h-80 overflow-y-auto" ref={containerRef}>
+        <div className="max-h-80 overflow-y-auto">
           {displayItems.length === 0 ? (
             <div className="text-center text-muted-foreground py-12">
               <Bell className="h-12 w-12 mx-auto mb-3 opacity-30" />
@@ -90,8 +87,7 @@ export const NotificationDropdown: FC = () => {
               {displayItems.map((item, index) => (
                 <div 
                   key={item.id} 
-                  className={getItemClassName(`flex gap-3 p-4 hover:bg-muted/200 transition-colors cursor-pointer bg-primary/3`)}
-                  style={getItemStyle(index)}
+                  className="flex gap-3 p-4 hover:bg-muted/200 transition-colors cursor-pointer bg-primary/3"
                 >
                   <div className={`mt-1 flex-shrink-0 ${getTypeColor(item.type)}`}>
                     {getTypeIcon(item.type)}
