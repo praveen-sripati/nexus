@@ -132,13 +132,16 @@ export const Dashboard: FC = () => {
             isFocusMode ? 'col-span-1' : 'lg:col-span-8'
           }`}>
             {isFocusMode ? (
-              // In focus mode, only show CompanyAnnouncements and Analytics
+              // In focus mode, show CompanyAnnouncements, Analytics, Projects, and TimeOff
               <>
-                <DraggableCard id="company-announcements" onReorder={handleMainCardReorder}>
-                  <CompanyAnnouncements />
+                <DraggableCard id="projects" onReorder={handleMainCardReorder}>
+                  <Projects />
                 </DraggableCard>
                 <DraggableCard id="analytics" onReorder={handleMainCardReorder}>
                   <Analytics />
+                </DraggableCard>
+                <DraggableCard id="company-announcements" onReorder={handleMainCardReorder}>
+                  <CompanyAnnouncements />
                 </DraggableCard>
               </>
             ) : (
