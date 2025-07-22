@@ -57,7 +57,7 @@ export const CompanyAnnouncementsPage: FC = () => {
       
       <PageWrapper className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-6">
         {/* Header Section */}
-        <div className="mb-6">
+        <PageSection index={0} className="mb-6">
           <div className="flex items-center gap-4 mb-4">
             <Link to="/">
               <Button variant="ghost" size="sm" className="gap-2">
@@ -73,10 +73,11 @@ export const CompanyAnnouncementsPage: FC = () => {
               Official company-wide news and important updates
             </p>
           </div>
-        </div>
+        </PageSection>
 
         {/* Filters Section */}
-        <Card className="mb-6 gap-0">
+        <PageSection index={1}>
+          <Card className="mb-6 gap-0">
           <CardHeader className="pb-4">
             <CardTitle className="text-lg">Filter & Search</CardTitle>
           </CardHeader>
@@ -118,26 +119,29 @@ export const CompanyAnnouncementsPage: FC = () => {
             </div>
           </CardContent>
         </Card>
+        </PageSection>
 
         {/* Announcements */}
         <div className="space-y-4">
           {filteredAnnouncements.length === 0 ? (
-            <Card>
-              <CardContent className="flex flex-col items-center justify-center py-12">
-                <div className="text-center space-y-2">
-                  <div className="h-12 w-12 mx-auto bg-muted rounded-full flex items-center justify-center">
-                    <Search className="h-6 w-6 text-muted-foreground" />
+            <PageSection index={2}>
+              <Card>
+                <CardContent className="flex flex-col items-center justify-center py-12">
+                  <div className="text-center space-y-2">
+                    <div className="h-12 w-12 mx-auto bg-muted rounded-full flex items-center justify-center">
+                      <Search className="h-6 w-6 text-muted-foreground" />
+                    </div>
+                    <h3 className="font-medium">No announcements found</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Try adjusting your search or filter criteria
+                    </p>
                   </div>
-                  <h3 className="font-medium">No announcements found</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Try adjusting your search or filter criteria
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </PageSection>
           ) : (
             filteredAnnouncements.map((announcement, index) => (
-              <PageSection key={announcement.id} index={index}>
+              <PageSection key={announcement.id} index={index + 3}>
                 <div 
                   className={`p-6 rounded-lg border ${getPriorityColor(announcement.priority)}`}
                 >

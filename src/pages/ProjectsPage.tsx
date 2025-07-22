@@ -126,7 +126,7 @@ export const ProjectsPage: FC = () => {
       
       <PageWrapper className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-6">
         {/* Header Section */}
-        <div className="mb-6">
+        <PageSection index={0} className="mb-6">
           <div className="flex items-center gap-4 mb-4">
             <Link to="/">
               <Button variant="ghost" size="sm" className="gap-2">
@@ -142,10 +142,11 @@ export const ProjectsPage: FC = () => {
               Manage your projects, track progress, and collaborate with your team
             </p>
           </div>
-        </div>
+        </PageSection>
 
         {/* Actions & Filters Section */}
-        <Card className="mb-6">
+        <PageSection index={1}>
+          <Card className="mb-6">
           <CardHeader className="pb-3 sm:pb-4">
             <CardTitle className="text-base sm:text-lg">Manage Projects</CardTitle>
           </CardHeader>
@@ -279,41 +280,44 @@ export const ProjectsPage: FC = () => {
               </div>
           </CardContent>
         </Card>
+        </PageSection>
 
         {/* Projects Grid */}
         <div className="space-y-4">
           {filteredProjects.length === 0 ? (
-            <Card>
-              <CardContent className="flex flex-col items-center justify-center py-8 sm:py-12">
-                <div className="text-center space-y-3 max-w-sm mx-auto px-4">
-                  <div className="h-10 w-10 sm:h-12 sm:w-12 mx-auto bg-muted rounded-full flex items-center justify-center">
-                    <FolderOpen className="h-5 w-5 sm:h-6 sm:w-6 text-muted-foreground" />
-                  </div>
-                  <h3 className="font-medium text-sm sm:text-base">
-                    {searchQuery ? 'No projects found' : 'No projects yet'}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground">
-                    {searchQuery 
-                      ? 'Try adjusting your search or filter criteria'
-                      : 'Create your first project to get started'
-                    }
-                  </p>
-                  {!searchQuery && (
-                    <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-                      <DialogTrigger asChild>
-                        <Button className="mt-3 sm:mt-4 gap-2 w-full sm:w-auto">
-                          <Plus className="h-4 w-4" />
-                          Create First Project
-                        </Button>
-                      </DialogTrigger>
-                    </Dialog>
-                  )}
+            <PageSection index={2}>
+              <Card>
+                <CardContent className="flex flex-col items-center justify-center py-8 sm:py-12">
+                  <div className="text-center space-y-3 max-w-sm mx-auto px-4">
+                    <div className="h-10 w-10 sm:h-12 sm:w-12 mx-auto bg-muted rounded-full flex items-center justify-center">
+                      <FolderOpen className="h-5 w-5 sm:h-6 sm:w-6 text-muted-foreground" />
+                    </div>
+                    <h3 className="font-medium text-sm sm:text-base">
+                      {searchQuery ? 'No projects found' : 'No projects yet'}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-muted-foreground">
+                      {searchQuery 
+                        ? 'Try adjusting your search or filter criteria'
+                        : 'Create your first project to get started'
+                      }
+                    </p>
+                    {!searchQuery && (
+                      <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+                        <DialogTrigger asChild>
+                          <Button className="mt-3 sm:mt-4 gap-2 w-full sm:w-auto">
+                            <Plus className="h-4 w-4" />
+                            Create First Project
+                          </Button>
+                        </DialogTrigger>
+                      </Dialog>
+                    )}
                 </div>
               </CardContent>
             </Card>
+            </PageSection>
           ) : (
             filteredProjects.map((project, index) => (
-              <PageSection key={project.id} index={index}>
+              <PageSection key={project.id} index={index + 3}>
                 <Card className="hover:shadow-md transition-shadow">
                   <CardContent className="p-4 sm:p-6">
                     <div className="flex items-start gap-3 sm:gap-4">

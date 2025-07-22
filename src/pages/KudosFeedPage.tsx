@@ -53,29 +53,32 @@ export const KudosFeedPage: FC = () => {
       
       <PageWrapper className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-6">
         {/* Header Section */}
-        <div className="mb-6">
-          <div className="flex items-center gap-4 mb-4">
-            <Link to="/">
-              <Button variant="ghost" size="sm" className="gap-2">
-                <ArrowLeft className="h-4 w-4" />
-                Back to Dashboard
-              </Button>
-            </Link>
-          </div>
-          
-          <div className="space-y-2">
-            <div className="flex items-center gap-3">
-              <Heart className="h-6 w-6" />
-              <h1 className="text-2xl font-bold tracking-tight">Kudos & Shout-Outs</h1>
+        <PageSection index={0}>
+          <div className="mb-6">
+            <div className="flex items-center gap-4 mb-4">
+              <Link to="/">
+                <Button variant="ghost" size="sm" className="gap-2">
+                  <ArrowLeft className="h-4 w-4" />
+                  Back to Dashboard
+                </Button>
+              </Link>
             </div>
-            <p className="text-muted-foreground">
-              Recognize and celebrate your colleagues
-            </p>
+            
+            <div className="space-y-2">
+              <div className="flex items-center gap-3">
+                <Heart className="h-6 w-6" />
+                <h1 className="text-2xl font-bold tracking-tight">Kudos & Shout-Outs</h1>
+              </div>
+              <p className="text-muted-foreground">
+                Recognize and celebrate your colleagues
+              </p>
+            </div>
           </div>
-        </div>
+        </PageSection>
 
         {/* Actions & Search Section */}
-        <Card className="mb-6">
+        <PageSection index={1}>
+          <Card className="mb-6">
           <CardHeader className="pb-4">
             <CardTitle className="text-lg">Actions & Search</CardTitle>
           </CardHeader>
@@ -154,39 +157,42 @@ export const KudosFeedPage: FC = () => {
             </div>
           </CardContent>
         </Card>
+        </PageSection>
 
         {/* Kudos Feed */}
         <div className="space-y-4">
           {filteredKudos.length === 0 ? (
-            <Card>
-              <CardContent className="flex flex-col items-center justify-center py-12">
-                <div className="text-center space-y-2">
-                  <Heart className="h-12 w-12 mx-auto text-muted-foreground opacity-50" />
-                  <h3 className="font-medium">
-                    {searchQuery ? 'No kudos found' : 'No kudos yet'}
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    {searchQuery 
-                      ? 'Try adjusting your search criteria'
-                      : 'Be the first to recognize a colleague!'
-                    }
-                  </p>
-                  {!searchQuery && (
-                    <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-                      <DialogTrigger asChild>
-                        <Button className="mt-4 gap-2">
-                          <Plus className="h-4 w-4" />
-                          Give First Kudos
-                        </Button>
+            <PageSection index={2}>
+              <Card>
+                <CardContent className="flex flex-col items-center justify-center py-12">
+                  <div className="text-center space-y-2">
+                    <Heart className="h-12 w-12 mx-auto text-muted-foreground opacity-50" />
+                    <h3 className="font-medium">
+                      {searchQuery ? 'No kudos found' : 'No kudos yet'}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      {searchQuery 
+                        ? 'Try adjusting your search criteria'
+                        : 'Be the first to recognize a colleague!'
+                      }
+                    </p>
+                    {!searchQuery && (
+                      <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+                        <DialogTrigger asChild>
+                          <Button className="mt-4 gap-2">
+                            <Plus className="h-4 w-4" />
+                            Give First Kudos
+                          </Button>
                       </DialogTrigger>
                     </Dialog>
                   )}
                 </div>
               </CardContent>
             </Card>
+            </PageSection>
           ) : (
             filteredKudos.map((kudo, index) => (
-              <PageSection key={kudo.id} index={index}>
+              <PageSection key={kudo.id} index={index + 2}>
                 <div 
                   className="p-6 rounded-lg border bg-gradient-to-r from-rose-500/5 to-pink-500/5 border-rose-500/20 hover:shadow-md transition-shadow"
                 >

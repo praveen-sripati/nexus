@@ -58,41 +58,44 @@ export const EmployeeDirectoryPage: FC = () => {
       
       <PageWrapper className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-6">
         {/* Header Section */}
-        <div className="mb-6">
-          <div className="flex items-center gap-4 mb-4">
-            <Link to="/">
-              <Button variant="ghost" size="sm" className="gap-2">
-                <ArrowLeft className="h-4 w-4" />
-                Back to Dashboard
-              </Button>
-            </Link>
+        <PageSection index={0}>
+          <div className="mb-6">
+            <div className="flex items-center gap-4 mb-4">
+              <Link to="/">
+                <Button variant="ghost" size="sm" className="gap-2">
+                  <ArrowLeft className="h-4 w-4" />
+                  Back to Dashboard
+                </Button>
+              </Link>
+            </div>
+            
+            <div className="space-y-2">
+              <h1 className="text-2xl font-bold tracking-tight">Employee Directory</h1>
+              <p className="text-muted-foreground">
+                Find and connect with your colleagues across the organization
+              </p>
+            </div>
           </div>
-          
-          <div className="space-y-2">
-            <h1 className="text-2xl font-bold tracking-tight">Employee Directory</h1>
-            <p className="text-muted-foreground">
-              Find and connect with your colleagues across the organization
-            </p>
-          </div>
-        </div>
+        </PageSection>
 
         {/* Tabs for Directory and Org Chart */}
-        <Tabs defaultValue="directory" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2 max-w-md">
-            <TabsTrigger value="directory" className="gap-2">
-              <Users className="h-4 w-4" />
-              Directory
-            </TabsTrigger>
-            <TabsTrigger value="orgchart" className="gap-2">
-              <Network className="h-4 w-4" />
-              Org Chart
-            </TabsTrigger>
-          </TabsList>
+        <PageSection index={1}>
+          <Tabs defaultValue="directory" className="space-y-6">
+            <TabsList className="grid w-full grid-cols-2 max-w-md">
+              <TabsTrigger value="directory" className="gap-2">
+                <Users className="h-4 w-4" />
+                Directory
+              </TabsTrigger>
+              <TabsTrigger value="orgchart" className="gap-2">
+                <Network className="h-4 w-4" />
+                Org Chart
+              </TabsTrigger>
+            </TabsList>
 
-          {/* Employee Directory Tab */}
-          <TabsContent value="directory" className="space-y-6">
-            {/* Filters Section */}
-            <Card>
+            {/* Employee Directory Tab */}
+            <TabsContent value="directory" className="space-y-6">
+              {/* Filters Section */}
+              <Card>
               <CardHeader className="pb-4">
                 <CardTitle className="text-lg">Search & Filter</CardTitle>
               </CardHeader>
@@ -138,23 +141,25 @@ export const EmployeeDirectoryPage: FC = () => {
         {/* Employee Cards */}
         <div className="space-y-4">
           {filteredEmployees.length === 0 ? (
-            <Card>
-              <CardContent className="flex flex-col items-center justify-center py-12">
-                <div className="text-center space-y-2">
-                  <div className="h-12 w-12 mx-auto bg-muted rounded-full flex items-center justify-center">
-                    <Search className="h-6 w-6 text-muted-foreground" />
+            <PageSection index={2}>
+              <Card>
+                <CardContent className="flex flex-col items-center justify-center py-12">
+                  <div className="text-center space-y-2">
+                    <div className="h-12 w-12 mx-auto bg-muted rounded-full flex items-center justify-center">
+                      <Search className="h-6 w-6 text-muted-foreground" />
+                    </div>
+                    <h3 className="font-medium">No employees found</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Try adjusting your search or filter criteria
+                    </p>
                   </div>
-                  <h3 className="font-medium">No employees found</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Try adjusting your search or filter criteria
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </PageSection>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
               {filteredEmployees.map((employee, index) => (
-                <PageSection key={employee.id} index={index}>
+                <PageSection key={employee.id} index={index + 2}>
                   <Card className="hover:shadow-md transition-shadow">
                     <CardContent className="p-6">
                     <div className="flex items-start gap-4">
@@ -287,6 +292,7 @@ export const EmployeeDirectoryPage: FC = () => {
           <OrganizationChart />
         </TabsContent>
         </Tabs>
+        </PageSection>
       </PageWrapper>
     </div>
   );

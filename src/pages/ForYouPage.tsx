@@ -142,19 +142,21 @@ export const ForYouPage: FC = () => {
         {/* Feed Items */}
         <div className="space-y-4">
           {filteredItems.length === 0 ? (
-            <Card>
-              <CardContent className="flex flex-col items-center justify-center py-12">
-                <div className="text-center space-y-2">
-                  <div className="h-12 w-12 mx-auto bg-muted rounded-full flex items-center justify-center">
-                    <Search className="h-6 w-6 text-muted-foreground" />
+            <PageSection index={2}>
+              <Card>
+                <CardContent className="flex flex-col items-center justify-center py-12">
+                  <div className="text-center space-y-2">
+                    <div className="h-12 w-12 mx-auto bg-muted rounded-full flex items-center justify-center">
+                      <Search className="h-6 w-6 text-muted-foreground" />
+                    </div>
+                    <h3 className="font-medium">No items found</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Try adjusting your search or filter criteria
+                    </p>
                   </div>
-                  <h3 className="font-medium">No items found</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Try adjusting your search or filter criteria
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </PageSection>
           ) : (
             filteredItems.map((item, index) => (
               <PageSection key={item.id} index={index}>

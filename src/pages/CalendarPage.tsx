@@ -3,6 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Header } from '@/components/Header';
+import { PageWrapper, PageSection } from '@/components/PageWrapper';
 import { calendarEvents, type CalendarEvent } from '@/data/mockData';
 import { ArrowLeft, Search, Filter, Calendar, Cake, Award, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState, type FC } from 'react';
@@ -172,9 +173,9 @@ export const CalendarPage: FC = () => {
     <div className="min-h-screen bg-background">
       <Header />
       
-      <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
+      <PageWrapper className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
         {/* Header Section */}
-        <div className="mb-6">
+        <PageSection index={0} className="mb-6">
           <div className="flex items-center gap-4 mb-4">
             <Link to="/">
               <Button variant="ghost" size="sm" className="gap-2">
@@ -190,11 +191,12 @@ export const CalendarPage: FC = () => {
               Stay updated with upcoming events, birthdays, and anniversaries
             </p>
           </div>
-        </div>
+        </PageSection>
 
         {/* Combined Calendar Card */}
-        <Card className="mb-6">
-          <CardContent className="p-6">
+        <PageSection index={1}>
+          <Card className="mb-6">
+            <CardContent className="p-6">
             {/* Search and Filters */}
             <div className="flex flex-col sm:flex-row gap-4 mb-6">
               <div className="relative flex-1">
@@ -246,9 +248,11 @@ export const CalendarPage: FC = () => {
             </div>
           </CardContent>
         </Card>
+        </PageSection>
 
         {/* Legend */}
-        <Card className="mt-6">
+        <PageSection index={2}>
+          <Card className="mt-6">
           <CardContent>
             <h3 className="text-lg font-semibold mb-4">Event Types</h3>
             <div className="flex flex-wrap gap-4">
@@ -273,18 +277,21 @@ export const CalendarPage: FC = () => {
             </div>
           </CardContent>
         </Card>
+        </PageSection>
 
         {/* Summary */}
         {filteredEvents.length !== calendarEvents.length && (
-          <div className="mt-6 pt-4 border-t text-center">
-            <p className="text-xs text-muted-foreground">
-              Showing {filteredEvents.length} of {calendarEvents.length} events
-              {searchQuery && ` matching "${searchQuery}"`}
-              {filterType !== 'all' && ` in ${filterType} category`}
-            </p>
-          </div>
+          <PageSection index={3}>
+            <div className="mt-6 pt-4 border-t text-center">
+              <p className="text-xs text-muted-foreground">
+                Showing {filteredEvents.length} of {calendarEvents.length} events
+                {searchQuery && ` matching "${searchQuery}"`}
+                {filterType !== 'all' && ` in ${filterType} category`}
+              </p>
+            </div>
+          </PageSection>
         )}
-      </main>
+      </PageWrapper>
     </div>
   );
 };

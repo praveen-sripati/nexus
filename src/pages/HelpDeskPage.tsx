@@ -465,17 +465,19 @@ export const HelpDeskPage: FC = () => {
             </PageSection>
             
             {filteredTickets.length === 0 && (
-              <Card>
-                <CardContent className="flex flex-col items-center justify-center py-12">
-                  <MessageSquare className="h-12 w-12 text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-medium mb-2">No tickets found</h3>
-                  <p className="text-muted-foreground text-center">
-                    {ticketFilter === 'all' 
-                      ? 'You haven\'t submitted any support tickets yet.' 
-                      : `No ${ticketFilter} tickets found.`}
-                  </p>
-                </CardContent>
-              </Card>
+              <PageSection index={7}>
+                <Card>
+                  <CardContent className="flex flex-col items-center justify-center py-12">
+                    <MessageSquare className="h-12 w-12 text-muted-foreground mb-4" />
+                    <h3 className="text-lg font-medium mb-2">No tickets found</h3>
+                    <p className="text-muted-foreground text-center">
+                      {ticketFilter === 'all' 
+                        ? 'You haven\'t submitted any support tickets yet.' 
+                        : `No ${ticketFilter} tickets found.`}
+                    </p>
+                  </CardContent>
+                </Card>
+              </PageSection>
             )}
           </TabsContent>
 
@@ -498,21 +500,23 @@ export const HelpDeskPage: FC = () => {
             </PageSection>
             
             {filteredKnowledgeBase.length === 0 && (
-              <Card>
-                <CardContent className="flex flex-col items-center justify-center py-12">
-                  <FileText className="h-12 w-12 text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-medium mb-2">No articles found</h3>
-                  <p className="text-muted-foreground text-center">
-                    No knowledge base articles match your search.
-                  </p>
-                </CardContent>
-              </Card>
+              <PageSection index={8}>
+                <Card>
+                  <CardContent className="flex flex-col items-center justify-center py-12">
+                    <FileText className="h-12 w-12 text-muted-foreground mb-4" />
+                    <h3 className="text-lg font-medium mb-2">No articles found</h3>
+                    <p className="text-muted-foreground text-center">
+                      No knowledge base articles match your search.
+                    </p>
+                  </CardContent>
+                </Card>
+              </PageSection>
             )}
           </TabsContent>
 
           {/* Contact Tab */}
           <TabsContent value="contact" className="space-y-6">
-            <PageSection index={6}>
+            <PageSection index={9}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Card className="animate-in fade-in slide-in-from-bottom-4 duration-300" style={{ animationDelay: '100ms' }}>
                   <CardHeader>

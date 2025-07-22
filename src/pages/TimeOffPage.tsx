@@ -475,21 +475,23 @@ export const TimeOffPage: FC = () => {
             </PageSection>
             
             {filteredRequests.length === 0 && (
-              <Card>
-                <CardContent className="flex flex-col items-center justify-center py-12">
-                  <Calendar className="h-12 w-12 text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-medium mb-2">No requests found</h3>
-                  <p className="text-muted-foreground text-center">
-                    {filter === 'all' ? 'You haven\'t submitted any time off requests yet.' : `No ${filter} requests found.`}
-                  </p>
-                </CardContent>
-              </Card>
+              <PageSection index={5}>
+                <Card>
+                  <CardContent className="flex flex-col items-center justify-center py-12">
+                    <Calendar className="h-12 w-12 text-muted-foreground mb-4" />
+                    <h3 className="text-lg font-medium mb-2">No requests found</h3>
+                    <p className="text-muted-foreground text-center">
+                      {filter === 'all' ? 'You haven\'t submitted any time off requests yet.' : `No ${filter} requests found.`}
+                    </p>
+                  </CardContent>
+                </Card>
+              </PageSection>
             )}
           </TabsContent>
 
           {/* Policies Tab */}
           <TabsContent value="policies" className="space-y-6">
-            <PageSection index={5}>
+            <PageSection index={6}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {timeOffPolicies.map((policy, index) => (
                   <Card 
