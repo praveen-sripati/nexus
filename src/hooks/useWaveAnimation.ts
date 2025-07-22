@@ -35,7 +35,24 @@ export const useWaveAnimation = (options: UseWaveAnimationOptions = {}) => {
     );
 
     if (containerRef.current) {
-      observer.observe(containerRef.current);
+      // Small delay to ensure DOM is fully rendered
+      const checkVisibility = () => {
+        if (!containerRef.current) return;
+        
+        const rect = containerRef.current.getBoundingClientRect();
+        const isInView = rect.top < window.innerHeight && rect.bottom > 0;
+        
+        if (isInView) {
+          // Element is already visible, trigger animation immediately
+          setTimeout(() => setIsVisible(true), 150);
+        } else {
+          // Element is not visible, use observer
+          observer.observe(containerRef.current);
+        }
+      };
+      
+      // Check after a short delay to ensure proper rendering
+      setTimeout(checkVisibility, 50);
     }
 
     return () => observer.disconnect();

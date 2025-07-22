@@ -19,7 +19,7 @@ export const Dashboard: FC = () => {
   const [showWelcome, setShowWelcome] = useState(false);
   
   // Define default card order
-  const defaultMainCards = ['company-announcements', 'analytics', 'employee-directory', 'resources', 'projects', 'kudos-feed'];
+  const defaultMainCards = ['company-announcements', 'analytics', 'employee-directory', 'projects', 'resources', 'kudos-feed'];
   const defaultSidebarCards = ['quick-links', 'team-calendar', 'time-off'];
   
   const [mainCardOrder, setMainCardOrder] = useState<string[]>(defaultMainCards);
