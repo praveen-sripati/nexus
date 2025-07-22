@@ -2,7 +2,6 @@ import { Analytics } from '@/components/Analytics';
 import { CompanyAnnouncements } from '@/components/CompanyAnnouncements';
 import { DraggableCard } from '@/components/DraggableCard';
 import { EmployeeDirectory } from '@/components/EmployeeDirectory';
-import { ForYouFeed } from '@/components/ForYouFeed';
 import { Header } from '@/components/Header';
 import { KudosFeed } from '@/components/KudosFeed';
 import { Projects } from '@/components/Projects';
@@ -20,7 +19,7 @@ export const Dashboard: FC = () => {
   const [showWelcome, setShowWelcome] = useState(false);
   
   // Define default card order
-  const defaultMainCards = ['for-you-feed', 'company-announcements', 'analytics', 'resources', 'projects', 'employee-directory', 'kudos-feed'];
+  const defaultMainCards = ['company-announcements', 'analytics', 'resources', 'projects', 'employee-directory', 'kudos-feed'];
   const defaultSidebarCards = ['time-off', 'quick-links', 'team-calendar'];
   
   const [mainCardOrder, setMainCardOrder] = useState<string[]>(defaultMainCards);
@@ -84,8 +83,6 @@ export const Dashboard: FC = () => {
   // Render card component based on ID
   const renderMainCard = (cardId: string) => {
     switch (cardId) {
-      case 'for-you-feed':
-        return <ForYouFeed />;
       case 'company-announcements':
         return <CompanyAnnouncements />;
       case 'analytics':
@@ -135,13 +132,13 @@ export const Dashboard: FC = () => {
             isFocusMode ? 'col-span-1' : 'lg:col-span-8'
           }`}>
             {isFocusMode ? (
-              // In focus mode, only show ForYouFeed and CompanyAnnouncements
+              // In focus mode, only show CompanyAnnouncements and Analytics
               <>
-                <DraggableCard id="for-you-feed" onReorder={handleMainCardReorder}>
-                  <ForYouFeed />
-                </DraggableCard>
                 <DraggableCard id="company-announcements" onReorder={handleMainCardReorder}>
                   <CompanyAnnouncements />
+                </DraggableCard>
+                <DraggableCard id="analytics" onReorder={handleMainCardReorder}>
+                  <Analytics />
                 </DraggableCard>
               </>
             ) : (

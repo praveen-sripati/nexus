@@ -30,6 +30,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { ThemeToggle } from './ThemeToggle';
 import { Profile } from './Profile';
 import { GlobalSearch } from './GlobalSearch';
+import { NotificationDropdown } from './NotificationDropdown';
 
 export const Header: FC = () => {
   const { isFocusMode, toggleFocusMode } = useFocusMode();
@@ -96,6 +97,7 @@ export const Header: FC = () => {
                 {isFocusMode ? 'Exit Focus' : 'Focus Mode'}
               </span>
             </Button>
+            <NotificationDropdown />
             <ThemeToggle />
             <Profile />
           </div>
