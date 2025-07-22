@@ -19,8 +19,8 @@ export const Dashboard: FC = () => {
   const [showWelcome, setShowWelcome] = useState(false);
   
   // Define default card order
-  const defaultMainCards = ['company-announcements', 'analytics', 'resources', 'projects', 'employee-directory', 'kudos-feed'];
-  const defaultSidebarCards = ['time-off', 'quick-links', 'team-calendar'];
+  const defaultMainCards = ['company-announcements', 'analytics', 'employee-directory', 'resources', 'projects', 'kudos-feed'];
+  const defaultSidebarCards = ['quick-links', 'team-calendar', 'time-off'];
   
   const [mainCardOrder, setMainCardOrder] = useState<string[]>(defaultMainCards);
   const [sidebarCardOrder, setSidebarCardOrder] = useState<string[]>(defaultSidebarCards);
@@ -157,7 +157,7 @@ export const Dashboard: FC = () => {
           {/* Sidebar - Right Column - Hidden in focus mode */}
           {!isFocusMode && (
             <div className="lg:col-span-4">
-              <div className="sticky top-20 space-y-4 sm:space-y-6">
+              <div className="sticky top-32 space-y-4 sm:space-y-6">
                 {/* Show welcome checklist for new users */}
                 {showWelcome && (
                   <WelcomeChecklist onDismiss={handleWelcomeDismiss} />

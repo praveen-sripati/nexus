@@ -20,6 +20,7 @@ import {
   BarChart3, 
   FileText, 
   HelpCircle, 
+  Headphones,
   Clock,
   ChevronDown,
   Building2,
@@ -60,7 +61,7 @@ export const Header: FC = () => {
   // Support & Settings group  
   const supportNavItems = [
     { path: '/time-off', label: 'Time Off', icon: Clock },
-    { path: '/help-desk', label: 'Help Desk', icon: HelpCircle },
+    { path: '/help-desk', label: 'Help Desk', icon: Headphones },
   ];
 
   return (
