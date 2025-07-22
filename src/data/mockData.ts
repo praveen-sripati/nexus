@@ -48,6 +48,30 @@ export interface Kudo {
   timestamp: Date;
 }
 
+export interface Task {
+  id: string;
+  title: string;
+  description?: string;
+  status: 'todo' | 'in-progress' | 'completed';
+  priority: 'low' | 'medium' | 'high';
+  assignee?: string;
+  dueDate?: Date;
+  createdDate: Date;
+}
+
+export interface Project {
+  id: string;
+  name: string;
+  description: string;
+  status: 'active' | 'completed' | 'on-hold' | 'cancelled';
+  priority: 'low' | 'medium' | 'high';
+  progress: number; // 0-100
+  startDate: Date;
+  endDate: Date;
+  teamMembers: string[];
+  tasks: Task[];
+}
+
 export interface QuickLink {
   id: string;
   name: string;
@@ -362,5 +386,90 @@ export const defaultQuickLinks: QuickLink[] = [
     id: '3',
     name: 'Time Tracking',
     url: 'https://time.company.com'
+  }
+];
+
+// Mock projects data
+export const projects: Project[] = [
+  {
+    id: '1',
+    name: 'New Employee Onboarding System',
+    description: 'Redesign the employee onboarding process with digital workflows and automated paperwork to improve the new hire experience.',
+    status: 'active',
+    priority: 'high',
+    progress: 65,
+    startDate: new Date(2025, 6, 1), // July 1, 2025
+    endDate: new Date(2025, 8, 15), // September 15, 2025
+    teamMembers: ['Alex Thompson', 'Sarah Johnson', 'Marcus Williams', 'Priya Sharma'],
+    tasks: [
+      {
+        id: 'task-1',
+        title: 'Create onboarding workflow diagram',
+        description: 'Map out the complete onboarding process from offer acceptance to first day',
+        status: 'completed',
+        priority: 'high',
+        assignee: 'Alex Thompson',
+        dueDate: new Date(2025, 6, 10),
+        createdDate: new Date(2025, 6, 1)
+      },
+      {
+        id: 'task-2',
+        title: 'Design digital forms interface',
+        description: 'Create user-friendly digital forms to replace paper documentation',
+        status: 'in-progress',
+        priority: 'medium',
+        assignee: 'Sarah Johnson',
+        dueDate: new Date(2025, 7, 5),
+        createdDate: new Date(2025, 6, 5)
+      }
+    ]
+  },
+  {
+    id: '2',
+    name: 'Quarterly Performance Reviews',
+    description: 'Implement a comprehensive performance review system with 360-degree feedback, goal tracking, and development planning.',
+    status: 'active',
+    priority: 'medium',
+    progress: 30,
+    startDate: new Date(2025, 5, 15), // June 15, 2025
+    endDate: new Date(2025, 9, 30), // October 30, 2025
+    teamMembers: ['Emma Rodriguez', 'David Chen', 'Lisa Park'],
+    tasks: []
+  },
+  {
+    id: '3',
+    name: 'Office Space Optimization',
+    description: 'Analyze and optimize office layout for better collaboration, productivity, and employee satisfaction.',
+    status: 'completed',
+    priority: 'low',
+    progress: 100,
+    startDate: new Date(2025, 3, 1), // April 1, 2025
+    endDate: new Date(2025, 5, 30), // June 30, 2025
+    teamMembers: ['James Wilson', 'Maria Garcia'],
+    tasks: []
+  },
+  {
+    id: '4',
+    name: 'Remote Work Policy Update',
+    description: 'Update company remote work policies to reflect post-pandemic work arrangements and hybrid schedules.',
+    status: 'on-hold',
+    priority: 'medium',
+    progress: 45,
+    startDate: new Date(2025, 4, 1), // May 1, 2025
+    endDate: new Date(2025, 7, 31), // August 31, 2025
+    teamMembers: ['Carlos Mendoza', 'Jennifer Foster'],
+    tasks: []
+  },
+  {
+    id: '5',
+    name: 'Security Infrastructure Upgrade',
+    description: 'Upgrade company-wide security infrastructure including multi-factor authentication and endpoint protection.',
+    status: 'active',
+    priority: 'high',
+    progress: 80,
+    startDate: new Date(2025, 6, 1), // July 1, 2025
+    endDate: new Date(2025, 7, 15), // August 15, 2025
+    teamMembers: ['Alex Thompson', 'Kevin Chang', 'Rachel Kumar'],
+    tasks: []
   }
 ];

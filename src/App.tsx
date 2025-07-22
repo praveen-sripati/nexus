@@ -11,6 +11,11 @@ import { CompanyAnnouncementsPage } from './pages/CompanyAnnouncementsPage';
 import { KudosFeedPage } from './pages/KudosFeedPage';
 import { EmployeeDirectoryPage } from './pages/EmployeeDirectoryPage';
 import { CalendarPage } from './pages/CalendarPage';
+import { ProjectsPage } from './pages/ProjectsPage';
+import { AnalyticsPage } from './pages/AnalyticsPage';
+import { ResourcesPage } from './pages/ResourcesPage';
+import { HelpDeskPage } from './pages/HelpDeskPage';
+import { TimeOffPage } from './pages/TimeOffPage';
 
 const AppRoutes: FC = () => {
 
@@ -50,6 +55,36 @@ const AppRoutes: FC = () => {
         path="/calendar"
         element={
           <CalendarPage />
+        }
+      />
+      <Route
+        path="/projects"
+        element={
+          <ProjectsPage />
+        }
+      />
+      <Route
+        path="/analytics"
+        element={
+          <AnalyticsPage />
+        }
+      />
+      <Route
+        path="/resources"
+        element={
+          <ResourcesPage />
+        }
+      />
+      <Route
+        path="/help-desk"
+        element={
+          <HelpDeskPage />
+        }
+      />
+      <Route
+        path="/time-off"
+        element={
+          <TimeOffPage />
         }
       />
     </Routes>

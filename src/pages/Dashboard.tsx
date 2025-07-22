@@ -4,6 +4,7 @@ import { EmployeeDirectory } from '@/components/EmployeeDirectory';
 import { ForYouFeed } from '@/components/ForYouFeed';
 import { Header } from '@/components/Header';
 import { KudosFeed } from '@/components/KudosFeed';
+import { Projects } from '@/components/Projects';
 import { QuickLinks } from '@/components/QuickLinks';
 import { TeamCalendar } from '@/components/TeamCalendar';
 import { WelcomeChecklist } from '@/components/WelcomeChecklist';
@@ -16,7 +17,7 @@ export const Dashboard: FC = () => {
   const [showWelcome, setShowWelcome] = useState(false);
   
   // Define default card order
-  const defaultMainCards = ['for-you-feed', 'company-announcements', 'employee-directory', 'kudos-feed'];
+  const defaultMainCards = ['for-you-feed', 'company-announcements', 'projects', 'employee-directory', 'kudos-feed'];
   const defaultSidebarCards = ['quick-links', 'team-calendar'];
   
   const [mainCardOrder, setMainCardOrder] = useState<string[]>(defaultMainCards);
@@ -84,6 +85,8 @@ export const Dashboard: FC = () => {
         return <ForYouFeed />;
       case 'company-announcements':
         return <CompanyAnnouncements />;
+      case 'projects':
+        return <Projects />;
       case 'employee-directory':
         return <EmployeeDirectory />;
       case 'kudos-feed':
