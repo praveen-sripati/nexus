@@ -48,6 +48,53 @@ export interface Kudo {
   timestamp: Date;
 }
 
+// Analytics interfaces
+export interface AnalyticsMetric {
+  id: string;
+  name: string;
+  value: number;
+  previousValue: number;
+  change: number;
+  changeType: 'increase' | 'decrease';
+  unit: string;
+  icon: string;
+}
+
+export interface ActivityData {
+  date: string;
+  projects: number;
+  kudos: number;
+  announcements: number;
+  employees: number;
+}
+
+export interface DepartmentData {
+  department: string;
+  employees: number;
+  projects: number;
+  satisfaction: number;
+}
+
+export interface ProjectStatusData {
+  status: string;
+  count: number;
+  percentage: number;
+}
+
+export interface EngagementData {
+  month: string;
+  kudosGiven: number;
+  kudosReceived: number;
+  announcements: number;
+}
+
+export interface ProductivityData {
+  week: string;
+  tasksCompleted: number;
+  projectsDelivered: number;
+  teamEfficiency: number;
+}
+
 export interface Task {
   id: string;
   title: string;
@@ -472,4 +519,95 @@ export const projects: Project[] = [
     teamMembers: ['Alex Thompson', 'Kevin Chang', 'Rachel Kumar'],
     tasks: []
   }
+];
+
+// Analytics Data
+export const analyticsMetrics: AnalyticsMetric[] = [
+  {
+    id: '1',
+    name: 'Active Projects',
+    value: 12,
+    previousValue: 10,
+    change: 20,
+    changeType: 'increase',
+    unit: 'projects',
+    icon: 'FolderOpen'
+  },
+  {
+    id: '2',
+    name: 'Team Members',
+    value: 45,
+    previousValue: 42,
+    change: 7.1,
+    changeType: 'increase',
+    unit: 'members',
+    icon: 'Users'
+  },
+  {
+    id: '3',
+    name: 'Kudos Given',
+    value: 128,
+    previousValue: 95,
+    change: 34.7,
+    changeType: 'increase',
+    unit: 'kudos',
+    icon: 'Heart'
+  },
+  {
+    id: '4',
+    name: 'Project Completion Rate',
+    value: 87.5,
+    previousValue: 82.3,
+    change: 6.3,
+    changeType: 'increase',
+    unit: '%',
+    icon: 'TrendingUp'
+  }
+];
+
+export const activityData: ActivityData[] = [
+  { date: '2025-07-15', projects: 8, kudos: 12, announcements: 3, employees: 42 },
+  { date: '2025-07-16', projects: 10, kudos: 15, announcements: 2, employees: 43 },
+  { date: '2025-07-17', projects: 9, kudos: 18, announcements: 4, employees: 43 },
+  { date: '2025-07-18', projects: 12, kudos: 22, announcements: 1, employees: 44 },
+  { date: '2025-07-19', projects: 11, kudos: 16, announcements: 3, employees: 45 },
+  { date: '2025-07-20', projects: 13, kudos: 25, announcements: 2, employees: 45 },
+  { date: '2025-07-21', projects: 12, kudos: 20, announcements: 5, employees: 45 },
+  { date: '2025-07-22', projects: 14, kudos: 28, announcements: 3, employees: 45 }
+];
+
+export const departmentData: DepartmentData[] = [
+  { department: 'Engineering', employees: 18, projects: 8, satisfaction: 4.2 },
+  { department: 'Design', employees: 6, projects: 4, satisfaction: 4.5 },
+  { department: 'Product', employees: 8, projects: 6, satisfaction: 4.1 },
+  { department: 'Marketing', employees: 5, projects: 3, satisfaction: 4.3 },
+  { department: 'Sales', employees: 4, projects: 2, satisfaction: 4.0 },
+  { department: 'HR', employees: 3, projects: 1, satisfaction: 4.4 },
+  { department: 'Executive', employees: 1, projects: 1, satisfaction: 4.8 }
+];
+
+export const projectStatusData: ProjectStatusData[] = [
+  { status: 'Active', count: 8, percentage: 66.7 },
+  { status: 'Completed', count: 3, percentage: 25.0 },
+  { status: 'On Hold', count: 1, percentage: 8.3 }
+];
+
+export const engagementData: EngagementData[] = [
+  { month: 'Jan', kudosGiven: 85, kudosReceived: 82, announcements: 12 },
+  { month: 'Feb', kudosGiven: 92, kudosReceived: 89, announcements: 15 },
+  { month: 'Mar', kudosGiven: 78, kudosReceived: 81, announcements: 18 },
+  { month: 'Apr', kudosGiven: 105, kudosReceived: 98, announcements: 14 },
+  { month: 'May', kudosGiven: 118, kudosReceived: 115, announcements: 16 },
+  { month: 'Jun', kudosGiven: 134, kudosReceived: 128, announcements: 20 },
+  { month: 'Jul', kudosGiven: 128, kudosReceived: 132, announcements: 22 }
+];
+
+export const productivityData: ProductivityData[] = [
+  { week: 'Week 1', tasksCompleted: 45, projectsDelivered: 2, teamEfficiency: 85 },
+  { week: 'Week 2', tasksCompleted: 52, projectsDelivered: 1, teamEfficiency: 88 },
+  { week: 'Week 3', tasksCompleted: 48, projectsDelivered: 3, teamEfficiency: 92 },
+  { week: 'Week 4', tasksCompleted: 58, projectsDelivered: 2, teamEfficiency: 87 },
+  { week: 'Week 5', tasksCompleted: 61, projectsDelivered: 4, teamEfficiency: 95 },
+  { week: 'Week 6', tasksCompleted: 55, projectsDelivered: 2, teamEfficiency: 89 },
+  { week: 'Week 7', tasksCompleted: 63, projectsDelivered: 3, teamEfficiency: 93 }
 ];

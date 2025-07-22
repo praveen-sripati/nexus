@@ -1,3 +1,4 @@
+import { Analytics } from '@/components/Analytics';
 import { CompanyAnnouncements } from '@/components/CompanyAnnouncements';
 import { DraggableCard } from '@/components/DraggableCard';
 import { EmployeeDirectory } from '@/components/EmployeeDirectory';
@@ -18,7 +19,7 @@ export const Dashboard: FC = () => {
   
   // Define default card order
   const defaultMainCards = ['for-you-feed', 'company-announcements', 'projects', 'employee-directory', 'kudos-feed'];
-  const defaultSidebarCards = ['quick-links', 'team-calendar'];
+  const defaultSidebarCards = ['analytics', 'quick-links', 'team-calendar'];
   
   const [mainCardOrder, setMainCardOrder] = useState<string[]>(defaultMainCards);
   const [sidebarCardOrder, setSidebarCardOrder] = useState<string[]>(defaultSidebarCards);
@@ -98,6 +99,8 @@ export const Dashboard: FC = () => {
 
   const renderSidebarCard = (cardId: string) => {
     switch (cardId) {
+      case 'analytics':
+        return <Analytics />;
       case 'quick-links':
         return <QuickLinks />;
       case 'team-calendar':
