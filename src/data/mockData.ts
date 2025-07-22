@@ -611,3 +611,212 @@ export const productivityData: ProductivityData[] = [
   { week: 'Week 6', tasksCompleted: 55, projectsDelivered: 2, teamEfficiency: 89 },
   { week: 'Week 7', tasksCompleted: 63, projectsDelivered: 3, teamEfficiency: 93 }
 ];
+
+export interface Resource {
+  id: string;
+  title: string;
+  description: string;
+  category: 'policy' | 'template' | 'training' | 'procedure' | 'reference';
+  type: 'pdf' | 'doc' | 'ppt' | 'xls' | 'video' | 'link';
+  size?: string;
+  uploadedAt: Date;
+  uploadedBy: string;
+  downloadCount: number;
+  isFavorite: boolean;
+  tags: string[];
+  department?: string;
+}
+
+export interface ResourceCategory {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  count: number;
+  color: string;
+}
+
+export const resourceCategories: ResourceCategory[] = [
+  {
+    id: 'policy',
+    name: 'Policies & Procedures',
+    description: 'Company policies, guidelines, and standard procedures',
+    icon: 'BookOpen',
+    count: 15,
+    color: 'blue'
+  },
+  {
+    id: 'template',
+    name: 'Templates & Forms',
+    description: 'Document templates, forms, and standardized formats',
+    icon: 'FileText',
+    count: 12,
+    color: 'green'
+  },
+  {
+    id: 'training',
+    name: 'Training Materials',
+    description: 'Learning resources, courses, and training documentation',
+    icon: 'GraduationCap',
+    count: 8,
+    color: 'purple'
+  },
+  {
+    id: 'procedure',
+    name: 'Process Documentation',
+    description: 'Step-by-step guides and operational procedures',
+    icon: 'Settings',
+    count: 10,
+    color: 'orange'
+  },
+  {
+    id: 'reference',
+    name: 'Reference Materials',
+    description: 'Quick references, cheat sheets, and documentation',
+    icon: 'Library',
+    count: 6,
+    color: 'teal'
+  }
+];
+
+export const resourcesData: Resource[] = [
+  {
+    id: '1',
+    title: 'Employee Handbook 2025',
+    description: 'Complete guide to company policies, benefits, and procedures',
+    category: 'policy',
+    type: 'pdf',
+    size: '2.4 MB',
+    uploadedAt: new Date('2025-01-15'),
+    uploadedBy: 'Sarah Johnson',
+    downloadCount: 145,
+    isFavorite: true,
+    tags: ['HR', 'policies', 'benefits'],
+    department: 'HR'
+  },
+  {
+    id: '2',
+    title: 'Code Review Guidelines',
+    description: 'Best practices and standards for code review process',
+    category: 'procedure',
+    type: 'doc',
+    size: '850 KB',
+    uploadedAt: new Date('2025-01-20'),
+    uploadedBy: 'Mike Chen',
+    downloadCount: 89,
+    isFavorite: false,
+    tags: ['development', 'guidelines', 'quality'],
+    department: 'Engineering'
+  },
+  {
+    id: '3',
+    title: 'Project Proposal Template',
+    description: 'Standard template for new project proposals and planning',
+    category: 'template',
+    type: 'doc',
+    size: '125 KB',
+    uploadedAt: new Date('2025-01-18'),
+    uploadedBy: 'Alex Rivera',
+    downloadCount: 67,
+    isFavorite: true,
+    tags: ['template', 'project', 'planning'],
+    department: 'Product'
+  },
+  {
+    id: '4',
+    title: 'Security Training Module',
+    description: 'Cybersecurity awareness and best practices training',
+    category: 'training',
+    type: 'video',
+    size: '156 MB',
+    uploadedAt: new Date('2025-01-10'),
+    uploadedBy: 'Jennifer Davis',
+    downloadCount: 234,
+    isFavorite: false,
+    tags: ['security', 'training', 'awareness'],
+    department: 'IT'
+  },
+  {
+    id: '5',
+    title: 'Brand Guidelines',
+    description: 'Logo usage, color palette, and brand identity guidelines',
+    category: 'reference',
+    type: 'pdf',
+    size: '5.2 MB',
+    uploadedAt: new Date('2025-01-12'),
+    uploadedBy: 'Emma Wilson',
+    downloadCount: 78,
+    isFavorite: true,
+    tags: ['branding', 'design', 'guidelines'],
+    department: 'Marketing'
+  },
+  {
+    id: '6',
+    title: 'Expense Report Form',
+    description: 'Monthly expense reporting template and submission guidelines',
+    category: 'template',
+    type: 'xls',
+    size: '45 KB',
+    uploadedAt: new Date('2025-01-22'),
+    uploadedBy: 'David Brown',
+    downloadCount: 156,
+    isFavorite: false,
+    tags: ['expenses', 'finance', 'reporting'],
+    department: 'Finance'
+  },
+  {
+    id: '7',
+    title: 'Remote Work Policy',
+    description: 'Guidelines and requirements for remote and hybrid work',
+    category: 'policy',
+    type: 'pdf',
+    size: '1.8 MB',
+    uploadedAt: new Date('2025-01-08'),
+    uploadedBy: 'Sarah Johnson',
+    downloadCount: 198,
+    isFavorite: true,
+    tags: ['remote work', 'policy', 'hybrid'],
+    department: 'HR'
+  },
+  {
+    id: '8',
+    title: 'API Documentation Style Guide',
+    description: 'Standards for documenting APIs and technical specifications',
+    category: 'reference',
+    type: 'link',
+    uploadedAt: new Date('2025-01-25'),
+    uploadedBy: 'Mike Chen',
+    downloadCount: 42,
+    isFavorite: false,
+    tags: ['API', 'documentation', 'standards'],
+    department: 'Engineering'
+  },
+  {
+    id: '9',
+    title: 'New Employee Onboarding Checklist',
+    description: 'Complete checklist for onboarding new team members',
+    category: 'procedure',
+    type: 'doc',
+    size: '340 KB',
+    uploadedAt: new Date('2025-01-14'),
+    uploadedBy: 'Sarah Johnson',
+    downloadCount: 89,
+    isFavorite: false,
+    tags: ['onboarding', 'checklist', 'HR'],
+    department: 'HR'
+  },
+  {
+    id: '10',
+    title: 'Quarterly Review Template',
+    description: 'Template for employee performance reviews and goal setting',
+    category: 'template',
+    type: 'doc',
+    size: '280 KB',
+    uploadedAt: new Date('2025-01-16'),
+    uploadedBy: 'Sarah Johnson',
+    downloadCount: 72,
+    isFavorite: true,
+    tags: ['performance', 'review', 'template'],
+    department: 'HR'
+  }
+];

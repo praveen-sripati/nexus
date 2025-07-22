@@ -7,6 +7,7 @@ import { Header } from '@/components/Header';
 import { KudosFeed } from '@/components/KudosFeed';
 import { Projects } from '@/components/Projects';
 import { QuickLinks } from '@/components/QuickLinks';
+import { Resources } from '@/components/Resources';
 import { TeamCalendar } from '@/components/TeamCalendar';
 import { WelcomeChecklist } from '@/components/WelcomeChecklist';
 import { useFocusMode } from '@/contexts/FocusModeContext';
@@ -19,7 +20,7 @@ export const Dashboard: FC = () => {
   
   // Define default card order
   const defaultMainCards = ['for-you-feed', 'company-announcements', 'projects', 'employee-directory', 'kudos-feed'];
-  const defaultSidebarCards = ['analytics', 'quick-links', 'team-calendar'];
+  const defaultSidebarCards = ['analytics', 'resources', 'quick-links', 'team-calendar'];
   
   const [mainCardOrder, setMainCardOrder] = useState<string[]>(defaultMainCards);
   const [sidebarCardOrder, setSidebarCardOrder] = useState<string[]>(defaultSidebarCards);
@@ -101,6 +102,8 @@ export const Dashboard: FC = () => {
     switch (cardId) {
       case 'analytics':
         return <Analytics />;
+      case 'resources':
+        return <Resources />;
       case 'quick-links':
         return <QuickLinks />;
       case 'team-calendar':
