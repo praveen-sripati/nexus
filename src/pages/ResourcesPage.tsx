@@ -5,7 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Header } from '@/components/Header';
-import { PageWrapper } from '@/components/PageWrapper';
+import { PageWrapper, PageSection } from '@/components/PageWrapper';
 import { resourceCategories, resourcesData, type Resource } from '@/data/mockData';
 import { 
   ArrowLeft, 
@@ -64,11 +64,18 @@ const getCategoryIcon = (iconName: string) => {
   }
 };
 
-const ResourceCard: FC<{ resource: Resource; onToggleFavorite: (id: string) => void }> = ({ 
+const ResourceCard: FC<{ 
+  resource: Resource; 
+  onToggleFavorite: (id: string) => void;
+  className?: string;
+  style?: React.CSSProperties;
+}> = ({ 
   resource, 
-  onToggleFavorite 
+  onToggleFavorite,
+  className = '',
+  style
 }) => (
-  <Card className="hover:shadow-md transition-shadow">
+  <Card className={`hover:shadow-md transition-shadow ${className}`} style={style}>
     <CardContent className="p-4">
       <div className="space-y-3">
         <div className="flex items-start justify-between">
@@ -167,7 +174,7 @@ export const ResourcesPage: FC = () => {
       
       <PageWrapper className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
         {/* Header Section */}
-        <div className="mb-6">
+        <PageSection index={0} className="mb-6">
           <div className="flex items-center gap-4 mb-4">
             <Link to="/">
               <Button variant="ghost" size="sm" className="gap-2">
@@ -183,25 +190,28 @@ export const ResourcesPage: FC = () => {
               Access company policies, documents, templates, and resources
             </p>
           </div>
-        </div>
+        </PageSection>
 
         <Tabs defaultValue="browse" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2 max-w-md">
-            <TabsTrigger value="browse" className="gap-2">
-              <Search className="h-4 w-4" />
-              Browse Resources
-            </TabsTrigger>
-            <TabsTrigger value="categories" className="gap-2">
-              <BookOpen className="h-4 w-4" />
-              Categories
-            </TabsTrigger>
-          </TabsList>
+          <PageSection index={1}>
+            <TabsList className="grid w-full grid-cols-2 max-w-md">
+              <TabsTrigger value="browse" className="gap-2">
+                <Search className="h-4 w-4" />
+                Browse Resources
+              </TabsTrigger>
+              <TabsTrigger value="categories" className="gap-2">
+                <BookOpen className="h-4 w-4" />
+                Categories
+              </TabsTrigger>
+            </TabsList>
+          </PageSection>
 
           {/* Browse Tab */}
           <TabsContent value="browse" className="space-y-6">
             {/* Search and Filters */}
-            <Card>
-              <CardContent className="p-4">
+            <PageSection index={2}>
+              <Card>
+                <CardContent className="p-4">
                 <div className="space-y-4">
                   <div className="flex flex-col sm:flex-row gap-4">
                     <div className="relative flex-1">
@@ -256,9 +266,10 @@ export const ResourcesPage: FC = () => {
                 </div>
               </CardContent>
             </Card>
+            </PageSection>
 
             {/* Results */}
-            <div className="space-y-4">
+            <PageSection index={3} className="space-y-4">
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-semibold">
                   {filteredResources.length} Resources Found
@@ -269,11 +280,13 @@ export const ResourcesPage: FC = () => {
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {filteredResources.map((resource) => (
+                {filteredResources.map((resource, index) => (
                   <ResourceCard
                     key={resource.id}
                     resource={resource}
                     onToggleFavorite={handleToggleFavorite}
+                    style={{ animationDelay: `${index * 50}ms` }}
+                    className="animate-in fade-in slide-in-from-bottom-4 duration-300"
                   />
                 ))}
               </div>
@@ -289,14 +302,19 @@ export const ResourcesPage: FC = () => {
                   </CardContent>
                 </Card>
               )}
-            </div>
+            </PageSection>
           </TabsContent>
 
           {/* Categories Tab */}
           <TabsContent value="categories" className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {resourceCategories.map((category) => (
-                <Card key={category.id} className="hover:shadow-md transition-shadow cursor-pointer">
+            <PageSection index={4}>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {resourceCategories.map((category, index) => (
+                  <Card 
+                    key={category.id} 
+                    className="hover:shadow-md transition-shadow cursor-pointer animate-in fade-in slide-in-from-bottom-4 duration-300"
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
                   <CardHeader className="pb-3">
                     <div className="flex items-center gap-3">
                       <div className={`p-2 rounded-lg bg-${category.color}-100 text-${category.color}-600`}>
@@ -315,7 +333,8 @@ export const ResourcesPage: FC = () => {
                   </CardContent>
                 </Card>
               ))}
-            </div>
+              </div>
+            </PageSection>
           </TabsContent>
         </Tabs>
       </PageWrapper>

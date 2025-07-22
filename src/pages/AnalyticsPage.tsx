@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Header } from '@/components/Header';
-import { PageWrapper } from '@/components/PageWrapper';
+import { PageWrapper, PageSection } from '@/components/PageWrapper';
 import { 
   analyticsMetrics, 
   activityData, 
@@ -113,7 +113,7 @@ export const AnalyticsPage: FC = () => {
       
       <PageWrapper className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
         {/* Header Section */}
-        <div className="mb-6">
+        <PageSection index={0} className="mb-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
             <Link to="/">
               <Button variant="ghost" size="sm" className="gap-2 self-start">
@@ -150,31 +150,39 @@ export const AnalyticsPage: FC = () => {
               Comprehensive insights into team performance, engagement, and productivity
             </p>
           </div>
-        </div>
+        </PageSection>
 
         {/* Key Metrics */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6">
-          {analyticsMetrics.map((metric) => (
-            <MetricCard key={metric.id} metric={metric} />
+        <PageSection index={1} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6">
+          {analyticsMetrics.map((metric, index) => (
+            <div
+              key={metric.id}
+              className="animate-in fade-in slide-in-from-bottom-4 duration-300"
+              style={{ animationDelay: `${index * 100}ms` }}
+            >
+              <MetricCard metric={metric} />
+            </div>
           ))}
-        </div>
+        </PageSection>
 
         {/* Analytics Tabs */}
         <Tabs defaultValue="overview" className="space-y-6">
-          <div className="w-full overflow-x-auto">
-            <TabsList className="grid w-full grid-cols-4 lg:w-auto lg:inline-flex">
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="engagement">Engagement</TabsTrigger>
-              <TabsTrigger value="productivity">Productivity</TabsTrigger>
-              <TabsTrigger value="departments">Departments</TabsTrigger>
-            </TabsList>
-          </div>
+          <PageSection index={2}>
+            <div className="w-full overflow-x-auto">
+              <TabsList className="grid w-full grid-cols-4 lg:w-auto lg:inline-flex">
+                <TabsTrigger value="overview">Overview</TabsTrigger>
+                <TabsTrigger value="engagement">Engagement</TabsTrigger>
+                <TabsTrigger value="productivity">Productivity</TabsTrigger>
+                <TabsTrigger value="departments">Departments</TabsTrigger>
+              </TabsList>
+            </div>
+          </PageSection>
 
           {/* Overview Tab */}
           <TabsContent value="overview" className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <PageSection index={3} className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Activity Trends */}
-              <Card>
+              <Card className="animate-in fade-in slide-in-from-left-4 duration-500" style={{ animationDelay: '100ms' }}>
                 <CardHeader>
                   <CardTitle className="text-lg">Activity Trends</CardTitle>
                 </CardHeader>
@@ -202,7 +210,7 @@ export const AnalyticsPage: FC = () => {
               </Card>
 
               {/* Project Status Distribution */}
-              <Card>
+              <Card className="animate-in fade-in slide-in-from-right-4 duration-500" style={{ animationDelay: '200ms' }}>
                 <CardHeader>
                   <CardTitle className="text-lg">Project Status Distribution</CardTitle>
                 </CardHeader>
@@ -228,7 +236,7 @@ export const AnalyticsPage: FC = () => {
                   </ResponsiveContainer>
                 </CardContent>
               </Card>
-            </div>
+            </PageSection>
           </TabsContent>
 
           {/* Engagement Tab */}

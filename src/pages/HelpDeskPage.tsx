@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Header } from '@/components/Header';
-import { PageWrapper } from '@/components/PageWrapper';
+import { PageWrapper, PageSection } from '@/components/PageWrapper';
 import { 
   helpdeskTickets, 
   helpdeskKnowledgeBase,
@@ -112,8 +112,11 @@ const formatDate = (date: Date) => {
   }).format(date);
 };
 
-const TicketCard: FC<{ ticket: HelpdeskTicket }> = ({ ticket }) => (
-  <Card className="hover:shadow-md transition-shadow">
+const TicketCard: FC<{ ticket: HelpdeskTicket; index?: number }> = ({ ticket, index = 0 }) => (
+  <Card 
+    className="hover:shadow-md transition-shadow animate-in fade-in slide-in-from-bottom-4 duration-300"
+    style={{ animationDelay: `${(index + 1) * 100}ms` }}
+  >
     <CardContent className="p-4">
       <div className="space-y-3">
         <div className="flex items-start justify-between">
@@ -148,8 +151,11 @@ const TicketCard: FC<{ ticket: HelpdeskTicket }> = ({ ticket }) => (
   </Card>
 );
 
-const KnowledgeBaseCard: FC<{ article: HelpdeskKnowledgeBase }> = ({ article }) => (
-  <Card className="hover:shadow-md transition-shadow cursor-pointer">
+const KnowledgeBaseCard: FC<{ article: HelpdeskKnowledgeBase; index?: number }> = ({ article, index = 0 }) => (
+  <Card 
+    className="hover:shadow-md transition-shadow cursor-pointer animate-in fade-in slide-in-from-bottom-4 duration-300"
+    style={{ animationDelay: `${(index + 1) * 100}ms` }}
+  >
     <CardContent className="p-4">
       <div className="space-y-3">
         <div className="flex items-start justify-between">
@@ -356,7 +362,7 @@ export const HelpDeskPage: FC = () => {
       
       <PageWrapper className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
         {/* Header Section */}
-        <div className="mb-6">
+        <PageSection index={0} className="mb-6">
           <div className="flex items-center gap-4 mb-4">
             <Link to="/">
               <Button variant="ghost" size="sm" className="gap-2">
@@ -378,32 +384,32 @@ export const HelpDeskPage: FC = () => {
               onOpenChange={(open) => !open && setAutoOpenNewTicket(false)}
             />
           </div>
-        </div>
+        </PageSection>
 
         {/* Summary Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          <Card>
+        <PageSection index={1} className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <Card className="animate-in fade-in slide-in-from-bottom-4 duration-300" style={{ animationDelay: '100ms' }}>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-blue-600">{openTickets}</div>
               <p className="text-sm text-muted-foreground">Open Tickets</p>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="animate-in fade-in slide-in-from-bottom-4 duration-300" style={{ animationDelay: '200ms' }}>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-yellow-600">{inProgressTickets}</div>
               <p className="text-sm text-muted-foreground">In Progress</p>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="animate-in fade-in slide-in-from-bottom-4 duration-300" style={{ animationDelay: '300ms' }}>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-green-600">{resolvedTickets}</div>
               <p className="text-sm text-muted-foreground">Resolved Today</p>
             </CardContent>
           </Card>
-        </div>
+        </PageSection>
 
         {/* Search Bar */}
-        <div className="mb-6">
+        <PageSection index={2} className="mb-6">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
@@ -413,10 +419,11 @@ export const HelpDeskPage: FC = () => {
               className="pl-10"
             />
           </div>
-        </div>
+        </PageSection>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3 max-w-md">
+        <PageSection index={3}>
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+            <TabsList className="grid w-full grid-cols-3 max-w-md">
             <TabsTrigger value="tickets" className="gap-2">
               <MessageSquare className="h-4 w-4" />
               My Tickets
@@ -449,11 +456,13 @@ export const HelpDeskPage: FC = () => {
               </Select>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {filteredTickets.map((ticket) => (
-                <TicketCard key={ticket.id} ticket={ticket} />
-              ))}
-            </div>
+            <PageSection index={4}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {filteredTickets.map((ticket, index) => (
+                  <TicketCard key={ticket.id} ticket={ticket} index={index} />
+                ))}
+              </div>
+            </PageSection>
             
             {filteredTickets.length === 0 && (
               <Card>
@@ -480,11 +489,13 @@ export const HelpDeskPage: FC = () => {
               </div>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {filteredKnowledgeBase.map((article) => (
-                <KnowledgeBaseCard key={article.id} article={article} />
-              ))}
-            </div>
+            <PageSection index={5}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {filteredKnowledgeBase.map((article, index) => (
+                  <KnowledgeBaseCard key={article.id} article={article} index={index} />
+                ))}
+              </div>
+            </PageSection>
             
             {filteredKnowledgeBase.length === 0 && (
               <Card>
@@ -501,14 +512,15 @@ export const HelpDeskPage: FC = () => {
 
           {/* Contact Tab */}
           <TabsContent value="contact" className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Phone className="h-5 w-5 text-green-600" />
-                    Emergency Support
-                  </CardTitle>
-                </CardHeader>
+            <PageSection index={6}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <Card className="animate-in fade-in slide-in-from-bottom-4 duration-300" style={{ animationDelay: '100ms' }}>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Phone className="h-5 w-5 text-green-600" />
+                      Emergency Support
+                    </CardTitle>
+                  </CardHeader>
                 <CardContent className="space-y-3">
                   <p className="text-sm text-muted-foreground">
                     For critical issues that require immediate attention
@@ -526,13 +538,13 @@ export const HelpDeskPage: FC = () => {
                 </CardContent>
               </Card>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Mail className="h-5 w-5 text-blue-600" />
-                    General Support
-                  </CardTitle>
-                </CardHeader>
+                <Card className="animate-in fade-in slide-in-from-bottom-4 duration-300" style={{ animationDelay: '200ms' }}>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Mail className="h-5 w-5 text-blue-600" />
+                      General Support
+                    </CardTitle>
+                  </CardHeader>
                 <CardContent className="space-y-3">
                   <p className="text-sm text-muted-foreground">
                     For non-urgent issues and general inquiries
@@ -548,10 +560,12 @@ export const HelpDeskPage: FC = () => {
                     </div>
                   </div>
                 </CardContent>
-              </Card>
-            </div>
+                </Card>
+              </div>
+            </PageSection>
 
-            <Card>
+            <PageSection index={7}>
+              <Card className="animate-in fade-in slide-in-from-bottom-4 duration-300" style={{ animationDelay: '100ms' }}>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <MessageSquare className="h-5 w-5 text-purple-600" />
@@ -578,8 +592,10 @@ export const HelpDeskPage: FC = () => {
                 </Button>
               </CardContent>
             </Card>
+            </PageSection>
           </TabsContent>
         </Tabs>
+        </PageSection>
       </PageWrapper>
     </div>
   );

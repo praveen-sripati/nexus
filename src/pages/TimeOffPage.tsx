@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Header } from '@/components/Header';
-import { PageWrapper } from '@/components/PageWrapper';
+import { PageWrapper, PageSection } from '@/components/PageWrapper';
 import { 
   userTimeOffBalance, 
   timeOffRequests, 
@@ -89,8 +89,13 @@ const formatDate = (date: Date) => {
   }).format(date);
 };
 
-const BalanceCard: FC<{ balance: TimeOffBalance; policy: TimeOffPolicy | undefined }> = ({ balance, policy }) => (
-  <Card>
+const BalanceCard: FC<{ 
+  balance: TimeOffBalance; 
+  policy: TimeOffPolicy | undefined;
+  className?: string;
+  style?: React.CSSProperties;
+}> = ({ balance, policy, className = '', style }) => (
+  <Card className={className} style={style}>
     <CardContent className="p-4">
       <div className="space-y-3">
         <div className="flex items-center justify-between">
@@ -128,8 +133,12 @@ const BalanceCard: FC<{ balance: TimeOffBalance; policy: TimeOffPolicy | undefin
   </Card>
 );
 
-const RequestCard: FC<{ request: TimeOffRequest }> = ({ request }) => (
-  <Card className="hover:shadow-md transition-shadow">
+const RequestCard: FC<{ 
+  request: TimeOffRequest;
+  className?: string;
+  style?: React.CSSProperties;
+}> = ({ request, className = '', style }) => (
+  <Card className={`hover:shadow-md transition-shadow ${className}`} style={style}>
     <CardContent className="p-4">
       <div className="space-y-3">
         <div className="flex items-start justify-between">
@@ -352,7 +361,7 @@ export const TimeOffPage: FC = () => {
       
       <PageWrapper className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
         {/* Header Section */}
-        <div className="mb-6">
+        <PageSection index={0} className="mb-6">
           <div className="flex items-center gap-4 mb-4">
             <Link to="/">
               <Button variant="ghost" size="sm" className="gap-2">
@@ -371,23 +380,23 @@ export const TimeOffPage: FC = () => {
             </div>
             <NewRequestDialog />
           </div>
-        </div>
+        </PageSection>
 
         {/* Summary Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          <Card>
+        <PageSection index={1} className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <Card className="animate-in fade-in slide-in-from-bottom-4 duration-300" style={{ animationDelay: '100ms' }}>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-primary">{totalDaysRemaining}</div>
               <p className="text-sm text-muted-foreground">Days Remaining</p>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="animate-in fade-in slide-in-from-bottom-4 duration-300" style={{ animationDelay: '200ms' }}>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-orange-600">{totalDaysUsed}</div>
               <p className="text-sm text-muted-foreground">Days Used</p>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="animate-in fade-in slide-in-from-bottom-4 duration-300" style={{ animationDelay: '300ms' }}>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-green-600">
                 {timeOffRequests.filter(r => r.status === 'pending').length}
@@ -395,62 +404,75 @@ export const TimeOffPage: FC = () => {
               <p className="text-sm text-muted-foreground">Pending Requests</p>
             </CardContent>
           </Card>
-        </div>
+        </PageSection>
 
         <Tabs defaultValue="balance" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3 max-w-md">
-            <TabsTrigger value="balance" className="gap-2">
-              <CalendarDays className="h-4 w-4" />
-              Balance
-            </TabsTrigger>
-            <TabsTrigger value="requests" className="gap-2">
-              <FileText className="h-4 w-4" />
-              Requests
-            </TabsTrigger>
-            <TabsTrigger value="policies" className="gap-2">
-              <MapPin className="h-4 w-4" />
-              Policies
-            </TabsTrigger>
-          </TabsList>
+          <PageSection index={2}>
+            <TabsList className="grid w-full grid-cols-3 max-w-md">
+              <TabsTrigger value="balance" className="gap-2">
+                <CalendarDays className="h-4 w-4" />
+                Balance
+              </TabsTrigger>
+              <TabsTrigger value="requests" className="gap-2">
+                <FileText className="h-4 w-4" />
+                Requests
+              </TabsTrigger>
+              <TabsTrigger value="policies" className="gap-2">
+                <MapPin className="h-4 w-4" />
+                Policies
+              </TabsTrigger>
+            </TabsList>
+          </PageSection>
 
           {/* Balance Tab */}
           <TabsContent value="balance" className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {userTimeOffBalance.map((balance) => {
-                const policy = timeOffPolicies.find(p => p.type === balance.type);
-                return (
-                  <BalanceCard
-                    key={balance.type}
-                    balance={balance}
-                    policy={policy}
-                  />
-                );
-              })}
-            </div>
+            <PageSection index={3}>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {userTimeOffBalance.map((balance, index) => {
+                  const policy = timeOffPolicies.find(p => p.type === balance.type);
+                  return (
+                    <BalanceCard
+                      key={balance.type}
+                      balance={balance}
+                      policy={policy}
+                      className="animate-in fade-in slide-in-from-bottom-4 duration-300"
+                      style={{ animationDelay: `${(index + 1) * 100}ms` }}
+                    />
+                  );
+                })}
+              </div>
+            </PageSection>
           </TabsContent>
 
           {/* Requests Tab */}
           <TabsContent value="requests" className="space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <h2 className="text-lg font-semibold">Your Requests</h2>
-              <Select value={filter} onValueChange={setFilter}>
-                <SelectTrigger className="w-full sm:w-48">
-                  <SelectValue placeholder="Filter by status" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Requests</SelectItem>
-                  <SelectItem value="pending">Pending</SelectItem>
-                  <SelectItem value="approved">Approved</SelectItem>
-                  <SelectItem value="denied">Denied</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {filteredRequests.map((request) => (
-                <RequestCard key={request.id} request={request} />
-              ))}
-            </div>
+            <PageSection index={4}>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <h2 className="text-lg font-semibold">Your Requests</h2>
+                <Select value={filter} onValueChange={setFilter}>
+                  <SelectTrigger className="w-full sm:w-48">
+                    <SelectValue placeholder="Filter by status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Requests</SelectItem>
+                    <SelectItem value="pending">Pending</SelectItem>
+                    <SelectItem value="approved">Approved</SelectItem>
+                    <SelectItem value="denied">Denied</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {filteredRequests.map((request, index) => (
+                  <RequestCard 
+                    key={request.id} 
+                    request={request}
+                    className="animate-in fade-in slide-in-from-bottom-4 duration-300"
+                    style={{ animationDelay: `${(index + 1) * 100}ms` }}
+                  />
+                ))}
+              </div>
+            </PageSection>
             
             {filteredRequests.length === 0 && (
               <Card>
@@ -467,9 +489,14 @@ export const TimeOffPage: FC = () => {
 
           {/* Policies Tab */}
           <TabsContent value="policies" className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {timeOffPolicies.map((policy) => (
-                <Card key={policy.type}>
+            <PageSection index={5}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {timeOffPolicies.map((policy, index) => (
+                  <Card 
+                    key={policy.type}
+                    className="animate-in fade-in slide-in-from-bottom-4 duration-300"
+                    style={{ animationDelay: `${(index + 1) * 100}ms` }}
+                  >
                   <CardHeader className="pb-3">
                     <div className="flex items-center gap-3">
                       {getTypeIcon(policy.type)}
@@ -507,7 +534,8 @@ export const TimeOffPage: FC = () => {
                   </CardContent>
                 </Card>
               ))}
-            </div>
+              </div>
+            </PageSection>
           </TabsContent>
         </Tabs>
       </PageWrapper>
