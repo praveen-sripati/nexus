@@ -48,6 +48,37 @@ export const formatEventDate = (date: Date): string => {
 
 // LocalStorage utilities
 export const storage = {
+  // App version management
+  checkAppVersion: (currentVersion: string): boolean => {
+    const storedVersion = localStorage.getItem('app-version');
+    if (!storedVersion || storedVersion !== currentVersion) {
+      // Clear all localStorage except sensitive data if needed
+      const keysToPreserve: string[] = []; // Add any keys you want to preserve
+      
+      // Store all values that should be preserved
+      const preservedData: Record<string, string | null> = {};
+      keysToPreserve.forEach(key => {
+        preservedData[key] = localStorage.getItem(key);
+      });
+      
+      // Clear localStorage
+      localStorage.clear();
+      
+      // Restore preserved data
+      keysToPreserve.forEach(key => {
+        if (preservedData[key] !== null) {
+          localStorage.setItem(key, preservedData[key]!);
+        }
+      });
+      
+      // Set new version
+      localStorage.setItem('app-version', currentVersion);
+      console.log(`App version updated to ${currentVersion}. LocalStorage cleared.`);
+      return false; // Version was updated
+    }
+    return true; // Version is current
+  },
+
   // Check if user has been onboarded
   isOnboarded: (): boolean => {
     return localStorage.getItem('nexus-onboarded') === 'true';
@@ -65,7 +96,7 @@ export const storage = {
   },
   
   // Save user's quick links
-  setQuickLinks: (links: any[]) => {
+  setQuickLinks: (links: unknown[]) => {
     localStorage.setItem('nexus-quick-links', JSON.stringify(links));
   },
   

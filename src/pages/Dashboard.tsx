@@ -26,6 +26,10 @@ export const Dashboard: FC = () => {
   const [sidebarCardOrder, setSidebarCardOrder] = useState<string[]>(defaultSidebarCards);
 
   useEffect(() => {
+    // App version management for localStorage cleanup
+    const currentAppVersion = '1.0.0'; // Update this when you need to clear localStorage
+    storage.checkAppVersion(currentAppVersion);
+    
     // Check if user needs onboarding
     setShowWelcome(!storage.isOnboarded());
     
