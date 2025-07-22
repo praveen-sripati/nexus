@@ -64,7 +64,7 @@ export const Header: FC = () => {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/70">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex h-16 items-center justify-between">
           {/* Left side - Logo */}
           <div className="flex items-center gap-6">
@@ -103,7 +103,8 @@ export const Header: FC = () => {
       </header>
 
       {/* Navigation Bar */}
-      <div className="sticky top-16 z-40 w-full bg-background border-b">
+      {/* Navigation Bar */}
+      <div className="sticky top-16 z-40 w-full border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/70">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center py-2">
             {/* Main Navigation - Cleaner with dropdowns */}
@@ -235,7 +236,7 @@ export const Header: FC = () => {
       </div>
 
       {/* Mobile greeting */}
-      <div className="sm:hidden mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-3 pt-3 bg-background border-b">
+      <div className="sm:hidden mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-3 pt-3 border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/70">
         <p className="text-sm text-muted-foreground">
           {greeting}, {currentUser.name}! 👋
         </p>
