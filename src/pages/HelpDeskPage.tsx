@@ -425,15 +425,15 @@ export const HelpDeskPage: FC = () => {
           <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
             <TabsList className="grid w-full grid-cols-3 max-w-md">
             <TabsTrigger value="tickets" className="gap-2">
-              <MessageSquare className="h-4 w-4" />
+              <MessageSquare className="h-4 w-4 hidden sm:inline" />
               My Tickets
             </TabsTrigger>
             <TabsTrigger value="knowledge" className="gap-2">
-              <FileText className="h-4 w-4" />
+              <FileText className="h-4 w-4 hidden sm:inline" />
               Knowledge Base
             </TabsTrigger>
             <TabsTrigger value="contact" className="gap-2">
-              <Phone className="h-4 w-4" />
+              <Phone className="h-4 w-4 hidden sm:inline" />
               Contact
             </TabsTrigger>
           </TabsList>

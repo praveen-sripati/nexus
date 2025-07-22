@@ -196,11 +196,11 @@ export const ResourcesPage: FC = () => {
           <PageSection index={1}>
             <TabsList className="grid w-full grid-cols-2 max-w-md">
               <TabsTrigger value="browse" className="gap-2">
-                <Search className="h-4 w-4" />
+                <Search className="h-4 w-4 hidden sm:inline" />
                 Browse Resources
               </TabsTrigger>
               <TabsTrigger value="categories" className="gap-2">
-                <BookOpen className="h-4 w-4" />
+                <BookOpen className="h-4 w-4 hidden sm:inline" />
                 Categories
               </TabsTrigger>
             </TabsList>

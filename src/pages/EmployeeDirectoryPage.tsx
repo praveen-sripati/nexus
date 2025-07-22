@@ -83,11 +83,11 @@ export const EmployeeDirectoryPage: FC = () => {
           <Tabs defaultValue="directory" className="space-y-6">
             <TabsList className="grid w-full grid-cols-2 max-w-md">
               <TabsTrigger value="directory" className="gap-2">
-                <Users className="h-4 w-4" />
+                <Users className="h-4 w-4 hidden sm:inline" />
                 Directory
               </TabsTrigger>
               <TabsTrigger value="orgchart" className="gap-2">
-                <Network className="h-4 w-4" />
+                <Network className="h-4 w-4 hidden sm:inline" />
                 Org Chart
               </TabsTrigger>
             </TabsList>

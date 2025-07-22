@@ -410,15 +410,15 @@ export const TimeOffPage: FC = () => {
           <PageSection index={2}>
             <TabsList className="grid w-full grid-cols-3 max-w-md">
               <TabsTrigger value="balance" className="gap-2">
-                <CalendarDays className="h-4 w-4" />
+                <CalendarDays className="h-4 w-4 hidden sm:inline" />
                 Balance
               </TabsTrigger>
               <TabsTrigger value="requests" className="gap-2">
-                <FileText className="h-4 w-4" />
+                <FileText className="h-4 w-4 hidden sm:inline" />
                 Requests
               </TabsTrigger>
               <TabsTrigger value="policies" className="gap-2">
-                <MapPin className="h-4 w-4" />
+                <MapPin className="h-4 w-4 hidden sm:inline" />
                 Policies
               </TabsTrigger>
             </TabsList>

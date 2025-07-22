@@ -87,17 +87,20 @@ export const Header: FC = () => {
             <div className="hidden lg:block">
               <GlobalSearch />
             </div>
-            <Button
-              variant={isFocusMode ? "default" : "outline"}
-              size="sm"
-              onClick={toggleFocusMode}
-              className="gap-2 h-10"
-            >
-              {isFocusMode ? <Eye className="h-4 w-4" /> : <Focus className="h-4 w-4" />}
-              <span className="hidden sm:inline">
-                {isFocusMode ? 'Exit Focus' : 'Focus Mode'}
-              </span>
-            </Button>
+            {/* Focus Mode Button - Only visible on Dashboard */}
+            {location.pathname === '/' && (
+              <Button
+                variant={isFocusMode ? "default" : "outline"}
+                size="sm"
+                onClick={toggleFocusMode}
+                className="gap-2 h-10"
+              >
+                {isFocusMode ? <Eye className="h-4 w-4" /> : <Focus className="h-4 w-4" />}
+                <span className="hidden sm:inline">
+                  {isFocusMode ? 'Exit Focus' : 'Focus Mode'}
+                </span>
+              </Button>
+            )}
             <NotificationDropdown />
             <ThemeToggle />
             <Profile />
