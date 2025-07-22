@@ -2,11 +2,14 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { analyticsMetrics, activityData } from '@/data/mockData';
 import { TrendingUp, TrendingDown, ArrowRight } from 'lucide-react';
+import { useWaveAnimation } from '@/hooks/useWaveAnimation';
 import { type FC } from 'react';
 import { Link } from 'react-router-dom';
 import { LineChart, Line, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
 export const Analytics: FC = () => {
+  const { containerRef, getItemStyle, getItemClassName } = useWaveAnimation();
+  
   const chartColors = {
     primary: '#3b82f6',
     secondary: '#10b981'
@@ -23,11 +26,15 @@ export const Analytics: FC = () => {
           </Button>
         </Link>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent ref={containerRef} className="space-y-6">
         {/* Key Metrics Grid - Expanded for main layout */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 lg:gap-6">
-          {analyticsMetrics.slice(0, 4).map((metric) => (
-            <div key={metric.id} className="space-y-3 p-4 rounded-lg bg-muted/30 border">
+          {analyticsMetrics.slice(0, 4).map((metric, index) => (
+            <div 
+              key={metric.id} 
+              className={getItemClassName("space-y-3 p-4 rounded-lg bg-muted/30 border")}
+              style={getItemStyle(index)}
+            >
               <div className="flex items-center justify-between">
                 <p className="text-sm font-medium text-muted-foreground">
                   {metric.name}
@@ -51,7 +58,10 @@ export const Analytics: FC = () => {
         </div>
 
         {/* Mini Activity Chart - Enhanced for main layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div 
+          className={getItemClassName("grid grid-cols-1 lg:grid-cols-2 gap-6")}
+          style={getItemStyle(4)}
+        >
           <div className="space-y-4">
             <h4 className="text-base font-semibold flex items-center gap-2">
               <TrendingUp className="h-5 w-5 text-primary" />
@@ -100,19 +110,28 @@ export const Analytics: FC = () => {
           <div className="space-y-4">
             <h4 className="text-base font-semibold">Quick Insights</h4>
             <div className="space-y-3">
-              <div className="p-3 rounded-lg bg-green-50 border border-green-200">
+              <div 
+                className={getItemClassName("p-3 rounded-lg bg-green-50 border border-green-200")}
+                style={getItemStyle(5)}
+              >
                 <div className="flex items-center gap-2">
                   <TrendingUp className="h-4 w-4 text-green-600" />
                   <p className="text-sm font-medium text-green-800">Project completion rate increased by 6.3% this week</p>
                 </div>
               </div>
-              <div className="p-3 rounded-lg bg-blue-50 border border-blue-200">
+              <div 
+                className={getItemClassName("p-3 rounded-lg bg-blue-50 border border-blue-200")}
+                style={getItemStyle(6)}
+              >
                 <div className="flex items-center gap-2">
                   <TrendingUp className="h-4 w-4 text-blue-600" />
                   <p className="text-sm font-medium text-blue-800">Team kudos activity up 34.7% from last period</p>
                 </div>
               </div>
-              <div className="p-3 rounded-lg bg-purple-50 border border-purple-200">
+              <div 
+                className={getItemClassName("p-3 rounded-lg bg-purple-50 border border-purple-200")}
+                style={getItemStyle(7)}
+              >
                 <div className="flex items-center gap-2">
                   <TrendingUp className="h-4 w-4 text-purple-600" />
                   <p className="text-sm font-medium text-purple-800">Engineering department leading in productivity</p>

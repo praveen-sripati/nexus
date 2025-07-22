@@ -3,10 +3,13 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { resourcesData } from '@/data/mockData';
 import { FileText, Download, Star, TrendingUp, ArrowRight } from 'lucide-react';
+import { useWaveAnimation } from '@/hooks/useWaveAnimation';
 import { type FC } from 'react';
 import { Link } from 'react-router-dom';
 
 export const Resources: FC = () => {
+  const { containerRef, getItemStyle, getItemClassName } = useWaveAnimation();
+  
   // Get recent and popular resources
   const recentResources = resourcesData
     .sort((a, b) => b.uploadedAt.getTime() - a.uploadedAt.getTime())
@@ -47,25 +50,37 @@ export const Resources: FC = () => {
           </Button>
         </Link>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent ref={containerRef} className="space-y-6">
         {/* Stats - Enhanced for main layout */}
         <div className="grid grid-cols-3 gap-4 lg:gap-6">
-          <div className="text-center p-4 rounded-lg bg-blue-50 border border-blue-200">
+          <div 
+            className={getItemClassName("text-center p-4 rounded-lg bg-blue-50 border border-blue-200")}
+            style={getItemStyle(0)}
+          >
             <p className="text-2xl font-bold text-blue-600">{resourcesData.length}</p>
             <p className="text-sm text-blue-800 font-medium">Total Resources</p>
           </div>
-          <div className="text-center p-4 rounded-lg bg-green-50 border border-green-200">
+          <div 
+            className={getItemClassName("text-center p-4 rounded-lg bg-green-50 border border-green-200")}
+            style={getItemStyle(1)}
+          >
             <p className="text-2xl font-bold text-green-600">{totalDownloads}</p>
             <p className="text-sm text-green-800 font-medium">Downloads</p>
           </div>
-          <div className="text-center p-4 rounded-lg bg-yellow-50 border border-yellow-200">
+          <div 
+            className={getItemClassName("text-center p-4 rounded-lg bg-yellow-50 border border-yellow-200")}
+            style={getItemStyle(2)}
+          >
             <p className="text-2xl font-bold text-yellow-600">{favoriteResources}</p>
             <p className="text-sm text-yellow-800 font-medium">Favorites</p>
           </div>
         </div>
 
         {/* Recent and Popular Resources - Side by side for main layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div 
+          className={getItemClassName("grid grid-cols-1 lg:grid-cols-2 gap-6")}
+          style={getItemStyle(3)}
+        >
           {/* Recent Resources */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
@@ -73,8 +88,12 @@ export const Resources: FC = () => {
               <h4 className="text-base font-semibold">Recent Uploads</h4>
             </div>
             <div className="space-y-3">
-              {recentResources.map((resource) => (
-                <div key={resource.id} className="flex items-center gap-3 p-3 rounded-lg border hover:bg-muted/50 transition-colors">
+              {recentResources.map((resource, index) => (
+                <div 
+                  key={resource.id} 
+                  className={getItemClassName("flex items-center gap-3 p-3 rounded-lg border hover:bg-muted/50 transition-colors")}
+                  style={getItemStyle(4 + index)}
+                >
                   <span className="text-lg">{getFileIcon(resource.type)}</span>
                   <div className="min-w-0 flex-1">
                     <p className="text-sm font-medium truncate">{resource.title}</p>
@@ -98,8 +117,12 @@ export const Resources: FC = () => {
               <h4 className="text-base font-semibold">Popular This Week</h4>
             </div>
             <div className="space-y-3">
-              {popularResources.map((resource) => (
-                <div key={resource.id} className="flex items-center gap-3 p-3 rounded-lg border hover:bg-muted/50 transition-colors">
+              {popularResources.map((resource, index) => (
+                <div 
+                  key={resource.id} 
+                  className={getItemClassName("flex items-center gap-3 p-3 rounded-lg border hover:bg-muted/50 transition-colors")}
+                  style={getItemStyle(6 + index)}
+                >
                   <span className="text-lg">{getFileIcon(resource.type)}</span>
                   <div className="min-w-0 flex-1">
                     <p className="text-sm font-medium truncate">{resource.title}</p>
@@ -115,7 +138,10 @@ export const Resources: FC = () => {
         </div>
 
         {/* Quick Actions */}
-        <div className="pt-3 border-t">
+        <div 
+          className={getItemClassName("pt-3 border-t")}
+          style={getItemStyle(8)}
+        >
           <div className="grid grid-cols-2 gap-2">
             <Link to="/resources?category=template" className="block">
               <Button variant="outline" size="sm" className="w-full justify-start gap-2 h-8">

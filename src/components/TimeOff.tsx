@@ -3,10 +3,13 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { userTimeOffBalance, timeOffRequests } from '@/data/mockData';
 import { Calendar, Clock, Plane, AlertCircle, ArrowRight } from 'lucide-react';
+import { useWaveAnimation } from '@/hooks/useWaveAnimation';
 import { type FC } from 'react';
 import { Link } from 'react-router-dom';
 
 export const TimeOff: FC = () => {
+  const { containerRef, getItemStyle, getItemClassName } = useWaveAnimation();
+  
   const upcomingRequests = timeOffRequests
     .filter(r => r.status === 'approved' && r.startDate > new Date())
     .sort((a, b) => a.startDate.getTime() - b.startDate.getTime())
@@ -48,9 +51,12 @@ export const TimeOff: FC = () => {
           </Button>
         </Link>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent ref={containerRef} className="space-y-4">
         {/* Balance Overview */}
-        <div className="grid grid-cols-2 gap-3 text-center">
+        <div 
+          className={getItemClassName("grid grid-cols-2 gap-3 text-center")}
+          style={getItemStyle(0)}
+        >
           <div className="space-y-1">
             <p className="text-lg font-bold text-primary">{totalDaysRemaining}</p>
             <p className="text-xs text-muted-foreground">Days Available</p>
@@ -63,7 +69,10 @@ export const TimeOff: FC = () => {
 
         {/* Vacation Balance Progress */}
         {vacationBalance && (
-          <div className="space-y-2">
+          <div 
+            className={getItemClassName("space-y-2")}
+            style={getItemStyle(1)}
+          >
             <div className="flex items-center justify-between text-sm">
               <span className="flex items-center gap-1">
                 <Plane className="h-3 w-3 text-blue-600" />
@@ -83,7 +92,10 @@ export const TimeOff: FC = () => {
         )}
 
         {/* Upcoming Time Off */}
-        <div className="space-y-3">
+        <div 
+          className={getItemClassName("space-y-3")}
+          style={getItemStyle(2)}
+        >
           <div className="flex items-center gap-2">
             <Calendar className="h-4 w-4 text-muted-foreground" />
             <h4 className="text-sm font-medium">Upcoming Time Off</h4>
@@ -91,8 +103,12 @@ export const TimeOff: FC = () => {
           
           {upcomingRequests.length > 0 ? (
             <div className="space-y-2">
-              {upcomingRequests.map((request) => (
-                <div key={request.id} className="flex items-center justify-between p-2 rounded-lg bg-muted/30">
+              {upcomingRequests.map((request, index) => (
+                <div 
+                  key={request.id} 
+                  className={getItemClassName("flex items-center justify-between p-2 rounded-lg bg-muted/30")}
+                  style={getItemStyle(3 + index)}
+                >
                   <div className="flex items-center gap-2 min-w-0">
                     {getTypeIcon(request.type)}
                     <div className="min-w-0">
@@ -109,7 +125,10 @@ export const TimeOff: FC = () => {
               ))}
             </div>
           ) : (
-            <div className="text-center py-4">
+            <div 
+              className={getItemClassName("text-center py-4")}
+              style={getItemStyle(3)}
+            >
               <Calendar className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
               <p className="text-xs text-muted-foreground">No upcoming time off</p>
             </div>
@@ -118,7 +137,10 @@ export const TimeOff: FC = () => {
 
         {/* Pending Requests Alert */}
         {pendingRequests.length > 0 && (
-          <div className="pt-3 border-t">
+          <div 
+            className={getItemClassName("pt-3 border-t")}
+            style={getItemStyle(5)}
+          >
             <div className="flex items-center gap-2 text-sm text-yellow-600">
               <Clock className="h-4 w-4" />
               <span>{pendingRequests.length} request{pendingRequests.length !== 1 ? 's' : ''} awaiting approval</span>
@@ -127,7 +149,10 @@ export const TimeOff: FC = () => {
         )}
 
         {/* Quick Actions */}
-        <div className="pt-3 border-t">
+        <div 
+          className={getItemClassName("pt-3 border-t")}
+          style={getItemStyle(6)}
+        >
           <Link to="/time-off" className="block">
             <Button variant="outline" size="sm" className="w-full justify-center gap-2 h-8">
               <Plane className="h-3 w-3" />

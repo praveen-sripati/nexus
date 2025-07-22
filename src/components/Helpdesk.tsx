@@ -3,10 +3,13 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { helpdeskTickets } from '@/data/mockData';
 import { ArrowRight, Headphones, Clock, AlertCircle, CheckCircle, MessageSquare } from 'lucide-react';
+import { useWaveAnimation } from '@/hooks/useWaveAnimation';
 import { type FC } from 'react';
 import { Link } from 'react-router-dom';
 
 export const Helpdesk: FC = () => {
+  const { containerRef, getItemStyle, getItemClassName } = useWaveAnimation();
+  
   const userTickets = helpdeskTickets.filter(ticket => ticket.submittedBy === 'Current User');
   const openTickets = userTickets.filter(ticket => ticket.status === 'open' || ticket.status === 'in-progress');
   const recentTickets = userTickets.slice(0, 3);
@@ -75,9 +78,12 @@ export const Helpdesk: FC = () => {
           </Button>
         </Link>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent ref={containerRef} className="space-y-4">
         {/* Summary Stats */}
-        <div className="grid grid-cols-2 gap-3 text-center">
+        <div 
+          className={getItemClassName("grid grid-cols-2 gap-3 text-center")}
+          style={getItemStyle(0)}
+        >
           <div className="space-y-1">
             <p className="text-lg font-bold text-primary">{openTickets.length}</p>
             <p className="text-xs text-muted-foreground">Open Tickets</p>
@@ -89,7 +95,10 @@ export const Helpdesk: FC = () => {
         </div>
 
         {/* Recent Tickets */}
-        <div className="space-y-3">
+        <div 
+          className={getItemClassName("space-y-3")}
+          style={getItemStyle(1)}
+        >
           <div className="flex items-center gap-2">
             <Headphones className="h-4 w-4 text-muted-foreground" />
             <h4 className="text-sm font-medium">Recent Tickets</h4>
@@ -97,8 +106,12 @@ export const Helpdesk: FC = () => {
           
           {recentTickets.length > 0 ? (
             <div className="space-y-2">
-              {recentTickets.map((ticket) => (
-                <div key={ticket.id} className="p-2 rounded-lg bg-muted/30 space-y-2">
+              {recentTickets.map((ticket, index) => (
+                <div 
+                  key={ticket.id} 
+                  className={getItemClassName("p-2 rounded-lg bg-muted/30 space-y-2")}
+                  style={getItemStyle(2 + index)}
+                >
                   <div className="flex items-start justify-between">
                     <div className="min-w-0 flex-1">
                       <p className="text-xs font-medium truncate">{ticket.title}</p>
@@ -128,7 +141,10 @@ export const Helpdesk: FC = () => {
               ))}
             </div>
           ) : (
-            <div className="text-center py-4">
+            <div 
+              className={getItemClassName("text-center py-4")}
+              style={getItemStyle(2)}
+            >
               <MessageSquare className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
               <p className="text-xs text-muted-foreground">No support tickets</p>
             </div>
@@ -136,7 +152,10 @@ export const Helpdesk: FC = () => {
         </div>
 
         {/* Quick Actions */}
-        <div className="pt-3 border-t">
+        <div 
+          className={getItemClassName("pt-3 border-t")}
+          style={getItemStyle(5)}
+        >
           <Link to="/helpdesk" className="block">
             <Button variant="outline" size="sm" className="w-full justify-center gap-2 h-8">
               <Headphones className="h-3 w-3" />
