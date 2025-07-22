@@ -3,7 +3,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { announcements, type Announcement } from '@/data/mockData';
 import { formatRelativeTime } from '@/lib/utils';
-import { AlertCircle, Info, Megaphone, ExternalLink } from 'lucide-react';
+import { AlertCircle, Info, Megaphone, ArrowRight } from 'lucide-react';
 import { type FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useWaveAnimation } from '@/hooks/useWaveAnimation';
@@ -55,7 +55,7 @@ export const CompanyAnnouncements: FC = () => {
         <Link to="/announcements" className="w-full sm:w-auto">
           <Button variant="outline" size="sm" className="gap-2 w-full sm:w-auto">
             View All
-            <ExternalLink className="h-4 w-4" />
+            <ArrowRight className="h-4 w-4" />
           </Button>
         </Link>
       </CardHeader>
@@ -106,7 +106,7 @@ export const CompanyAnnouncements: FC = () => {
               <Link to="/announcements">
                 <Button variant="ghost" size="sm" className="w-full gap-2 text-muted-foreground hover:text-foreground">
                   <span>View {announcements.length - 3} more announcements</span>
-                  <ExternalLink className="h-3 w-3" />
+                  <ArrowRight className="h-3 w-3" />
                 </Button>
               </Link>
             </div>

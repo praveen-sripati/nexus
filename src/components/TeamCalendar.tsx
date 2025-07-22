@@ -3,7 +3,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { calendarEvents, type CalendarEvent } from '@/data/mockData';
 import { formatEventDate } from '@/lib/utils';
-import { Calendar, Users, Cake, Award, ExternalLink } from 'lucide-react';
+import { Calendar, Users, Cake, Award, ArrowRight } from 'lucide-react';
 import { type FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useWaveAnimation } from '@/hooks/useWaveAnimation';
@@ -69,7 +69,7 @@ export const TeamCalendar: FC = () => {
         <Link to="/calendar" className="w-full sm:w-auto">
           <Button variant="outline" size="sm" className="gap-2 w-full sm:w-auto">
             View All
-            <ExternalLink className="h-4 w-4" />
+            <ArrowRight className="h-4 w-4" />
           </Button>
         </Link>
       </CardHeader>
@@ -129,7 +129,7 @@ export const TeamCalendar: FC = () => {
               <Link to="/calendar">
                 <Button variant="ghost" size="sm" className="w-full gap-2 text-muted-foreground hover:text-foreground">
                   <span>View {sortedEvents.length - 3} more {sortedEvents.length === 4 ? 'event' : 'events'}</span>
-                  <ExternalLink className="h-3 w-3" />
+                  <ArrowRight className="h-3 w-3" />
                 </Button>
               </Link>
             </div>

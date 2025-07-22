@@ -36,8 +36,8 @@ import {
   Settings,
   Smartphone
 } from 'lucide-react';
-import { useState, type FC } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect, type FC } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { toast } from 'sonner';
 
 const getStatusColor = (status: string) => {
@@ -184,14 +184,28 @@ const KnowledgeBaseCard: FC<{ article: HelpdeskKnowledgeBase }> = ({ article }) 
   </Card>
 );
 
-const NewTicketDialog: FC = () => {
-  const [open, setOpen] = useState(false);
+const NewTicketDialog: FC<{ autoOpen?: boolean; onOpenChange?: (open: boolean) => void }> = ({ 
+  autoOpen = false, 
+  onOpenChange 
+}) => {
+  const [open, setOpen] = useState(autoOpen);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     category: '',
     priority: 'medium'
   });
+
+  useEffect(() => {
+    if (autoOpen) {
+      setOpen(true);
+    }
+  }, [autoOpen]);
+
+  const handleOpenChange = (newOpen: boolean) => {
+    setOpen(newOpen);
+    onOpenChange?.(newOpen);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -204,7 +218,7 @@ const NewTicketDialog: FC = () => {
     // Handle form submission
     console.log('New ticket:', formData);
     toast.success('Support ticket created successfully!');
-    setOpen(false);
+    handleOpenChange(false);
     
     // Reset form
     setFormData({
@@ -216,7 +230,7 @@ const NewTicketDialog: FC = () => {
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         <Button className="gap-2">
           <Plus className="h-4 w-4" />
@@ -284,7 +298,7 @@ const NewTicketDialog: FC = () => {
           </div>
           
           <div className="flex justify-end gap-3 pt-4">
-            <Button type="button" variant="outline" onClick={() => setOpen(false)}>
+            <Button type="button" variant="outline" onClick={() => handleOpenChange(false)}>
               Cancel
             </Button>
             <Button type="submit">Create Ticket</Button>
@@ -296,8 +310,26 @@ const NewTicketDialog: FC = () => {
 };
 
 export const HelpDeskPage: FC = () => {
+  const [searchParams] = useSearchParams();
   const [ticketFilter, setTicketFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [activeTab, setActiveTab] = useState('tickets');
+  const [autoOpenNewTicket, setAutoOpenNewTicket] = useState(false);
+  
+  // Handle URL parameters on component mount
+  useEffect(() => {
+    const tab = searchParams.get('tab');
+    const action = searchParams.get('action');
+    
+    if (tab) {
+      setActiveTab(tab);
+    }
+    
+    if (action === 'create') {
+      setActiveTab('tickets');
+      setAutoOpenNewTicket(true);
+    }
+  }, [searchParams]);
   
   const filteredTickets = helpdeskTickets.filter(ticket => {
     const matchesFilter = ticketFilter === 'all' || ticket.status === ticketFilter;
@@ -341,7 +373,10 @@ export const HelpDeskPage: FC = () => {
                 Get assistance with IT issues, submit tickets, and access support resources
               </p>
             </div>
-            <NewTicketDialog />
+            <NewTicketDialog 
+              autoOpen={autoOpenNewTicket} 
+              onOpenChange={(open) => !open && setAutoOpenNewTicket(false)}
+            />
           </div>
         </div>
 
@@ -380,7 +415,7 @@ export const HelpDeskPage: FC = () => {
           </div>
         </div>
 
-        <Tabs defaultValue="tickets" className="space-y-6">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
           <TabsList className="grid w-full grid-cols-3 max-w-md">
             <TabsTrigger value="tickets" className="gap-2">
               <MessageSquare className="h-4 w-4" />

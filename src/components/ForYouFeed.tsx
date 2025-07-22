@@ -2,7 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { forYouFeed, type FeedItem } from '@/data/mockData';
 import { formatRelativeTime } from '@/lib/utils';
-import { FileText, Bell, CheckSquare, Info, ExternalLink, Sparkles } from 'lucide-react';
+import { FileText, Bell, CheckSquare, Info, ArrowRight, Sparkles } from 'lucide-react';
 import { type FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useWaveAnimation } from '@/hooks/useWaveAnimation';
@@ -58,7 +58,7 @@ export const ForYouFeed: FC = () => {
         <Link to="/for-you" className="w-full sm:w-auto">
           <Button variant="outline" size="sm" className="gap-2 w-full sm:w-auto">
             View All
-            <ExternalLink className="h-4 w-4" />
+            <ArrowRight className="h-4 w-4" />
           </Button>
         </Link>
       </CardHeader>
@@ -101,7 +101,7 @@ export const ForYouFeed: FC = () => {
               <Link to="/for-you">
                 <Button variant="ghost" size="sm" className="w-full gap-2 text-muted-foreground hover:text-foreground">
                   <span>View {forYouFeed.length - 3} more items</span>
-                  <ExternalLink className="h-3 w-3" />
+                  <ArrowRight className="h-3 w-3" />
                 </Button>
               </Link>
             </div>

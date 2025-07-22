@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { kudos as initialKudos, currentUser, type Kudo } from '@/data/mockData';
 import { formatRelativeTime, generateId } from '@/lib/utils';
-import { Heart, Plus, ExternalLink } from 'lucide-react';
+import { Heart, Plus, ArrowRight } from 'lucide-react';
 import { useState, type FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useWaveAnimation } from '@/hooks/useWaveAnimation';
@@ -107,7 +107,7 @@ export const KudosFeed: FC = () => {
         <Link to="/kudos">
           <Button variant="outline" size="sm" className="gap-2">
             View All
-            <ExternalLink className="h-4 w-4" />
+            <ArrowRight className="h-4 w-4" />
           </Button>
         </Link>
         </div>
@@ -158,7 +158,7 @@ export const KudosFeed: FC = () => {
                 <Link to="/kudos">
                   <Button variant="ghost" size="sm" className="w-full gap-2 text-muted-foreground hover:text-foreground">
                     <span>View {kudosList.length - 3} more kudos</span>
-                    <ExternalLink className="h-3 w-3" />
+                    <ArrowRight className="h-3 w-3" />
                   </Button>
                 </Link>
               </div>

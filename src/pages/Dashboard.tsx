@@ -4,7 +4,6 @@ import { DraggableCard } from '@/components/DraggableCard';
 import { EmployeeDirectory } from '@/components/EmployeeDirectory';
 import { ForYouFeed } from '@/components/ForYouFeed';
 import { Header } from '@/components/Header';
-import { Helpdesk } from '@/components/Helpdesk';
 import { KudosFeed } from '@/components/KudosFeed';
 import { Projects } from '@/components/Projects';
 import { QuickLinks } from '@/components/QuickLinks';
@@ -21,8 +20,8 @@ export const Dashboard: FC = () => {
   const [showWelcome, setShowWelcome] = useState(false);
   
   // Define default card order
-  const defaultMainCards = ['for-you-feed', 'company-announcements', 'projects', 'employee-directory', 'kudos-feed'];
-  const defaultSidebarCards = ['analytics', 'resources', 'helpdesk', 'time-off', 'quick-links', 'team-calendar'];
+  const defaultMainCards = ['for-you-feed', 'company-announcements', 'analytics', 'resources', 'projects', 'employee-directory', 'kudos-feed'];
+  const defaultSidebarCards = ['time-off', 'quick-links', 'team-calendar'];
   
   const [mainCardOrder, setMainCardOrder] = useState<string[]>(defaultMainCards);
   const [sidebarCardOrder, setSidebarCardOrder] = useState<string[]>(defaultSidebarCards);
@@ -89,6 +88,10 @@ export const Dashboard: FC = () => {
         return <ForYouFeed />;
       case 'company-announcements':
         return <CompanyAnnouncements />;
+      case 'analytics':
+        return <Analytics />;
+      case 'resources':
+        return <Resources />;
       case 'projects':
         return <Projects />;
       case 'employee-directory':
@@ -112,12 +115,6 @@ export const Dashboard: FC = () => {
         return <TeamCalendar />;
       case 'employee-directory':
         return <EmployeeDirectory />;
-      case 'analytics':
-        return <Analytics />;
-      case 'resources':
-        return <Resources />;
-      case 'helpdesk':
-        return <Helpdesk />;
       case 'time-off':
         return <TimeOff />;
       default:

@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { userTimeOffBalance, timeOffRequests } from '@/data/mockData';
-import { ArrowRight, Calendar, Clock, Plane, AlertCircle } from 'lucide-react';
+import { Calendar, Clock, Plane, AlertCircle, ArrowRight } from 'lucide-react';
 import { type FC } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -42,7 +42,7 @@ export const TimeOff: FC = () => {
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
         <CardTitle className="text-lg font-semibold">Time Off</CardTitle>
         <Link to="/time-off">
-          <Button variant="ghost" size="sm" className="gap-2 h-8">
+          <Button variant="outline" size="sm" className="gap-2 h-8">
             Manage
             <ArrowRight className="h-4 w-4" />
           </Button>
