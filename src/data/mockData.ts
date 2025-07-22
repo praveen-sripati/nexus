@@ -820,3 +820,399 @@ export const resourcesData: Resource[] = [
     department: 'HR'
   }
 ];
+
+export interface TimeOffBalance {
+  type: 'vacation' | 'sick' | 'personal' | 'holiday';
+  total: number;
+  used: number;
+  remaining: number;
+  carryOver: number;
+}
+
+export interface TimeOffRequest {
+  id: string;
+  employeeId: string;
+  employeeName: string;
+  type: 'vacation' | 'sick' | 'personal' | 'holiday' | 'bereavement' | 'maternity' | 'paternity';
+  startDate: Date;
+  endDate: Date;
+  totalDays: number;
+  reason: string;
+  status: 'pending' | 'approved' | 'denied' | 'cancelled';
+  submittedAt: Date;
+  approvedBy?: string;
+  approvedAt?: Date;
+  comments?: string;
+  isHalfDay?: boolean;
+  emergencyContact?: string;
+}
+
+export interface TimeOffPolicy {
+  type: 'vacation' | 'sick' | 'personal' | 'holiday';
+  name: string;
+  annualAllocation: number;
+  carryOverLimit: number;
+  description: string;
+  requiresApproval: boolean;
+  advanceNoticeRequired: number; // days
+}
+
+export const timeOffPolicies: TimeOffPolicy[] = [
+  {
+    type: 'vacation',
+    name: 'Vacation Days',
+    annualAllocation: 25,
+    carryOverLimit: 5,
+    description: 'Annual vacation leave for rest and recreation',
+    requiresApproval: true,
+    advanceNoticeRequired: 14
+  },
+  {
+    type: 'sick',
+    name: 'Sick Leave',
+    annualAllocation: 12,
+    carryOverLimit: 0,
+    description: 'Time off for illness or medical appointments',
+    requiresApproval: false,
+    advanceNoticeRequired: 0
+  },
+  {
+    type: 'personal',
+    name: 'Personal Days',
+    annualAllocation: 5,
+    carryOverLimit: 2,
+    description: 'Personal time off for various needs',
+    requiresApproval: true,
+    advanceNoticeRequired: 7
+  },
+  {
+    type: 'holiday',
+    name: 'Company Holidays',
+    annualAllocation: 10,
+    carryOverLimit: 0,
+    description: 'Observed company holidays',
+    requiresApproval: false,
+    advanceNoticeRequired: 0
+  }
+];
+
+export const userTimeOffBalance: TimeOffBalance[] = [
+  {
+    type: 'vacation',
+    total: 25,
+    used: 8,
+    remaining: 17,
+    carryOver: 3
+  },
+  {
+    type: 'sick',
+    total: 12,
+    used: 2,
+    remaining: 10,
+    carryOver: 0
+  },
+  {
+    type: 'personal',
+    total: 5,
+    used: 1,
+    remaining: 4,
+    carryOver: 1
+  },
+  {
+    type: 'holiday',
+    total: 10,
+    used: 4,
+    remaining: 6,
+    carryOver: 0
+  }
+];
+
+export const timeOffRequests: TimeOffRequest[] = [
+  {
+    id: '1',
+    employeeId: 'emp-001',
+    employeeName: 'Current User',
+    type: 'vacation',
+    startDate: new Date('2025-08-15'),
+    endDate: new Date('2025-08-19'),
+    totalDays: 5,
+    reason: 'Summer vacation with family',
+    status: 'approved',
+    submittedAt: new Date('2025-07-01'),
+    approvedBy: 'Sarah Johnson',
+    approvedAt: new Date('2025-07-02'),
+    comments: 'Approved. Enjoy your vacation!'
+  },
+  {
+    id: '2',
+    employeeId: 'emp-001',
+    employeeName: 'Current User',
+    type: 'sick',
+    startDate: new Date('2025-07-10'),
+    endDate: new Date('2025-07-10'),
+    totalDays: 1,
+    reason: 'Doctor appointment',
+    status: 'approved',
+    submittedAt: new Date('2025-07-09'),
+    approvedBy: 'Auto-approved',
+    approvedAt: new Date('2025-07-09')
+  },
+  {
+    id: '3',
+    employeeId: 'emp-001',
+    employeeName: 'Current User',
+    type: 'personal',
+    startDate: new Date('2025-09-03'),
+    endDate: new Date('2025-09-03'),
+    totalDays: 1,
+    reason: 'Personal matter',
+    status: 'pending',
+    submittedAt: new Date('2025-07-20')
+  },
+  {
+    id: '4',
+    employeeId: 'emp-001',
+    employeeName: 'Current User',
+    type: 'vacation',
+    startDate: new Date('2025-12-23'),
+    endDate: new Date('2025-12-30'),
+    totalDays: 6,
+    reason: 'Holiday break',
+    status: 'pending',
+    submittedAt: new Date('2025-07-22')
+  },
+  {
+    id: '5',
+    employeeId: 'emp-002',
+    employeeName: 'Mike Chen',
+    type: 'vacation',
+    startDate: new Date('2025-08-01'),
+    endDate: new Date('2025-08-05'),
+    totalDays: 5,
+    reason: 'Conference and vacation',
+    status: 'approved',
+    submittedAt: new Date('2025-06-15'),
+    approvedBy: 'Sarah Johnson',
+    approvedAt: new Date('2025-06-16')
+  }
+];
+
+// Helpdesk Types
+export interface HelpdeskTicket {
+  id: string;
+  title: string;
+  description: string;
+  category: 'technical' | 'hardware' | 'software' | 'access' | 'other';
+  priority: 'low' | 'medium' | 'high' | 'urgent';
+  status: 'open' | 'in-progress' | 'resolved' | 'closed';
+  submittedBy: string;
+  submittedAt: Date;
+  assignedTo?: string;
+  assignedAt?: Date;
+  resolvedAt?: Date;
+  resolution?: string;
+  attachments?: string[];
+  comments?: HelpdeskComment[];
+}
+
+export interface HelpdeskComment {
+  id: string;
+  ticketId: string;
+  author: string;
+  content: string;
+  timestamp: Date;
+  isInternal: boolean;
+}
+
+export interface HelpdeskCategory {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  estimatedResolutionTime: string;
+}
+
+export interface HelpdeskKnowledgeBase {
+  id: string;
+  title: string;
+  content: string;
+  category: string;
+  tags: string[];
+  views: number;
+  helpful: number;
+  lastUpdated: Date;
+}
+
+// Helpdesk Mock Data
+export const helpdeskCategories: HelpdeskCategory[] = [
+  {
+    id: 'technical',
+    name: 'Technical Support',
+    description: 'Network, server, and system issues',
+    icon: 'Settings',
+    estimatedResolutionTime: '2-4 hours'
+  },
+  {
+    id: 'hardware',
+    name: 'Hardware Issues',
+    description: 'Computer, printer, and device problems',
+    icon: 'Monitor',
+    estimatedResolutionTime: '1-2 days'
+  },
+  {
+    id: 'software',
+    name: 'Software Support',
+    description: 'Application and software-related issues',
+    icon: 'Download',
+    estimatedResolutionTime: '4-8 hours'
+  },
+  {
+    id: 'access',
+    name: 'Account & Access',
+    description: 'Login, permissions, and account issues',
+    icon: 'Key',
+    estimatedResolutionTime: '1-2 hours'
+  },
+  {
+    id: 'other',
+    name: 'Other',
+    description: 'General inquiries and other requests',
+    icon: 'HelpCircle',
+    estimatedResolutionTime: '1-3 days'
+  }
+];
+
+export const helpdeskTickets: HelpdeskTicket[] = [
+  {
+    id: 'HT-001',
+    title: 'Cannot access company email',
+    description: 'I\'m unable to log into my email account. Getting authentication errors.',
+    category: 'access',
+    priority: 'high',
+    status: 'in-progress',
+    submittedBy: 'John Doe',
+    submittedAt: new Date('2025-07-22T09:00:00'),
+    assignedTo: 'IT Support Team',
+    assignedAt: new Date('2025-07-22T09:15:00')
+  },
+  {
+    id: 'HT-002',
+    title: 'Laptop running very slow',
+    description: 'My laptop has been extremely slow for the past week. Takes forever to open applications.',
+    category: 'hardware',
+    priority: 'medium',
+    status: 'open',
+    submittedBy: 'Current User',
+    submittedAt: new Date('2025-07-22T10:30:00')
+  },
+  {
+    id: 'HT-003',
+    title: 'Printer not working in conference room',
+    description: 'The printer in Conference Room B is not responding to print jobs.',
+    category: 'hardware',
+    priority: 'low',
+    status: 'resolved',
+    submittedBy: 'Mike Chen',
+    submittedAt: new Date('2025-07-21T14:00:00'),
+    assignedTo: 'Facilities Team',
+    assignedAt: new Date('2025-07-21T14:30:00'),
+    resolvedAt: new Date('2025-07-22T08:00:00'),
+    resolution: 'Replaced toner cartridge and updated drivers.'
+  },
+  {
+    id: 'HT-004',
+    title: 'Software license expired',
+    description: 'Adobe Creative Suite license has expired and I need access for a project.',
+    category: 'software',
+    priority: 'urgent',
+    status: 'in-progress',
+    submittedBy: 'Sarah Wilson',
+    submittedAt: new Date('2025-07-22T11:45:00'),
+    assignedTo: 'Software Management',
+    assignedAt: new Date('2025-07-22T12:00:00')
+  },
+  {
+    id: 'HT-005',
+    title: 'Request VPN access',
+    description: 'I need VPN access to work remotely. Please set up access for my account.',
+    category: 'access',
+    priority: 'medium',
+    status: 'closed',
+    submittedBy: 'Emma Davis',
+    submittedAt: new Date('2025-07-20T16:00:00'),
+    assignedTo: 'Security Team',
+    assignedAt: new Date('2025-07-21T09:00:00'),
+    resolvedAt: new Date('2025-07-21T15:30:00'),
+    resolution: 'VPN access granted. Credentials sent via secure email.'
+  }
+];
+
+export const helpdeskComments: HelpdeskComment[] = [
+  {
+    id: 'HC-001',
+    ticketId: 'HT-001',
+    author: 'IT Support Team',
+    content: 'We\'re investigating the authentication issue. Please try resetting your password first.',
+    timestamp: new Date('2025-07-22T09:30:00'),
+    isInternal: false
+  },
+  {
+    id: 'HC-002',
+    ticketId: 'HT-001',
+    author: 'John Doe',
+    content: 'I tried resetting the password but still getting the same error.',
+    timestamp: new Date('2025-07-22T10:00:00'),
+    isInternal: false
+  },
+  {
+    id: 'HC-003',
+    ticketId: 'HT-004',
+    author: 'Software Management',
+    content: 'Working on license renewal. Should be resolved by end of day.',
+    timestamp: new Date('2025-07-22T12:15:00'),
+    isInternal: false
+  }
+];
+
+export const helpdeskKnowledgeBase: HelpdeskKnowledgeBase[] = [
+  {
+    id: 'KB-001',
+    title: 'How to Reset Your Password',
+    content: 'Step-by-step guide to reset your company password...',
+    category: 'access',
+    tags: ['password', 'login', 'security'],
+    views: 156,
+    helpful: 23,
+    lastUpdated: new Date('2025-07-15')
+  },
+  {
+    id: 'KB-002',
+    title: 'Setting Up VPN Connection',
+    content: 'Complete guide to configure VPN access on different devices...',
+    category: 'access',
+    tags: ['vpn', 'remote', 'connection'],
+    views: 89,
+    helpful: 15,
+    lastUpdated: new Date('2025-07-10')
+  },
+  {
+    id: 'KB-003',
+    title: 'Troubleshooting Slow Computer Performance',
+    content: 'Common solutions for improving computer performance...',
+    category: 'hardware',
+    tags: ['performance', 'slow', 'computer'],
+    views: 234,
+    helpful: 41,
+    lastUpdated: new Date('2025-07-20')
+  },
+  {
+    id: 'KB-004',
+    title: 'Software Installation Guidelines',
+    content: 'How to request and install new software applications...',
+    category: 'software',
+    tags: ['installation', 'software', 'approval'],
+    views: 67,
+    helpful: 12,
+    lastUpdated: new Date('2025-07-18')
+  }
+];
