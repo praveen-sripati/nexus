@@ -13,7 +13,7 @@ export function ThemeToggle() {
   const { setTheme } = useTheme()
 
   const handleSetTheme = (event: React.MouseEvent, theme: 'light' | 'dark' | 'system') => {
-    if (!document.startViewTransition) {
+    if (!document.startViewTransition || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       setTheme(theme);
       return;
     }
