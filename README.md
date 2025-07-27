@@ -237,3 +237,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 Made with ❤️ by [Praveen Sripati](https://github.com/praveen-sripati)
+
+## ☕ Support
+
+If you find this project helpful, consider [buying me a coffee](https://www.buymeacoffee.com/praveencodes) - it helps fuel more projects like this!
